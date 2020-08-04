@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="login_app_logo">200dp</dimen>
+    <dimen name="app_logo_size_2">100dp</dimen>
+</resources>

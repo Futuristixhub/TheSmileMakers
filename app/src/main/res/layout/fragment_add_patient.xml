@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="com.smilemakers.dashBoard.patientFragment.addPatient.AddPatientFragmentVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_drawable_grey_ligh"
+        android:padding="@dimen/space_16"
+        tools:context=".dashBoard.patientFragment.addPatient.AddPatientFragment">
+
+        <EditText
+            android:id="@+id/ed_patient_first_name"
+            style="@style/EditTextStyle"
+            android:layout_margin="@dimen/space_0"
+            android:hint="First Name*"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/ed_patient_last_name"
+            style="@style/EditTextStyle"
+            android:layout_marginStart="@dimen/space_0"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_0"
+            android:hint="Last Name*"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_patient_first_name" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <EditText
+            android:id="@+id/ed_patient_dob"
+            style="@style/EditTextStyle"
+            android:layout_marginStart="@dimen/space_0"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_8"
+            android:hint="DOB*"
+            android:inputType="date"
+            app:layout_constraintTop_toBottomOf="@id/ed_patient_last_name"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/ed_patient_age"
+            style="@style/EditTextStyle"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_0"
+            android:layout_marginStart="@dimen/space_8"
+            android:hint="Age*"
+            android:inputType="numberDecimal"
+            android:clickable="false"
+            android:focusable="false"
+            android:cursorVisible="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/ed_patient_last_name" />
+
+        <EditText
+            android:id="@+id/ed_patient_referral_id"
+            style="@style/EditTextStyle"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginStart="@dimen/space_0"
+            android:layout_marginEnd="@dimen/space_0"
+            android:hint="Referral Id"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/ed_patient_dob"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <EditText
+            android:id="@+id/ed_patient_referral_name"
+            style="@style/EditTextStyle"
+            android:inputType="textPersonName"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginStart="@dimen/space_0"
+            android:layout_marginEnd="@dimen/space_0"
+            android:hint="Referral Name"
+            app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_id"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <EditText
+            android:id="@+id/ed_patient_mobile"
+            style="@style/EditTextStyle"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginStart="@dimen/space_0"
+            android:layout_marginEnd="@dimen/space_0"
+            android:hint="Mobile Number*"
+            app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <EditText
+            android:id="@+id/ed_patient_email"
+            style="@style/EditTextStyle"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginStart="@dimen/space_0"
+            android:layout_marginEnd="@dimen/space_0"
+            android:hint="E-mail"
+            app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16"
+            android:text="Address Details"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_16"
+            android:onClick="@{vm::onAddressClick}"
+            android:background="@drawable/login_button_drawable"
+            app:layout_constraintTop_toBottomOf="@id/ed_patient_email"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/btm_nav_action_dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/ic_dashboard"/>
+    <item android:id="@+id/btm_nav_action_paitent"
+        android:title="Paitent"
+        android:icon="@drawable/ic_paitent"/>
+    <item android:id="@+id/btm_nav_action_appointment"
+        android:title="Appointment"
+        android:icon="@drawable/ic_appointment"/>
+    <item android:id="@+id/btm_nav_action_settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings"/>
+
+</menu>

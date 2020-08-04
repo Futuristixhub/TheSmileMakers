@@ -1,0 +1,45 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="SplashScreen" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_img_bg</item>
+        <item name="windowNoTitle">true</item>
+        <item name="actionBarStyle">@style/Theme.AppCompat.NoActionBar</item>
+    </style>
+
+    <style name="NoActionBar" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="actionBarStyle">@style/Theme.AppCompat.NoActionBar</item>
+    </style>
+
+    <style name="LoginPageStyle" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="actionBarStyle">@style/Theme.AppCompat.NoActionBar</item>
+        <item name="android:windowBackground">@drawable/login_background_drawable</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">@dimen/space_0</item>
+        <item name="android:layout_height">@dimen/space_50</item>
+        <item name="android:layout_marginStart">@dimen/space_16</item>
+        <item name="android:layout_marginEnd">@dimen/space_16</item>
+        <item name="android:padding">@dimen/space_10</item>
+        <item name="android:background">@drawable/color_primary_rounded_border</item>
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="DatePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+</resources>

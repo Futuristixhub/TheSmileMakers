@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/color_accent_verticle_gradient" />
+    <item
+        android:bottom="@dimen/space_4"
+        android:drawable="@drawable/ic_patient"
+        android:end="@dimen/space_4"
+        android:start="@dimen/space_4"
+        android:top="@dimen/space_4" />
+</layer-list>
