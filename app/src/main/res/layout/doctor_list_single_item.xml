@@ -3,7 +3,7 @@
     <data>
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.patientFragment.PatientPOJO" />
+            type="com.smilemakers.dashBoard.doctorFragment.DoctorPOJO" />
     </data>
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -50,30 +50,6 @@
                         app:layout_constraintStart_toEndOf="@+id/circleImageView"
                         app:layout_constraintTop_toTopOf="parent"
                         android:text="@{vm.name}" />
-
-                <!--    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_8"
-                        android:textSize="@dimen/text_14"
-                        android:layout_marginTop="@dimen/space_4"
-                        android:textColor="@color/textDark"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/circleImageView"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_patient_name"
-                        android:text="E-mail :" />
-
-                    <TextView
-                        android:id="@+id/txt_patient_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_8"
-                        android:textSize="@dimen/text_14"
-                        android:textColor="@color/textDark"
-                        app:layout_constraintStart_toEndOf="@+id/circleImageView"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4"
-                        android:text="@{vm.email}" />-->
 
                     <TextView
                         android:id="@+id/textView10"
@@ -132,7 +108,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView5"
                         android:text="Age :" />
 
-<!--
                     <TextView
                         android:id="@+id/textView8"
                         android:layout_width="wrap_content"
@@ -143,8 +118,7 @@
                         android:textColor="@color/textDark"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView7"
-                        android:text="Registered From :" />
--->
+                        android:text="Type of Treatment :" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -170,15 +144,15 @@
                         android:layout_marginTop="@dimen/space_4"
                         android:text="@{vm.age}" />
 
-                   <!-- <TextView
+                    <TextView
                         android:id="@+id/txt_registered_from"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_14"
                         android:layout_marginStart="@dimen/space_8"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.registeredFrom}" />
--->
+                        android:text="@{vm.typeOfTreatment}" />
+
                 </LinearLayout>
             </LinearLayout>
 

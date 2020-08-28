@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="com.smilemakers.dashBoard.doctorFragment.DoctorFragmentVM" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_drawable_grey_ligh"
+        tools:context=".dashBoard.doctorFragment.DoctorFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_patient_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/space_8"
+            android:paddingBottom="@dimen/space_80"
+            android:clipToPadding="false"
+            tools:listitem="@layout/patient_list_single_item"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:rippleColor="@color/colorAccentLight"
+            app:srcCompat="@drawable/ic_add"
+            android:layout_margin="@dimen/space_16"
+            android:onClick="@{vm::onAddDoctorClick}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

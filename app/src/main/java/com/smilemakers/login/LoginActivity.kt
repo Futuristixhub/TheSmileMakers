@@ -22,7 +22,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setUpBinding() {
-        // sample comment
         loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         loginBinding?.vm = loginVM
     }

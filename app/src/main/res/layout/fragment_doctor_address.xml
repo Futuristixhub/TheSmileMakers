@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.patientFragment.patientAddress.PatientAddressFragmentVM" />
+            type="com.smilemakers.dashBoard.doctorFragment.doctorAddress.DoctorAddressFragmentVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -34,6 +34,67 @@
                 android:textSize="@dimen/text_14"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Spinner
+                android:id="@+id/sp_type_treatmnt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:background="@drawable/color_primary_rounded_border"
+                android:prompt="@string/type_treatmnt"
+                android:spinnerMode="dialog"
+                android:textSize="@dimen/text_14"
+                android:layout_marginTop="@dimen/space_12"
+                app:layout_constraintTop_toBottomOf="@+id/sp_regis_area"  />
+
+            <LinearLayout
+                android:id="@+id/ll_shift"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginEnd="@dimen/space_8"
+                android:background="@drawable/color_primary_rounded_border"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/sp_type_treatmnt">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:paddingStart="@dimen/space_8"
+                    android:paddingTop="@dimen/space_8"
+                    android:text="@string/shift"
+                    android:textColor="@color/quantum_grey"
+                    android:textSize="@dimen/text_18" />
+
+                <RadioGroup
+                    android:id="@+id/rg_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/space_8"
+                    android:paddingBottom="@dimen/space_8"
+                    android:weightSum="3">
+
+                    <RadioButton
+                        android:id="@+id/rb_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:text="@string/first"
+                        android:textSize="@dimen/text_16" />
+
+                    <RadioButton
+                        android:id="@+id/rb_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:text="@string/second"
+                        android:textSize="@dimen/text_16" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
             <EditText
                 android:id="@+id/ed_address_line_1"
                 style="@style/EditTextStyle"
@@ -46,7 +107,7 @@
                 android:onClick="@{vm::onAddressFieldClick}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sp_regis_area" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_shift" />
 
             <EditText
                 android:id="@+id/ed_address_line_2"

@@ -27,14 +27,14 @@ class PatientFragmentVM(val mFragment: PatientFragment, val mActivity: Dashboard
     }
 
     fun newPatientList() {
-        patientList.add(PatientPOJO("Preyansh Brahmbhatt", "8866511911", "preyansh.brahmbhatt@gmail.com", "54234", "11-Nov-1993", "Bapunagar"))
-        patientList.add(PatientPOJO("Ronak Patel", "9988738479", "ronak.patel@gmail.com", "56830", "21-Mar-1992", "Bapunagar"))
-        patientList.add(PatientPOJO("Preyansh Brahmbhatt", "8866511911", "preyansh.brahmbhatt@gmail.com", "54234", "11-Nov-1993", "Bapunagar"))
-        patientList.add(PatientPOJO("Ronak Patel", "9988738479", "ronak.patel@gmail.com", "56830", "21-Mar-1992", "Bapunagar"))
-        patientList.add(PatientPOJO("Preyansh Brahmbhatt", "8866511911", "preyansh.brahmbhatt@gmail.com", "54234", "11-Nov-1993", "Bapunagar"))
-        patientList.add(PatientPOJO("Ronak Patel", "9988738479", "ronak.patel@gmail.com", "56830", "21-Mar-1992", "Bapunagar"))
-        patientList.add(PatientPOJO("Preyansh Brahmbhatt", "8866511911", "preyansh.brahmbhatt@gmail.com", "54234", "11-Nov-1993", "Bapunagar"))
-        patientList.add(PatientPOJO("Ronak Patel", "9988738479", "ronak.patel@gmail.com", "56830", "21-Mar-1992", "Bapunagar"))
+        patientList.add(PatientPOJO("Preyansh Brahmbhatt", "8866511911", "preyansh.brahmbhatt@gmail.com", "54234", "21", "Bapunagar"))
+        patientList.add(PatientPOJO("Ronak Patel", "9988738479", "ronak.patel@gmail.com", "56830", "21", "Bapunagar"))
+        patientList.add(PatientPOJO("Preyansh Brahmbhatt", "8866511911", "preyansh.brahmbhatt@gmail.com", "54234", "23", "Bapunagar"))
+        patientList.add(PatientPOJO("Ronak Patel", "9988738479", "ronak.patel@gmail.com", "56830", "23", "Bapunagar"))
+        patientList.add(PatientPOJO("Preyansh Brahmbhatt", "8866511911", "preyansh.brahmbhatt@gmail.com", "54234", "33", "Bapunagar"))
+        patientList.add(PatientPOJO("Ronak Patel", "9988738479", "ronak.patel@gmail.com", "56830", "33", "Bapunagar"))
+        patientList.add(PatientPOJO("Preyansh Brahmbhatt", "8866511911", "preyansh.brahmbhatt@gmail.com", "54234", "11", "Bapunagar"))
+        patientList.add(PatientPOJO("Ronak Patel", "9988738479", "ronak.patel@gmail.com", "56830", "11", "Bapunagar"))
     }
 
     fun onAddPatientClick(view: View) {

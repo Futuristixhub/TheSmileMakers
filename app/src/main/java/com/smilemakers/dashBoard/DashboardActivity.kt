@@ -18,6 +18,7 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.smilemakers.R
 import com.smilemakers.dashBoard.appointmentFragment.AppointmentFragment
 import com.smilemakers.dashBoard.dashBoardFragment.DashboardFragment
+import com.smilemakers.dashBoard.doctorFragment.DoctorFragment
 import com.smilemakers.dashBoard.patientFragment.PatientFragment
 import com.smilemakers.dashBoard.profile.ProfileFragment
 import com.smilemakers.databinding.ActivityDashboardBinding
@@ -57,6 +58,7 @@ class DashboardActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.btm_nav_action_dashboard -> callFragment(DashboardFragment.newInstance(this@DashboardActivity))
                 R.id.btm_nav_action_paitent -> callFragment(PatientFragment.newInstance(this@DashboardActivity))
+                R.id.btm_nav_action_doctor -> callFragment(DoctorFragment.newInstance(this@DashboardActivity))
                 R.id.btm_nav_action_appointment -> callFragment(AppointmentFragment.newInstance(this@DashboardActivity))
                 R.id.btm_nav_action_settings -> callFragment(ProfileFragment.newInstance(this@DashboardActivity))
             }

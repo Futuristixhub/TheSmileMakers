@@ -4,7 +4,7 @@ data class PatientPOJO(
     val name: String,
     val mobile: String,
     val email: String,
-    val refId: String,
-    val dob: String,
+    val clinic: String,
+    val age: String,
     val registeredFrom: String
 )

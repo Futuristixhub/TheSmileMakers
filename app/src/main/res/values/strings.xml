@@ -15,4 +15,25 @@
     <string name="lbl_total_patients">Total Patients</string>
     <string name="lbl_total_admin">Total Admins</string>
     <string name="GOOGLE_API_KEY">AIzaSyBMAD8TRAXSAhr3u9pJ3AGIuKs-vm2qMHw</string>
+    <string name="lbl_total_doctors">Total Doctors</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="regis_area">Registration Area</string>
+    <string name="type_treatmnt">Types of Treatment</string>
+    <string name="shift">Shift</string>
+    <string name="first">1st</string>
+    <string name="second">2nd</string>
+
+    <string-array name="registration_area">
+        <item>Bapunagar</item>
+        <item>Nikol</item>
+    </string-array>
+
+    <string-array name="treatment_type">
+        <item>Cosmetic Dentistry</item>
+        <item>Implant Dentistry</item>
+        <item>Restorative Dentistry</item>
+    </string-array>
 </resources>

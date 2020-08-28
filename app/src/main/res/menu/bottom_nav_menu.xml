@@ -4,7 +4,10 @@
         android:title="Dashboard"
         android:icon="@drawable/ic_dashboard"/>
     <item android:id="@+id/btm_nav_action_paitent"
-        android:title="Paitent"
+        android:title="Patient"
+        android:icon="@drawable/ic_paitent"/>
+    <item android:id="@+id/btm_nav_action_doctor"
+        android:title="Doctor"
         android:icon="@drawable/ic_paitent"/>
     <item android:id="@+id/btm_nav_action_appointment"
         android:title="Appointment"
