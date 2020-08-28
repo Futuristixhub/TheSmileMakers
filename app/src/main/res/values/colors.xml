@@ -11,4 +11,11 @@
         <color name="sampleYellow">#FF0</color>
 
     <color name="textDark">#5F5F5F</color>
+    <color name="pressed_item_foreground">#08000000</color>
+
+    <color name="default_actionmode_color">#FF383838</color>
+    <color name="default_background_color">#424242</color>
+    <color name="default_text_color">#EEEEEE</color>
+
+
 </resources>

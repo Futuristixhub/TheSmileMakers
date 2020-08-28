@@ -10,6 +10,11 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="january">January</string>
+    <string name="july">July</string>
+    <string name="june">June</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lbl_total_patients">Total Patients</string>
@@ -25,6 +30,16 @@
     <string name="shift">Shift</string>
     <string name="first">1st</string>
     <string name="second">2nd</string>
+    <string name="new_event">New Event</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
 
     <string-array name="registration_area">
         <item>Bapunagar</item>
@@ -35,5 +50,20 @@
         <item>Cosmetic Dentistry</item>
         <item>Implant Dentistry</item>
         <item>Restorative Dentistry</item>
+    </string-array>
+
+    <string-array name="months">
+        <item>@string/january</item>
+        <item>@string/february</item>
+        <item>@string/march</item>
+        <item>@string/april</item>
+        <item>@string/may</item>
+        <item>@string/june</item>
+        <item>@string/july</item>
+        <item>@string/august</item>
+        <item>@string/september</item>
+        <item>@string/october</item>
+        <item>@string/november</item>
+        <item>@string/december</item>
     </string-array>
 </resources>
