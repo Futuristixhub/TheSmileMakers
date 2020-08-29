@@ -40,6 +40,88 @@
     <string name="october">October</string>
     <string name="november">November</string>
     <string name="december">December</string>
+    <string name="regular_event">Regular Event</string>
+    <string name="no_upcoming_events"><![CDATA[<string name=\"no_upcoming_events\">Seems like you don\'t have any upcoming events.</string>]]></string>
+    <string name="all_day">All-Day</string>
+    <string name="public_event_notification_text">An event is upcoming</string>
+    <string name="going">Going</string>
+    <string name="not_going">Not Going</string>
+    <string name="maybe_going">Maybe Going</string>
+    <string name="invited">Invited</string>
+    <string name="my_status">My Status :</string>
+    <string name="please_fill_location"><![CDATA[<string name=\"please_fill_location\">Please fill in a location to be shown on a map</string>]]></string>
+    <string name="insufficient_permissions">You are not allowed to write in the selected calendar</string>
+    <string name="end_before_start">The event cannot end earlier than it starts</string>
+    <string name="title_empty">Title cannot be empty</string>
+    <string name="store_locally_only">Store Locally Only</string>
+    <string name="add_another_reminder">Add Another Remider</string>
+    <string name="the_same_day">The Same Day</string>
+    <string name="the_last_day">The Last Day</string>
+    <string name="repeat">Repeat</string>
+    <string name="repeat_on">Repeat On</string>
+    <string name="every_day">Every day</string>
+
+    <string name="monday_alt">Monday</string>
+    <string name="tuesday_alt">Tuesday</string>
+    <string name="wednesday_alt">Wednesday</string>
+    <string name="thursday_alt">Thursday</string>
+    <string name="friday_alt">Friday</string>
+    <string name="saturday_alt">Saturday</string>
+    <string name="sunday_alt">Sunday</string>
+
+    <string name="repeat_every_m">Repeat every</string>
+    <string name="every_m">Every</string>
+    <string name="first_m">first</string>
+    <string name="second_m">second</string>
+    <string name="third_m">third</string>
+    <string name="fourth_m">fourth</string>
+    <string name="last_m">last</string>
+    <string name="repeat_every_f">Repeat every</string>
+    <string name="every_f">Every</string>
+    <string name="first_f">first</string>
+    <string name="second_f">second</string>
+    <string name="third_f">third</string>
+    <string name="fourth_f">fourth</string>
+    <string name="last_f">last</string>
+
+    <string name="repeat_on_the_same_day_monthly">Repeat on the same day each month</string>
+    <string name="repeat_on_the_last_day_monthly">Repeat on the last day of the month</string>
+    <string name="repeat_on_the_same_day_yearly">Repeat on the same day every year</string>
+    <string name="times">Times</string>
+    <string name="repeat_till">Repeat Till</string>
+    <string name="forever">Forever</string>
+    <string name="edit_event">Edit Event</string>
+    <string name="select_a_different_caldav_color">Select a different color (might be applied locally only)</string>
+
+    <string name="last_used_one">Last Used One</string>
+    <string name="add_new_type">Add New Type</string>
+    <string name="type_already_exists">Type with this title already exists</string>
+    <string name="editing_calendar_failed">Editing Calendar Failed</string>
+    <string name="edit_type">Edit Type</string>
+    <string name="color">Color</string>
+    <string name="repeat_till_date">Repeat Till A Date</string>
+    <string name="stop_repeating_after_x">Stop repeating after x occurrences</string>
+    <string name="repeat_forever">Repeat Forever</string>
+    <string name="no_repetition">No Repetation</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="yearly">Yearly</string>
+    <string name="event_is_repeatable">The event is repeatable</string>
+    <string name="update_one_only">Update the selected occurrence only</string>
+    <string name="update_all_occurrences">Update all occurrences</string>
+    <string name="weeks_raw">weeks</string>
+    <string name="months_raw">months</string>
+    <string name="years_raw">years</string>
+    <string name="location">Location</string>
+    <string name="description">Description</string>
+    <string name="add_another_attendee">Add Another Attendee</string>
+    <string name="duplicate_event">Duplicate Event</string>
+    <string name="enter_a_country">Enter a country or time zone</string>
+    <string name="selection_contains_repetition">The selection contains repeating events</string>
+    <string name="delete_one_only">Delete the selected occurrence only</string>
+    <string name="delete_future_occurrences">Delete this and all future occurrences</string>
+    <string name="delete_all_occurrences">Delete all occurrences</string>
 
     <string-array name="registration_area">
         <item>Bapunagar</item>
