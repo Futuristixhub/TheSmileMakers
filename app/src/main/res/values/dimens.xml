@@ -51,7 +51,15 @@
     <dimen name="text_22">22sp</dimen>
     <dimen name="space_200">200dp</dimen>
     <dimen name="space_35">35dp</dimen>
+    <dimen name="event_color_bar_width">4dp</dimen>
+    <dimen name="event_color_bar_height">100dp</dimen>
+    <dimen name="day_monthly_text_size">11sp</dimen>
+    <dimen name="meta_text_size">14sp</dimen>
+    <dimen name="day_text_size">17sp</dimen>
+    <dimen name="month_text_size">22sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="weekly_view_events_height">1440dp</dimen>
+    <dimen name="event_color_width">1dp</dimen>
 </resources>

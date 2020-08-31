@@ -10,25 +10,20 @@
             type="com.smilemakers.dashBoard.appointmentFragment.AppointmentFragmentVM" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_drawable_grey_ligh"
-        android:scrollbars="none"
+        android:background="@color/white"
         tools:context=".dashBoard.appointmentFragment.AppointmentFragment">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/space_16">
 
             <com.simplemobiletools.commons.views.MyViewPager
                 android:id="@+id/fragment_months_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:padding="@dimen/space_16"/>
 
             <com.simplemobiletools.commons.views.MyFloatingActionButton
                 android:id="@+id/calendar_fab"
@@ -39,8 +34,53 @@
                 android:contentDescription="@string/new_event"
                 android:src="@drawable/ic_add"
                 app:backgroundTint="@color/colorPrimary"
-                app:rippleColor="@color/pressed_item_foreground"/>
+                app:rippleColor="@color/pressed_item_foreground" />
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+            <RelativeLayout
+                android:id="@+id/search_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone">
+
+                <com.simplemobiletools.commons.views.MyTextView
+                    android:id="@+id/search_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/activity_margin"
+                    android:gravity="center"
+                    android:textColor="@color/md_grey_black"
+                    android:paddingStart="@dimen/activity_margin"
+                    android:paddingEnd="@dimen/activity_margin"
+                    android:text="@string/no_items_found"
+                    android:textSize="@dimen/bigger_text_size" />
+
+                <com.simplemobiletools.commons.views.MyTextView
+                    android:id="@+id/search_placeholder_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/search_placeholder"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/activity_margin"
+                    android:paddingTop="@dimen/medium_margin"
+                    android:paddingEnd="@dimen/activity_margin"
+                    android:paddingBottom="@dimen/medium_margin"
+                    android:textColor="@color/md_grey_black"
+                    android:text="@string/type_2_characters"
+                    android:textSize="@dimen/bigger_text_size" />
+
+                <com.simplemobiletools.commons.views.MyRecyclerView
+                    android:id="@+id/search_results_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:scrollbars="vertical"
+                    app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
+
+            </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

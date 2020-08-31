@@ -122,6 +122,13 @@
     <string name="delete_one_only">Delete the selected occurrence only</string>
     <string name="delete_future_occurrences">Delete this and all future occurrences</string>
     <string name="delete_all_occurrences">Delete all occurrences</string>
+    <string name="holidays_imported_successfully">imported</string>
+    <string name="importing_some_holidays_failed">partial failed</string>
+    <string name="importing_holidays_failed">failed</string>
+    <string name="bapunagar">Bapunagar</string>
+    <string name="nikol">Nikol</string>
+    <string name="seat1">Seat 1</string>
+    <string name="seat2">Seat 2</string>
 
     <string-array name="registration_area">
         <item>Bapunagar</item>

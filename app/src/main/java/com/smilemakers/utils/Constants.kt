@@ -38,6 +38,8 @@ const val WEEK = 604800
 const val MONTH = 2592001    // exact value not taken into account, Joda is used for adding months and years
 const val YEAR = 31536000
 
+
+
 // Shared Preferences
 const val WEEK_NUMBERS = "week_numbers"
 const val START_WEEKLY_AT = "start_weekly_at"

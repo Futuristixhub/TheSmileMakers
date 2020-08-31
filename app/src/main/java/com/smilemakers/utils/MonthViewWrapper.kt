@@ -36,7 +36,7 @@ class MonthViewWrapper(context: Context, attrs: AttributeSet, defStyle: Int) : F
             if (!wereViewsAdded && days.isNotEmpty()) {
                 measureSizes()
                 addViews()
-             //   monthView.updateDays(days)
+                monthView.updateDays(days)
             }
         }
     }
@@ -49,7 +49,7 @@ class MonthViewWrapper(context: Context, attrs: AttributeSet, defStyle: Int) : F
         if (dayWidth != 0f && dayHeight != 0f) {
             addViews()
         }
-    //    monthView.updateDays(days)
+        monthView.updateDays(days)
     }
 
     private fun setupHorizontalOffset() {

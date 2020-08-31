@@ -13,6 +13,7 @@
         android:autoMirrored="true"
         android:paddingLeft="@dimen/activity_margin"
         android:paddingRight="@dimen/activity_margin"
+        android:tint="@color/md_grey_black"
         android:src="@drawable/ic_chevron_left_vector"/>
 
     <com.simplemobiletools.commons.views.MyTextView
@@ -25,7 +26,8 @@
         android:gravity="center"
         android:paddingTop="@dimen/normal_margin"
         android:paddingBottom="@dimen/normal_margin"
-        android:textSize="@dimen/text_16"/>
+        android:textSize="@dimen/text_16"
+        android:textColor="@color/md_grey_black"/>
 
     <ImageView
         android:id="@+id/top_right_arrow"
@@ -38,6 +40,7 @@
         android:autoMirrored="true"
         android:paddingLeft="@dimen/activity_margin"
         android:paddingRight="@dimen/activity_margin"
+        android:tint="@color/md_grey_black"
         android:src="@drawable/ic_chevron_right_vector"/>
 
 </merge>

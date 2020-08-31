@@ -1,6 +1,9 @@
 package com.smilemakers.utils
 
 import android.content.Context
+import android.util.Log
+import com.smilemakers.dashBoard.appointmentFragment.DayMonthly
+import com.smilemakers.dashBoard.appointmentFragment.Event
 import com.smilemakers.dashBoard.appointmentFragment.MonthlyCalendar
 import org.joda.time.DateTime
 import java.util.*
@@ -11,17 +14,17 @@ class MonthlyCalendarImpl(val callback: MonthlyCalendar, val context: Context) {
     private val YEAR_PATTERN = "YYYY"
 
     private val mToday: String = DateTime().toString(Formatter.DAYCODE_PATTERN)
-//    private var mEvents = ArrayList<Event>()
+    private var mEvents = ArrayList<Event>()
 
     lateinit var mTargetDate: DateTime
 
     fun updateMonthlyCalendar(targetDate: DateTime) {
         mTargetDate = targetDate
-//        val startTS = mTargetDate.minusDays(7).seconds()
-//        val endTS = mTargetDate.plusDays(43).seconds()
-//        context.eventsHelper.getEvents(startTS, endTS) {
-//            gotEvents(it)
-//        }
+        val startTS = mTargetDate.minusDays(7).seconds()
+        val endTS = mTargetDate.plusDays(43).seconds()
+        context.eventsHelper.getEvents(startTS, endTS) {
+            gotEvents(it)
+        }
     }
 
     fun getMonth(targetDate: DateTime) {
@@ -29,7 +32,7 @@ class MonthlyCalendarImpl(val callback: MonthlyCalendar, val context: Context) {
     }
 
     fun getDays(markDaysWithEvents: Boolean) {
-        //val days = ArrayList<DayMonthly>(DAYS_CNT)
+        val days = ArrayList<DayMonthly>(DAYS_CNT)
         val currMonthDays = mTargetDate.dayOfMonth().maximumValue
         var firstDayIndex = mTargetDate.withDayOfMonth(1).dayOfWeek
         if (!context.config.isSundayFirst)
@@ -63,46 +66,49 @@ class MonthlyCalendarImpl(val callback: MonthlyCalendar, val context: Context) {
 
             val newDay = curDay.withDayOfMonth(value)
             val dayCode = Formatter.getDayCodeFromDateTime(newDay)
-//            val day = DayMonthly(value, isThisMonth, isToday, dayCode, newDay.weekOfWeekyear, ArrayList(), i)
-//            days.add(day)
+            val day = DayMonthly(value, isThisMonth, isToday, dayCode, newDay.weekOfWeekyear, ArrayList(), i)
+            days.add(day)
            value++
         }
 
         if (markDaysWithEvents) {
-          //  markDaysWithEvents(days)
+            markDaysWithEvents(days)
         } else {
-            //callback.updateMonthlyCalendar(context, monthName, days, false, mTargetDate)
+            callback.updateMonthlyCalendar(context, monthName, days, false, mTargetDate)
         }
     }
 
     // it works more often than not, dont touch
-//    private fun markDaysWithEvents(days: ArrayList<DayMonthly>) {
-//        val dayEvents = HashMap<String, ArrayList<Event>>()
-//        mEvents.forEach {
-//            val startDateTime = Formatter.getDateTimeFromTS(it.startTS)
-//            val endDateTime = Formatter.getDateTimeFromTS(it.endTS)
-//            val endCode = Formatter.getDayCodeFromDateTime(endDateTime)
-//
-//            var currDay = startDateTime
-//            var dayCode = Formatter.getDayCodeFromDateTime(currDay)
-//            var currDayEvents = dayEvents[dayCode] ?: ArrayList()
-//            currDayEvents.add(it)
-//            dayEvents[dayCode] = currDayEvents
-//
-//            while (Formatter.getDayCodeFromDateTime(currDay) != endCode) {
-//                currDay = currDay.plusDays(1)
-//                dayCode = Formatter.getDayCodeFromDateTime(currDay)
-//                currDayEvents = dayEvents[dayCode] ?: ArrayList()
-//                currDayEvents.add(it)
-//                dayEvents[dayCode] = currDayEvents
-//            }
-//        }
-//
-//        days.filter { dayEvents.keys.contains(it.code) }.forEach {
-//            it.dayEvents = dayEvents[it.code]!!
-//        }
-//        callback.updateMonthlyCalendar(context, monthName, days, true, mTargetDate)
-//    }
+    private fun markDaysWithEvents(days: ArrayList<DayMonthly>) {
+        val dayEvents = HashMap<String, ArrayList<Event>>()
+        mEvents.forEach {
+            val startDateTime = Formatter.getDateTimeFromTS(it.startTS)
+            val endDateTime = Formatter.getDateTimeFromTS(it.endTS)
+            val endCode = Formatter.getDayCodeFromDateTime(endDateTime)
+
+            var currDay = startDateTime
+            var dayCode = Formatter.getDayCodeFromDateTime(currDay)
+            var currDayEvents = dayEvents[dayCode] ?: ArrayList()
+            currDayEvents.add(it)
+            dayEvents[dayCode] = currDayEvents
+            Log.d("tagjjj","ddddd....."+currDayEvents)
+
+            while (Formatter.getDayCodeFromDateTime(currDay) != endCode) {
+                currDay = currDay.plusDays(1)
+                dayCode = Formatter.getDayCodeFromDateTime(currDay)
+                currDayEvents = dayEvents[dayCode] ?: ArrayList()
+                currDayEvents.add(it)
+                dayEvents[dayCode] = currDayEvents
+            }
+        }
+
+        days.filter { dayEvents.keys.contains(it.code) }.forEach {
+            it.dayEvents = dayEvents[it.code]!!
+        }
+
+
+        callback.updateMonthlyCalendar(context, monthName, days, true, mTargetDate)
+    }
 
     private fun isToday(targetDate: DateTime, curDayInMonth: Int): Boolean {
         val targetMonthDays = targetDate.dayOfMonth().maximumValue
@@ -119,8 +125,8 @@ class MonthlyCalendarImpl(val callback: MonthlyCalendar, val context: Context) {
             return month
         }
 
-//    private fun gotEvents(events: ArrayList<Event>) {
-//        mEvents = events
-//        getDays(true)
-//    }
+    private fun gotEvents(events: ArrayList<Event>) {
+        mEvents = events
+        getDays(true)
+    }
 }

@@ -15,19 +15,27 @@ import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
+import com.simplemobiletools.calendar.pro.fragments.DayFragmentsHolder
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.smilemakers.R
 import com.smilemakers.dashBoard.appointmentFragment.AppointmentFragment
+import com.smilemakers.dashBoard.appointmentFragment.SimpleActivity
 import com.smilemakers.dashBoard.dashBoardFragment.DashboardFragment
 import com.smilemakers.dashBoard.doctorFragment.DoctorFragment
 import com.smilemakers.dashBoard.patientFragment.PatientFragment
 import com.smilemakers.dashBoard.profile.ProfileFragment
 import com.smilemakers.databinding.ActivityDashboardBinding
 import com.smilemakers.login.LoginActivity
+import com.smilemakers.utils.DAY_CODE
+import com.smilemakers.utils.Formatter
+import com.smilemakers.utils.Formatter.getDayCodeFromDateTime
 import com.smilemakers.utils.color
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import org.joda.time.DateTime
+import java.util.*
 
 
-class DashboardActivity : AppCompatActivity() {
+class DashboardActivity : SimpleActivity() {
 
     var binding: ActivityDashboardBinding? = null
     val dashboardVM = DashboardVM(this)
@@ -103,12 +111,27 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun callFragment(fragment: Fragment?) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fl_dash_container,fragment!!)
+        transaction.replace(R.id.fl_dash_container, fragment!!)
         transaction.commit()
     }
 
     private fun setUpBinding() {
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.activity_dashboard,null, false)
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.activity_dashboard, null, false)
         binding?.vm = dashboardVM
+    }
+
+    fun openDayFromMonthly(dateTime: DateTime?) {
+
+        val fragment = DayFragmentsHolder()
+        val bundle = Bundle()
+        bundle.putString(DAY_CODE, dateTime?.let { Formatter.getDayCodeFromDateTime(it) })
+        fragment.arguments = bundle
+        try {
+            supportFragmentManager.beginTransaction().add(R.id.fl_dash_container, fragment)
+                .commitNow()
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        } catch (e: Exception) {
+        }
+
     }
 }

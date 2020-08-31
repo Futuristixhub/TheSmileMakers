@@ -1,34 +1,31 @@
 package com.smilemakers.dashBoard.appointmentFragment
 
 
-import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.simplemobiletools.commons.extensions.updateActionBarTitle
+import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.views.MyViewPager
-
 import com.smilemakers.R
 import com.smilemakers.dashBoard.DashboardActivity
 import com.smilemakers.databinding.FragmentAppointmentBinding
-import com.smilemakers.utils.DAY_CODE
-import com.smilemakers.utils.Formatter
-
-
+import com.smilemakers.utils.*
 import kotlinx.android.synthetic.main.fragment_appointment.view.*
 import org.joda.time.DateTime
+
 
 /**
  * A simple [Fragment] subclass.
  */
-class AppointmentFragment : Fragment(),NavigationListener {
+class AppointmentFragment : Fragment(), NavigationListener {
 
     private val PREFILLED_MONTHS = 251
 
@@ -38,7 +35,7 @@ class AppointmentFragment : Fragment(),NavigationListener {
     private var currentDayCode = ""
     private var isGoToTodayVisible = false
 
-    companion object{
+    companion object {
         lateinit var mActivity: DashboardActivity
         var mFragment: AppointmentFragment? = null
 
@@ -46,18 +43,18 @@ class AppointmentFragment : Fragment(),NavigationListener {
             this.mActivity = mActivity
             if (mFragment == null)
                 mFragment = AppointmentFragment()
-           val bundle = Bundle()
+            val bundle = Bundle()
             mFragment?.arguments = bundle
             return mFragment
         }
     }
 
-    var binding:FragmentAppointmentBinding? = null
+    var binding: FragmentAppointmentBinding? = null
     val appointmentVM = AppointmentFragmentVM(this, mActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // currentDayCode = arguments?.getString(DAY_CODE) ?: ""
+        // currentDayCode = arguments?.getString(DAY_CODE) ?: ""
         currentDayCode = Formatter.getTodayCode()
         todayDayCode = Formatter.getTodayCode()
     }
@@ -70,7 +67,16 @@ class AppointmentFragment : Fragment(),NavigationListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointment, container, false)
         binding?.vm = appointmentVM
 
-     //   binding?.root!!.background = ColorDrawable(context!!.config.backgroundColor)
+        binding?.root!!.calendar_fab.beVisibleIf(requireContext().config.storedView != YEARLY_VIEW)
+        binding?.root!!.calendar_fab.setOnClickListener {
+            requireContext().launchNewEventIntent()
+        }
+
+        Coroutines.io {
+            var result=IcsImporter(requireContext()).importEvents("india.ics", 2, 0, false)
+        }
+
+      //  binding?.root!!.background = ColorDrawable(context!!.config.backgroundColor)
         viewPager = binding?.root!!.fragment_months_viewpager
         viewPager!!.id = (System.currentTimeMillis() % 100000).toInt()
         setupFragment()
@@ -89,21 +95,19 @@ class AppointmentFragment : Fragment(),NavigationListener {
                 override fun onPageScrollStateChanged(state: Int) {
                 }
 
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
                 }
 
                 override fun onPageSelected(position: Int) {
                     currentDayCode = codes[position]
-                 //   val shouldGoToTodayBeVisible = shouldGoToTodayBeVisible()
-                   // if (isGoToTodayVisible != shouldGoToTodayBeVisible) {
-                      //  (activity as? DashboardActivity)?.toggleGoToTodayVisibility(shouldGoToTodayBeVisible)
-                      //  isGoToTodayVisible = shouldGoToTodayBeVisible
-                    //}
                 }
             })
             currentItem = defaultMonthlyPage
         }
-        updateActionBarTitle()
     }
 
     private fun getMonths(code: String): List<String> {
@@ -129,27 +133,4 @@ class AppointmentFragment : Fragment(),NavigationListener {
         setupFragment()
     }
 
-     fun goToToday() {
-        currentDayCode = todayDayCode
-        setupFragment()
-    }
-
-    private fun datePicked(dateTime: DateTime, datePicker: DatePicker) {
-        val month = datePicker.month + 1
-        val year = datePicker.year
-        val newDateTime = dateTime.withDate(year, month, 1)
-        goToDateTime(newDateTime)
-    }
-
-     fun refreshEvents() {
-        (viewPager?.adapter as? MyMonthPagerAdapter)?.updateCalendars(viewPager?.currentItem ?: 0)
-    }
-
-    // fun shouldGoToTodayBeVisible() = currentDayCode.getMonthCode() != todayDayCode.getMonthCode()
-
-     fun updateActionBarTitle() {
-        (activity as? DashboardActivity)?.updateActionBarTitle(getString(R.string.app_name))
-    }
-
-   //  fun getNewEventDayCode() = if (shouldGoToTodayBeVisible()) currentDayCode else todayDayCode
 }

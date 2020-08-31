@@ -1,6 +1,7 @@
 package com.smilemakers.dashBoard.appointmentFragment
 
 import android.os.Bundle
+import android.util.Log
 import android.util.SparseArray
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -21,7 +22,7 @@ class MyMonthPagerAdapter(fm: FragmentManager, private val mCodes: List<String>,
         fragment.arguments = bundle
         fragment.listener = mListener
 
-        mFragments.put(position, fragment)
+     mFragments.put(position, fragment)
         return fragment
     }
 
