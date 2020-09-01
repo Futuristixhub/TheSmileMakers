@@ -8,14 +8,13 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="@drawable/selector"
-    android:paddingStart="@dimen/space_5">
+    >
 
     <LinearLayout
         android:id="@+id/btm_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingEnd="@dimen/activity_margin"
         android:weightSum="4">
 
         <ImageView

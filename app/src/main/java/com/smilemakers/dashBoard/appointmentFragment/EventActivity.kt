@@ -362,7 +362,7 @@ class EventActivity : SimpleActivity() {
 
         event_title.setText(mEvent.title)
         event_location.setText(mEvent.location)
-        event_description.setText(mEvent.description)
+    //    event_description.setText(mEvent.description)
 
         mReminder1Minutes = mEvent.reminder1Minutes
         mReminder2Minutes = mEvent.reminder2Minutes
@@ -987,7 +987,7 @@ class EventActivity : SimpleActivity() {
             startTS = newStartTS
             endTS = newEndTS
             title = newTitle
-            description = event_description.value
+        //    description = event_description.value
             reminder1Minutes = reminder1.minutes
             reminder2Minutes = reminder2.minutes
             reminder3Minutes = reminder3.minutes

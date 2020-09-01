@@ -30,6 +30,7 @@ class LoginVM(val mActivity: LoginActivity) : ViewModel() {
     }
 
     fun isValid(): Boolean {
+
         if (mobileNumber.value == null || mobileNumber.value?.isEmpty()!!) {
             showErrorSnackBar("Please enter mobile number", "OK")
             return false

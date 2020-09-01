@@ -129,6 +129,7 @@
     <string name="nikol">Nikol</string>
     <string name="seat1">Seat 1</string>
     <string name="seat2">Seat 2</string>
+    <string name="doctors">Doctors</string>
 
     <string-array name="registration_area">
         <item>Bapunagar</item>
@@ -139,6 +140,12 @@
         <item>Cosmetic Dentistry</item>
         <item>Implant Dentistry</item>
         <item>Restorative Dentistry</item>
+    </string-array>
+
+    <string-array name="doctors_name">
+        <item>Vishal</item>
+        <item>Apporv</item>
+        <item>Arun</item>
     </string-array>
 
     <string-array name="months">

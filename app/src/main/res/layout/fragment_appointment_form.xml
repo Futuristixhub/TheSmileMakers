@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
+                <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/ed_appointment_date"
                     style="@style/EditTextStyle"
                     android:layout_width="0dp"
@@ -45,7 +45,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
+                <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/ed_appointment_time"
                     style="@style/EditTextStyle"
                     android:layout_width="0dp"
@@ -107,7 +107,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/colorPrimary"
-                        android:checked="true"
                         android:text="Bapunagar"
                         android:textSize="17sp" />
 
@@ -166,7 +165,30 @@
                 </RadioGroup>
             </LinearLayout>
 
-            <LinearLayout
+            <Spinner
+                android:id="@+id/sp_treatment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:background="@drawable/color_primary_rounded_border"
+                android:prompt="@string/type_treatmnt"
+                android:spinnerMode="dialog"
+                android:layout_marginTop="@dimen/space_12"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
+
+            <Spinner
+                android:id="@+id/sp_doctors"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:background="@drawable/color_primary_rounded_border"
+                android:prompt="@string/doctors"
+                android:spinnerMode="dialog"
+                android:layout_marginTop="@dimen/space_12"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
+
+
+           <!-- <LinearLayout
                 android:id="@+id/ll_treatment"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
@@ -212,7 +234,7 @@
                     android:textSize="17sp"
                     app:layout_constraintTop_toBottomOf="@id/ed_appointment_patient_name" />
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline4"

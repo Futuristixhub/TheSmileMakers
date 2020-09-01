@@ -1,10 +1,8 @@
 package com.smilemakers.dashBoard.appointmentFragment
 
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.adjustAlpha
 import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.extensions.beInvisible
@@ -14,6 +12,10 @@ import com.simplemobiletools.commons.views.MyRecyclerView
 import com.smilemakers.R
 import com.smilemakers.utils.*
 import kotlinx.android.synthetic.main.event_item_day_view.view.*
+import kotlinx.android.synthetic.main.event_item_day_view_simple.view.event_item_color_bar
+import kotlinx.android.synthetic.main.event_item_day_view_simple.view.event_item_frame
+import kotlinx.android.synthetic.main.event_item_day_view_simple.view.event_item_start
+import kotlinx.android.synthetic.main.event_list_item.view.*
 
 class DayEventsAdapter(
     activity: SimpleActivity,
@@ -57,11 +59,11 @@ class DayEventsAdapter(
     override fun onActionModeDestroyed() {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutId = when (viewType) {
+       /* val layoutId = when (viewType) {
             ITEM_EVENT -> R.layout.event_item_day_view
             else -> R.layout.event_item_day_view_simple
-        }
-        return createViewHolder(layoutId, parent)
+        }*/
+        return createViewHolder(R.layout.event_item_day_view_simple, parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -96,35 +98,7 @@ class DayEventsAdapter(
 
     private fun setupView(view: View, event: Event, position: Int) {
         view.apply {
-
-            var time = if (event.getIsAllDay()) allDayString else Formatter.getTimeFromTS(
-                context,
-                event.startTS
-            )
-
-            var time1 =
-                if (events.get(position).getIsAllDay()) allDayString else Formatter.getTimeFromTS(
-                    context,
-                    event.startTS
-                )
-
-            if (position > 0) {
-                if (events.get(position).equals(events.get(position - 1))) {
-                    count++
-                    if (count == 1) {
-                        event_item_title2.text = event.title
-                    } else
-                        if (count == 2) {
-                            event_item_title3.text = event.title
-                        } else
-                            if (count == 3) {
-                                event_item_title4.text = event.title
-                            }
-                }
-            }else{
-                event_item_title1.text = event.title
-            }
-
+          //  var event = e
             event_item_frame.isSelected = selectedKeys.contains(event.id?.toInt())
 
             event_item_description1?.text =
@@ -135,25 +109,68 @@ class DayEventsAdapter(
                     event.startTS
                 )
 
-            event_item_end?.beInvisibleIf(event.startTS == event.endTS)
+            if (position > 0) {
+                if (events.get(position).equals(events.get(position - 1))) {
+                    count++
+                    if (count == 1) {
+                        if(event.location=="Bapunagar") {
+                            event_item_title2.text = event.title
+                        }else{
+                            event_item_title4.text = event.title
+                        }
+                    } else
+                        if (count == 2) {
+                            if(event.location=="Bapunagar") {
+                                event_item_title1.text = event.title
+                            }else{
+                                event_item_title3.text = event.title
+                            }
+                        } else
+                            if (count == 3) {
+                                if(event.location=="Bapunagar") {
+                                    event_item_title2.text = event.title
+                                }else{
+                                    event_item_title4.text = event.title
+                                }
+                            }
+                }else{
+                    if(event.location=="Bapunagar") {
+                        event_item_title1.text = event.title
+                    }else{
+                        event_item_title3.text = event.title
+                    }
+                }
+            }else{
+                if(event.location=="Bapunagar") {
+                    event_item_title1.text = event.title
+                }else{
+                    event_item_title3.text = event.title
+                }
+            }
+
+            //  event_item_title1?.text = event.title
+            //event_item_title2.text = e.title2
+            //event_item_title3.text = e.title3
+            //event_item_title4.text = e.title4
+         //   event_item_end?.beInvisibleIf(event.startTS == event.endTS)
             event_item_color_bar.background.applyColorFilter(event.color)
 
             if (event.startTS != event.endTS) {
                 val startCode = Formatter.getDayCodeFromTS(event.startTS)
                 val endCode = Formatter.getDayCodeFromTS(event.endTS)
 
-                event_item_end?.apply {
-                    text = Formatter.getTimeFromTS(context, event.endTS)
-                    if (startCode != endCode) {
-                        if (event.getIsAllDay()) {
-                            text = Formatter.getDateFromCode(context, endCode, true)
-                        } else {
-                            append(" (${Formatter.getDateFromCode(context, endCode, true)})")
-                        }
-                    } else if (event.getIsAllDay()) {
-                        beInvisible()
-                    }
-                }
+//                event_item_end?.apply {
+//                    text = Formatter.getTimeFromTS(context, event.endTS)
+//                    if (startCode != endCode) {
+//                        if (event.getIsAllDay()) {
+//                            text = Formatter.getDateFromCode(context, endCode, true)
+//                        } else {
+//                            append(" (${Formatter.getDateFromCode(context, endCode, true)})")
+//                        }
+//                    } else if (event.getIsAllDay()) {
+//                        beInvisible()
+//                    }
+//                }
             }
 
             var newTextColor = textColor

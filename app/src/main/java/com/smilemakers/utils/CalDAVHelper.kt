@@ -212,7 +212,10 @@ class CalDAVHelper(val context: Context) {
                     val allDay = cursor.getIntValue(CalendarContract.Events.ALL_DAY)
                     val rrule = cursor.getStringValue(CalendarContract.Events.RRULE) ?: ""
                     val location = cursor.getStringValue(CalendarContract.Events.EVENT_LOCATION) ?: ""
-                    val originalId = cursor.getStringValue(CalendarContract.Events.ORIGINAL_ID)
+//                    val shift = cursor.getStringValue(CalendarContract.Events.SHIFT) ?: ""
+//                    val doctor_name = cursor.getStringValue(CalendarContract.Events.DOCTOR_NAME) ?: ""
+//                    val treatment_type = cursor.getStringValue(CalendarContract.Events.TREATMENT_TYPE) ?: ""
+        val originalId = cursor.getStringValue(CalendarContract.Events.ORIGINAL_ID)
                     val originalInstanceTime = cursor.getLongValue(CalendarContract.Events.ORIGINAL_INSTANCE_TIME)
                     val reminders = getCalDAVEventReminders(id)
                     val attendees = Gson().toJson(getCalDAVEventAttendees(id))
@@ -231,7 +234,7 @@ class CalDAVHelper(val context: Context) {
 
                     val source = "$CALDAV-$calendarId"
                     val repeatRule = Parser().parseRepeatInterval(rrule, startTS)
-                    val event = Event(null, startTS, endTS, title, location, description, reminder1?.minutes ?: REMINDER_OFF,
+                    val event = Event(null, startTS, endTS, title, location, description, "","","",reminder1?.minutes ?: REMINDER_OFF,
                             reminder2?.minutes ?: REMINDER_OFF, reminder3?.minutes ?: REMINDER_OFF, reminder1?.type
                             ?: REMINDER_NOTIFICATION, reminder2?.type ?: REMINDER_NOTIFICATION, reminder3?.type
                             ?: REMINDER_NOTIFICATION, repeatRule.repeatInterval, repeatRule.repeatRule,
@@ -415,6 +418,7 @@ class CalDAVHelper(val context: Context) {
             put(CalendarContract.Events.DTSTART, event.startTS * 1000L)
             put(CalendarContract.Events.ALL_DAY, if (event.getIsAllDay()) 1 else 0)
             put(CalendarContract.Events.EVENT_TIMEZONE, event.getTimeZoneString())
+            put(CalendarContract.Events.EVENT_LOCATION, event.location)
             put(CalendarContract.Events.EVENT_LOCATION, event.location)
             put(CalendarContract.Events.STATUS, CalendarContract.Events.STATUS_CONFIRMED)
 

@@ -4,24 +4,20 @@ import android.accounts.Account
 import android.annotation.SuppressLint
 import android.app.*
 import android.appwidget.AppWidgetManager
-import android.content.ComponentName
-import android.content.ContentResolver
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.media.AudioAttributes
 import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
+import android.util.Log
 import android.util.Range
+import android.view.Display
 import android.widget.Toast
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.app.NotificationCompat
 import com.simplemobiletools.calendar.pro.helpers.MyWidgetListProvider
 import com.simplemobiletools.calendar.pro.helpers.MyWidgetMonthlyProvider
-import com.simplemobiletools.commons.extensions.formatSecondsToTimeString
-import com.simplemobiletools.commons.extensions.grantReadUriPermission
-import com.simplemobiletools.commons.extensions.showErrorToast
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.smilemakers.R
 import com.smilemakers.dashBoard.appointmentFragment.*
@@ -55,7 +51,6 @@ fun Context.updateWidgets() {
 
     updateListWidget()
 }
-
 
 fun Context.recheckCalDAVCalendars(callback: () -> Unit) {
     if (config.caldavSync) {
@@ -171,7 +166,7 @@ fun Context.rescheduleReminder(event: Event?, minutes: Int) {
 }
 
 fun Context.launchNewEventIntent(dayCode: String = Formatter.getTodayCode()) {
-    Intent(applicationContext, EventActivity::class.java).apply {
+    Intent(applicationContext, AppointmentFormActivity::class.java).apply {
         putExtra(NEW_EVENT_START_TS, getNewEventTimestampFromCode(dayCode))
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(this)
@@ -232,7 +227,7 @@ fun Context.getRepetitionText(seconds: Int) = when (seconds) {
 }
 
 private fun getPendingIntent(context: Context, event: Event): PendingIntent {
-    val intent = Intent(context, EventActivity::class.java)
+    val intent = Intent(context, AppointmentFormActivity::class.java)
     intent.putExtra(EVENT_ID, event.id)
     intent.putExtra(EVENT_OCCURRENCE_TS, event.startTS)
     return PendingIntent.getActivity(context, event.id!!.toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -269,7 +264,7 @@ fun Context.notifyEvent(originalEvent: Event) {
     }
 
     val timeRange = if (event.getIsAllDay()) getString(R.string.all_day) else getFormattedEventTime(startTime, endTime)
-    val descriptionOrLocation = if (config.replaceDescription) event.location else event.description
+    val descriptionOrLocation =  event.location
     val content = "$displayedStartDate $timeRange $descriptionOrLocation".trim()
     ensureBackgroundThread {
         val notification = getNotification(pendingIntent, event, content)

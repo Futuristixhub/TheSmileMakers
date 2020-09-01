@@ -31,6 +31,7 @@ import com.smilemakers.utils.Formatter
 import com.smilemakers.utils.Formatter.getDayCodeFromDateTime
 import com.smilemakers.utils.color
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.fragment_appointment.*
 import org.joda.time.DateTime
 import java.util.*
 
@@ -39,6 +40,7 @@ class DashboardActivity : SimpleActivity() {
 
     var binding: ActivityDashboardBinding? = null
     val dashboardVM = DashboardVM(this)
+    var fragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,8 +91,8 @@ class DashboardActivity : SimpleActivity() {
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(loginIntent)
                 finish()
-
             }
+            android.R.id.home -> onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -120,18 +122,38 @@ class DashboardActivity : SimpleActivity() {
         binding?.vm = dashboardVM
     }
 
+    override fun onBackPressed() {
+        if (fragment != null) {
+            removeTopFragment()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun removeTopFragment() {
+        this!!.fragment?.let { supportFragmentManager.beginTransaction().remove(it).commit() }
+        //fragment.removeAt(currentFragments.size - 1)
+        //   calendar_fab.beGoneIf(currentFragments.size == 1 && config.storedView == YEARLY_VIEW)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+    }
+
     fun openDayFromMonthly(dateTime: DateTime?) {
 
-        val fragment = DayFragmentsHolder()
+        fragment = DayFragmentsHolder()
         val bundle = Bundle()
         bundle.putString(DAY_CODE, dateTime?.let { Formatter.getDayCodeFromDateTime(it) })
-        fragment.arguments = bundle
+        (fragment as DayFragmentsHolder).arguments = bundle
         try {
-            supportFragmentManager.beginTransaction().add(R.id.fl_dash_container, fragment)
+            supportFragmentManager.beginTransaction().add(
+                R.id.fl_dash_container,
+                fragment as DayFragmentsHolder
+            )
                 .commitNow()
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         } catch (e: Exception) {
         }
 
     }
+
+
 }
