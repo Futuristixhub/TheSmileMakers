@@ -10,7 +10,7 @@ class AddDoctorFragmentVM(val mFragment: AddDoctorFragment, val mActivity: Dashb
     fun onNextClick(view: View) {
         val transaction = mActivity.supportFragmentManager.beginTransaction()
         transaction.addToBackStack(null)
-        transaction.add(R.id.fl_dash_container, DetailFragment.newInstance(mActivity)!!)
+        transaction.replace(R.id.fl_dash_container, DetailFragment.newInstance(mActivity)!!)
         transaction.commit()
     }
 }

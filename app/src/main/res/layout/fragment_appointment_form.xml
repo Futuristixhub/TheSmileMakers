@@ -128,6 +128,7 @@
                 android:background="@drawable/color_primary_rounded_border"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/space_8"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/ll_branch_container">
 
                 <TextView

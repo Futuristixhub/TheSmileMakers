@@ -20,7 +20,6 @@ data class Event(
         @ColumnInfo(name = "title") var title: String = "",
         @ColumnInfo(name = "description") var description: String = "",
         @ColumnInfo(name = "location") var location: String = "",
-        @ColumnInfo(name = "shift") var shift: String = "",
         @ColumnInfo(name = "doctor_name") var doctor_name: String = "",
         @ColumnInfo(name = "treatment_type") var treatment_type: String = "",
         @ColumnInfo(name = "reminder_1_minutes") var reminder1Minutes: Int = -1,

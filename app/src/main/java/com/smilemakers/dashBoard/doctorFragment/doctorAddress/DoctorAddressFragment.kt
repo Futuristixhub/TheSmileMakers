@@ -49,25 +49,7 @@ class DoctorAddressFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_doctor_address,container, false)
         binding?.vm = addressVM
 
-        spinner = binding?.root!!.findViewById(R.id.sp_regis_area)
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.registration_area,
-            android.R.layout.simple_spinner_item
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = this
 
-        spinner_tratment = binding?.root!!.findViewById(R.id.sp_type_treatmnt)
-        val adapter_treatment = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.treatment_type,
-            android.R.layout.simple_spinner_item
-        )
-        adapter_treatment.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner_tratment.adapter = adapter_treatment
-        spinner_tratment.onItemSelectedListener = this
 
         return binding?.root
     }

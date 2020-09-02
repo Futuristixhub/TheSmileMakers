@@ -130,6 +130,8 @@
     <string name="seat1">Seat 1</string>
     <string name="seat2">Seat 2</string>
     <string name="doctors">Doctors</string>
+    <string name="not_avail_bapunagar">Only 2 slots allowed in same time in Bapunagar</string>
+    <string name="not_avail_nikol">Only 2 slots allowed in same time in Nikol</string>
 
     <string-array name="registration_area">
         <item>Bapunagar</item>

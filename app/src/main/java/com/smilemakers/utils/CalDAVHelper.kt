@@ -234,7 +234,7 @@ class CalDAVHelper(val context: Context) {
 
                     val source = "$CALDAV-$calendarId"
                     val repeatRule = Parser().parseRepeatInterval(rrule, startTS)
-                    val event = Event(null, startTS, endTS, title, location, description, "","","",reminder1?.minutes ?: REMINDER_OFF,
+                    val event = Event(null, startTS, endTS, title, location, description, "","",reminder1?.minutes ?: REMINDER_OFF,
                             reminder2?.minutes ?: REMINDER_OFF, reminder3?.minutes ?: REMINDER_OFF, reminder1?.type
                             ?: REMINDER_NOTIFICATION, reminder2?.type ?: REMINDER_NOTIFICATION, reminder3?.type
                             ?: REMINDER_NOTIFICATION, repeatRule.repeatInterval, repeatRule.repeatRule,

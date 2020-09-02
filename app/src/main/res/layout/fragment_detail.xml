@@ -14,14 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
+        android:background="@drawable/background_drawable_grey_ligh"
         tools:context=".dashBoard.doctorFragment.detail.DetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_drawable_grey_ligh"
-            android:padding="@dimen/space_12"
-            >
+            android:padding="@dimen/space_12">
 
             <EditText
                 android:id="@+id/ed_patient_referral_name"
@@ -49,10 +48,10 @@
                 android:id="@+id/sp_regis_area"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_12"
                 android:background="@drawable/color_primary_rounded_border"
                 android:prompt="@string/regis_area"
                 android:spinnerMode="dialog"
-                android:layout_marginTop="@dimen/space_12"
                 android:textSize="@dimen/text_14"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
 
@@ -60,12 +59,12 @@
                 android:id="@+id/sp_type_treatmnt"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_12"
                 android:background="@drawable/color_primary_rounded_border"
                 android:prompt="@string/type_treatmnt"
                 android:spinnerMode="dialog"
                 android:textSize="@dimen/text_14"
-                android:layout_marginTop="@dimen/space_12"
-                app:layout_constraintTop_toBottomOf="@+id/sp_regis_area"  />
+                app:layout_constraintTop_toBottomOf="@+id/sp_regis_area" />
 
             <LinearLayout
                 android:id="@+id/ll_shift"
@@ -117,19 +116,40 @@
 
             </LinearLayout>
 
-            <Button
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12"
-                android:background="@drawable/login_button_drawable"
-                android:onClick="@{vm::onAddressClick}"
-                android:text="Address Detail"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_16"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/ll_shift" />
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@id/ll_shift">
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:background="@drawable/login_button_drawable"
+                    android:onClick="@{vm::onPreviousClick}"
+                    android:text="Previous"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_16"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_10"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:layout_weight="1"
+                    android:background="@drawable/login_button_drawable"
+                    android:onClick="@{vm::onAddressClick}"
+                    android:text="Address Detail"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_16"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

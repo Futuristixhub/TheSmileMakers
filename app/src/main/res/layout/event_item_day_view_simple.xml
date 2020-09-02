@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/event_item_frame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="@drawable/selector"
-    >
+    android:foreground="@drawable/selector">
 
     <LinearLayout
         android:id="@+id/btm_header"
@@ -45,50 +45,59 @@
             android:textSize="@dimen/text_14"
             tools:text="Event title" />
 
-        <ImageView
-            android:layout_width="@dimen/event_color_width"
-            android:layout_height="match_parent"
-            android:background="@color/md_grey_black" />
+<!--        <com.simplemobiletools.commons.views.MyRecyclerView-->
+<!--            android:id="@+id/day_events"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:clipToPadding="false"-->
+<!--            android:layout_weight="1"-->
+<!--            app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />-->
 
-        <TextView
-            android:id="@+id/event_item_title2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:maxLines="1"
-            android:textSize="@dimen/text_14"
-            tools:text="Event title" />
 
-        <ImageView
-            android:layout_width="@dimen/event_color_width"
-            android:layout_height="match_parent"
-            android:background="@color/md_grey_black" />
+          <ImageView
+              android:layout_width="@dimen/event_color_width"
+              android:layout_height="match_parent"
+              android:background="@color/md_grey_black" />
 
-        <TextView
-            android:id="@+id/event_item_title3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="1"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/text_14"
-            tools:text="Event title" />
+          <TextView
+              android:id="@+id/event_item_title2"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:gravity="center_horizontal"
+              android:maxLines="1"
+              android:textSize="@dimen/text_14"
+              tools:text="Event title" />
 
-        <ImageView
-            android:layout_width="@dimen/event_color_width"
-            android:layout_height="match_parent"
-            android:background="@color/md_grey_black" />
+          <ImageView
+              android:layout_width="@dimen/event_color_width"
+              android:layout_height="match_parent"
+              android:background="@color/md_grey_black" />
 
-        <TextView
-            android:id="@+id/event_item_title4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="1"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/text_14"
-            tools:text="Event title" />
+          <TextView
+              android:id="@+id/event_item_title3"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:maxLines="1"
+              android:gravity="center_horizontal"
+              android:textSize="@dimen/text_14"
+              tools:text="Event title" />
+
+          <ImageView
+              android:layout_width="@dimen/event_color_width"
+              android:layout_height="match_parent"
+              android:background="@color/md_grey_black" />
+
+          <TextView
+              android:id="@+id/event_item_title4"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:maxLines="1"
+              android:gravity="center_horizontal"
+              android:textSize="@dimen/text_14"
+              tools:text="Event title" />
 
     </LinearLayout>
 </FrameLayout>

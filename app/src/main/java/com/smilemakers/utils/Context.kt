@@ -168,6 +168,7 @@ fun Context.rescheduleReminder(event: Event?, minutes: Int) {
 fun Context.launchNewEventIntent(dayCode: String = Formatter.getTodayCode()) {
     Intent(applicationContext, AppointmentFormActivity::class.java).apply {
         putExtra(NEW_EVENT_START_TS, getNewEventTimestampFromCode(dayCode))
+        putExtra(DAY_CODE,dayCode)
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(this)
     }

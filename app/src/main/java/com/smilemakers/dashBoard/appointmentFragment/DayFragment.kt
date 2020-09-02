@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.top_navigation.view.*
 import java.util.*
 
 class DayFragment : Fragment() {
+    private var str = ""
     var mListener: NavigationListener? = null
     private var mDayCode = ""
     private var lastHash = 0
@@ -34,6 +35,7 @@ class DayFragment : Fragment() {
         mHolder = view.day_holder
 
         mDayCode = arguments!!.getString(DAY_CODE).toString()
+        str = resources.getString(R.string.bapunagar)
         setupButtons()
         return view
     }
@@ -47,7 +49,7 @@ class DayFragment : Fragment() {
         //   mTextColor = context!!.config.textColor
 
         mHolder.top_left_arrow.apply {
-            //    applyColorFilter(mTextColor)
+            //    applyColorFilter(mTextColor-)
             background = null
             setOnClickListener {
                 mListener?.goLeft()
@@ -87,6 +89,7 @@ class DayFragment : Fragment() {
         context?.eventsHelper?.getEvents(startTS, endTS) {
             receivedEvents(it)
         }
+
     }
 
     private fun receivedEvents(events: List<Event>) {
@@ -124,6 +127,7 @@ class DayFragment : Fragment() {
         var title3 = ""
         var title4 = ""
 
+/*
 
         // for (i in events) {
         //    for (i in events.indices) {
@@ -175,7 +179,53 @@ class DayFragment : Fragment() {
 //                }
 //            }
         //   }
+*/
+        /*   val newList = arrayListOf<Event>()
+           val newList_b = arrayListOf<Event>()
+           val newList_n = arrayListOf<Event>()
+           for (element in events) {
+               // then add it
+               if (!newList.contains(element)) {
+                   newList.add(element)
+               }
+           }
 
+           for (i in events.indices) {
+               if (events[i].location == str) {
+                   newList_b.add(events[i])
+               } else {
+                   newList_n.add(events[i])
+               }
+           }
+
+           Log.d("tagggg", ".....dd....." + newList + "...." + newList_b + "....." + newList_n)
+   */
+
+        val newList = arrayListOf<Event>()
+        val newList_b = arrayListOf<Event>()
+        val newList_n = arrayListOf<Event>()
+        for (element in events) {
+            if (!newList.contains(element)) {
+                newList.add(element)
+            }
+        }
+        for (i in events.indices) {
+            if (events[i].location == str) {
+                newList_b.add(events[i])
+            } else {
+                newList_n.add(events[i])
+            }
+        }
+
+        for(i in events.indices){
+            for(j in newList_b.indices) {
+                if (events[i].startTS.equals(newList_b[j])){
+                }
+            }
+        }
+        Log.d("tgggggg","bbb......"+newList)
+        Log.d("tgggggg","bbb......"+newList_b)
+        Log.d("tgggggg","bbb......"+newList_n)
         DayEventsAdapter(activity as SimpleActivity, events, mHolder.day_events) {
             editEvent(it as Event)
         }.apply {

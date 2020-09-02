@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -69,7 +70,14 @@ class DashboardActivity : SimpleActivity() {
                 R.id.btm_nav_action_dashboard -> callFragment(DashboardFragment.newInstance(this@DashboardActivity))
                 R.id.btm_nav_action_paitent -> callFragment(PatientFragment.newInstance(this@DashboardActivity))
                 R.id.btm_nav_action_doctor -> callFragment(DoctorFragment.newInstance(this@DashboardActivity))
-                R.id.btm_nav_action_appointment -> callFragment(AppointmentFragment.newInstance(this@DashboardActivity))
+                R.id.btm_nav_action_appointment -> {
+                    val dayCode = intent.getStringExtra(DAY_CODE) ?: ""
+                    val bundle = Bundle()
+                    bundle.putString(DAY_CODE, dayCode)
+                    var fragment1 = AppointmentFragment.newInstance(this@DashboardActivity)
+                    fragment1!!.arguments = bundle
+                    callFragment(fragment1)
+                }
                 R.id.btm_nav_action_settings -> callFragment(ProfileFragment.newInstance(this@DashboardActivity))
             }
             true

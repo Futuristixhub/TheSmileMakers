@@ -33,11 +33,15 @@ import kotlinx.android.synthetic.main.fragment_appointment_form.*
 import kotlinx.android.synthetic.main.item_attendee.view.*
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
+import java.lang.invoke.MethodHandles.identity
 import java.util.*
+import java.util.function.Function
 import java.util.regex.Pattern
+import java.util.stream.Collectors
 
 class AppointmentFormActivity : SimpleActivity() {
 
+    private var ptitle: String = ""
     private val LAT_LON_PATTERN =
         "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?)([,;])\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)\$"
     private val EVENT = "EVENT"
@@ -56,7 +60,6 @@ class AppointmentFormActivity : SimpleActivity() {
     private val EVENT_TYPE_ID = "EVENT_TYPE_ID"
     private val EVENT_CALENDAR_ID = "EVENT_CALENDAR_ID"
     private val SELECT_TIME_ZONE_INTENT = 1
-
 
     private var mReminder1Minutes = REMINDER_OFF
     private var mReminder2Minutes = REMINDER_OFF
@@ -86,9 +89,10 @@ class AppointmentFormActivity : SimpleActivity() {
     private lateinit var mEvent: Event
 
     var location_name = ""
-    var eshift = ""
+    var dayCode = ""
     var treatmenttype = ""
     var doctorname = ""
+    var str = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,7 +103,12 @@ class AppointmentFormActivity : SimpleActivity() {
             return
         }
 
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross_vector)
+      //  supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross_vector)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        str = resources.getString(R.string.bapunagar)
+        dayCode = intent.extras!!.getString(DAY_CODE, "")
+
         val intent = intent ?: return
         mDialogTheme = getDialogTheme()
         mWasContactsPermissionChecked = hasPermission(PERMISSION_READ_CONTACTS)
@@ -112,12 +121,6 @@ class AppointmentFormActivity : SimpleActivity() {
 
                 var r1 = findViewById(checkedId) as RadioButton
                 location_name = checkedId.toString()
-            })
-        rg_branch_name.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
-
-                var r1 = findViewById(checkedId) as RadioButton
-                eshift = r1.text as String
             })
 
         val eventId = intent.getLongExtra(EVENT_ID, 0L)
@@ -184,7 +187,7 @@ class AppointmentFormActivity : SimpleActivity() {
         ed_appointment_date.setOnClickListener { setupStartDate() }
         ed_appointment_time.setOnClickListener { setupStartTime() }
 
-        button2.setOnClickListener { saveCurrentEvent() }
+        button2.setOnClickListener { checkValidate() }
 
         val adapter = ArrayAdapter.createFromResource(
             this,
@@ -252,10 +255,11 @@ class AppointmentFormActivity : SimpleActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.save -> saveCurrentEvent()
+            R.id.save -> checkValidate()
             R.id.delete -> deleteEvent()
             R.id.duplicate -> duplicateEvent()
             R.id.share -> shareEvent()
+            android.R.id.home -> onBackPressed()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -332,7 +336,6 @@ class AppointmentFormActivity : SimpleActivity() {
         updateTexts()
         updateEventType()
         updateCalDAVCalendar()
-        checkAttendees()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -396,7 +399,6 @@ class AppointmentFormActivity : SimpleActivity() {
             object : TypeToken<List<Attendee>>() {}.type
         ) ?: ArrayList()
         checkRepeatTexts(mRepeatInterval)
-        checkAttendees()
     }
 
     private fun setupNewEvent() {
@@ -440,59 +442,8 @@ class AppointmentFormActivity : SimpleActivity() {
             mEventEndDateTime = mEventStartDateTime.plusMinutes(addMinutes)
         }
 
-        checkAttendees()
     }
 
-    private fun checkAttendees() {
-        ensureBackgroundThread {
-            fillAvailableContacts()
-            runOnUiThread {
-                updateAttendees()
-            }
-        }
-    }
-
-    private fun handleNotificationAvailability(callback: () -> Unit) {
-        if (NotificationManagerCompat.from(applicationContext).areNotificationsEnabled()) {
-            callback()
-        } else {
-            ConfirmationDialog(
-                this,
-                messageId = R.string.notifications_disabled,
-                positive = R.string.ok,
-                negative = 0
-            ) {
-                callback()
-            }
-        }
-    }
-
-    private fun showReminder1Dialog() {
-        showPickSecondsDialogHelper(mReminder1Minutes) {
-            mReminder1Minutes = if (it <= 0) it else it / 60
-            checkReminderTexts()
-        }
-    }
-
-    private fun showReminder2Dialog() {
-        showPickSecondsDialogHelper(mReminder2Minutes) {
-            mReminder2Minutes = if (it <= 0) it else it / 60
-            checkReminderTexts()
-        }
-    }
-
-    private fun showReminder3Dialog() {
-        showPickSecondsDialogHelper(mReminder3Minutes) {
-            mReminder3Minutes = if (it <= 0) it else it / 60
-            checkReminderTexts()
-        }
-    }
-
-    private fun showRepeatIntervalDialog() {
-        showEventRepeatIntervalDialog(mRepeatInterval) {
-            setRepeatInterval(it)
-        }
-    }
 
     private fun setRepeatInterval(interval: Int) {
         mRepeatInterval = interval
@@ -517,13 +468,6 @@ class AppointmentFormActivity : SimpleActivity() {
         checkRepetitionRuleText()
     }
 
-    private fun showRepetitionTypePicker() {
-        hideKeyboard()
-        RepeatLimitTypePickerDialog(this, mRepeatLimit, mEventStartDateTime.seconds()) {
-            setRepeatLimit(it)
-        }
-    }
-
     private fun setRepeatLimit(limit: Long) {
         mRepeatLimit = limit
         checkRepetitionLimitText()
@@ -531,27 +475,6 @@ class AppointmentFormActivity : SimpleActivity() {
 
     private fun checkRepetitionLimitText() {
 
-    }
-
-    private fun showRepetitionRuleDialog() {
-        hideKeyboard()
-        when {
-            mRepeatInterval.isXWeeklyRepetition() -> RepeatRuleWeeklyDialog(this, mRepeatRule) {
-                setRepeatRule(it)
-            }
-            mRepeatInterval.isXMonthlyRepetition() -> {
-                val items = getAvailableMonthlyRepetitionRules()
-                RadioGroupDialog(this, items, mRepeatRule) {
-                    setRepeatRule(it as Int)
-                }
-            }
-            mRepeatInterval.isXYearlyRepetition() -> {
-                val items = getAvailableYearlyRepetitionRules()
-                RadioGroupDialog(this, items, mRepeatRule) {
-                    setRepeatRule(it as Int)
-                }
-            }
-        }
     }
 
     private fun getAvailableMonthlyRepetitionRules(): ArrayList<RadioItem> {
@@ -750,25 +673,6 @@ class AppointmentFormActivity : SimpleActivity() {
         }
     }
 
-    private fun getMonthlyRepetitionRuleText() = when (mRepeatRule) {
-        REPEAT_SAME_DAY -> getString(R.string.the_same_day)
-        REPEAT_LAST_DAY -> getString(R.string.the_last_day)
-        else -> getRepeatXthDayString(false, mRepeatRule)
-    }
-
-    private fun getYearlyRepetitionRuleText() = when (mRepeatRule) {
-        REPEAT_SAME_DAY -> getString(R.string.the_same_day)
-        else -> getRepeatXthDayInMonthString(false, mRepeatRule)
-    }
-
-    private fun showEventTypeDialog() {
-        hideKeyboard()
-        SelectEventTypeDialog(this, mEventTypeId, false, true, false, true) {
-            mEventTypeId = it.id!!
-            updateEventType()
-        }
-    }
-
     private fun checkReminderTexts() {
         updateReminder1Text()
         updateReminder2Text()
@@ -785,16 +689,6 @@ class AppointmentFormActivity : SimpleActivity() {
 
     private fun updateReminder3Text() {
 
-    }
-
-    private fun showReminderTypePicker(currentValue: Int, callback: (Int) -> Unit) {
-        val items = arrayListOf(
-            RadioItem(REMINDER_NOTIFICATION, getString(R.string.notification)),
-            RadioItem(REMINDER_EMAIL, getString(R.string.email))
-        )
-        RadioGroupDialog(this, items, currentValue) {
-            callback(it as Int)
-        }
     }
 
     private fun updateReminderTypeImages() {
@@ -935,21 +829,95 @@ class AppointmentFormActivity : SimpleActivity() {
         }
     }
 
-    private fun saveCurrentEvent() {
-        ensureBackgroundThread {
-            saveEvent()
-        }
-    }
-
-    private fun saveEvent() {
-        val newTitle = ed_appointment_patient_name.value
-        if (newTitle.isEmpty()) {
+    private fun checkValidate() {
+        ptitle = ed_appointment_patient_name.value
+        if (ptitle.isEmpty()) {
             toast(R.string.title_empty)
             runOnUiThread {
                 ed_appointment_patient_name.requestFocus()
             }
             return
+        } else if (location_name.isEmpty()) {
+            toast("Please Select Branch First")
+            runOnUiThread {
+                rg_branch_name.requestFocus()
+            }
         }
+        ensureBackgroundThread {
+            var events = arrayListOf<Event>()
+            val newList = arrayListOf<Event>()
+            val newList2 = arrayListOf<Event>()
+            val newList3 = arrayListOf<Event>()
+            val offset = if (!config.allowChangingTimeZones || mEvent.getTimeZoneString()
+                    .equals(mOriginalTimeZone, true)
+            ) {
+                0
+            } else {
+                val original =
+                    if (mOriginalTimeZone.isEmpty()) DateTimeZone.getDefault().id else mOriginalTimeZone
+                (DateTimeZone.forID(mEvent.getTimeZoneString())
+                    .getOffset(System.currentTimeMillis()) - DateTimeZone.forID(original)
+                    .getOffset(System.currentTimeMillis())) / 1000L
+            }
+            val newStartTS =
+                mEventStartDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
+            val newEndTS =
+                mEventEndDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
+            eventsHelper.getEvents(newStartTS, newEndTS) {
+                events = it
+            }
+            var count_b = 0
+            var count_n = 0
+            for (element in events) {
+                // then add it
+                if (!newList.contains(element)) {
+                    newList.add(element)
+                } else {
+                    newList2.add(element)
+                }
+            }
+            for (e in events) {
+                // then add it
+                if (newList2.contains(e)) {
+                    newList3.add(e)
+                }
+            }
+            for (i in newList3.indices) {
+                if (i > 0) {
+                    if (newList3[i].location == str) {
+                        count_b++
+                    } else {
+                        count_n++
+                    }
+                } else {
+                    if (newList3[i].location == str) {
+                        count_b++
+                    } else {
+                        count_n++
+                    }
+                }
+            }
+            val intSelectButton: Int = rg_branch_name!!.checkedRadioButtonId
+            val radioButton: RadioButton = findViewById(intSelectButton)
+            location_name = radioButton.text.toString()
+
+            if (location_name == str) {
+                if (count_b >= 2) {
+                    toast(R.string.not_avail_bapunagar)
+                } else {
+                    saveEvent()
+                }
+            } else {
+                if (count_n >= 2) {
+                    toast(R.string.not_avail_nikol)
+                } else {
+                    saveEvent()
+                }
+            }
+        }
+    }
+
+    private fun saveEvent() {
 
         val offset = if (!config.allowChangingTimeZones || mEvent.getTimeZoneString()
                 .equals(mOriginalTimeZone, true)
@@ -1030,15 +998,13 @@ class AppointmentFormActivity : SimpleActivity() {
             }
         }
 
-        Log.d("tagggg", "location...." + location_name)
         mEvent.apply {
             startTS = newStartTS
             endTS = newEndTS
-            title = newTitle
-            location_name = location
-            doctorname = doctor_name
-            treatmenttype = treatment_type
-            eshift = shift
+            title = ptitle
+            location = location_name
+            doctor_name = doctorname
+            treatment_type = treatmenttype
             reminder1Minutes = reminder1.minutes
             reminder2Minutes = reminder2.minutes
             reminder3Minutes = reminder3.minutes
@@ -1155,17 +1121,6 @@ class AppointmentFormActivity : SimpleActivity() {
             if (mEventStartDateTime.isAfter(mEventEndDateTime)) resources.getColor(R.color.colorPrimary) else config.textColor
     }
 
-    private fun showOnMap() {
-
-        val pattern = Pattern.compile(LAT_LON_PATTERN)
-
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
-        } else {
-            toast(R.string.no_app_found)
-        }
-    }
-
     private fun setupStartDate() {
         hideKeyboard()
         config.backgroundColor.getContrastColor()
@@ -1209,18 +1164,6 @@ class AppointmentFormActivity : SimpleActivity() {
         datepicker.datePicker.firstDayOfWeek =
             if (config.isSundayFirst) Calendar.SUNDAY else Calendar.MONDAY
         datepicker.show()
-    }
-
-    private fun setupEndTime() {
-        hideKeyboard()
-        TimePickerDialog(
-            this,
-            mDialogTheme,
-            endTimeSetListener,
-            mEventEndDateTime.hourOfDay,
-            mEventEndDateTime.minuteOfHour,
-            config.use24HourFormat
-        ).show()
     }
 
     private val startDateSetListener =
@@ -1325,69 +1268,6 @@ class AppointmentFormActivity : SimpleActivity() {
             if (photoUri != null) {
                 it.photoUri = photoUri
             }
-        }
-    }
-
-    private fun updateAttendees() {
-        val currentCalendar =
-            calDAVHelper.getCalDAVCalendars("", true).firstOrNull { it.id == mEventCalendarId }
-        mAttendees.forEach {
-            it.isMe = it.email == currentCalendar?.accountName
-        }
-
-        mAttendees.sortWith(compareBy<Attendee>
-        { it.isMe }.thenBy
-        { it.status == CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED }.thenBy
-        { it.status == CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED }.thenBy
-        { it.status == CalendarContract.Attendees.ATTENDEE_STATUS_TENTATIVE }.thenBy
-        { it.status })
-        mAttendees.reverse()
-
-        mAttendees.forEach {
-            val attendee = it
-            val deviceContact =
-                mAvailableContacts.firstOrNull { it.email.isNotEmpty() && it.email == attendee.email && it.photoUri.isNotEmpty() }
-            if (deviceContact != null) {
-                attendee.photoUri = deviceContact.photoUri
-            }
-        }
-
-
-    }
-
-
-    private fun getAttendeeStatusImage(attendee: Attendee): Drawable {
-        return resources.getDrawable(
-            when (attendee.status) {
-                CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED -> R.drawable.ic_check_green
-                CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED -> R.drawable.ic_cross_red
-                else -> R.drawable.ic_question_yellow
-            }
-        )
-    }
-
-    private fun updateAttendeeMe(holder: RelativeLayout, attendee: Attendee) {
-        holder.apply {
-            event_contact_me_status.text = getString(
-                when (attendee.status) {
-                    CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED -> R.string.going
-                    CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED -> R.string.not_going
-                    CalendarContract.Attendees.ATTENDEE_STATUS_TENTATIVE -> R.string.maybe_going
-                    else -> R.string.invited
-                }
-            )
-
-            event_contact_status_image.apply {
-                beVisibleIf(attendee.showStatusImage())
-                setImageDrawable(getAttendeeStatusImage(attendee))
-            }
-
-            mAttendees.firstOrNull { it.isMe }?.status = attendee.status
-        }
-    }
-
-    private fun checkNewAttendeeField() {
-        if (mAttendeeAutoCompleteViews.none { it.isVisible() && it.value.isEmpty() }) {
         }
     }
 

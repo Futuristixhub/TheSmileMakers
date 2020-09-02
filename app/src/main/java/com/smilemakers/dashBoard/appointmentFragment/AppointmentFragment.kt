@@ -54,7 +54,7 @@ class AppointmentFragment : Fragment(), NavigationListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // currentDayCode = arguments?.getString(DAY_CODE) ?: ""
+     //   currentDayCode = arguments?.getString(DAY_CODE) ?: ""
         currentDayCode = Formatter.getTodayCode()
         todayDayCode = Formatter.getTodayCode()
     }
@@ -69,7 +69,7 @@ class AppointmentFragment : Fragment(), NavigationListener {
 
         binding?.root!!.calendar_fab.beVisibleIf(requireContext().config.storedView != YEARLY_VIEW)
         binding?.root!!.calendar_fab.setOnClickListener {
-            requireContext().launchNewEventIntent()
+            requireContext().launchNewEventIntent(currentDayCode)
         }
 
         Coroutines.io {
@@ -85,6 +85,9 @@ class AppointmentFragment : Fragment(), NavigationListener {
     }
 
     private fun setupFragment() {
+
+
+
         val codes = getMonths(currentDayCode)
         val monthlyAdapter = MyMonthPagerAdapter(activity!!.supportFragmentManager, codes, this)
         defaultMonthlyPage = codes.size / 2

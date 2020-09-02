@@ -7,7 +7,5 @@ import com.smilemakers.utils.REMINDER_NOTIFICATION
 import com.smilemakers.utils.SOURCE_SIMPLE_CALENDAR
 
 data class Events(var event:Event,
-    var title2: String = "",
-    var title3: String = "",
-    var title4: String = ""
+    var eventlst: ArrayList<Event>
 )

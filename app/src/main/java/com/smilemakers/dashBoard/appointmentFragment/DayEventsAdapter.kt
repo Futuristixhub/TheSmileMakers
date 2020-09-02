@@ -1,5 +1,6 @@
 package com.smilemakers.dashBoard.appointmentFragment
 
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -59,10 +60,10 @@ class DayEventsAdapter(
     override fun onActionModeDestroyed() {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-       /* val layoutId = when (viewType) {
-            ITEM_EVENT -> R.layout.event_item_day_view
-            else -> R.layout.event_item_day_view_simple
-        }*/
+        /* val layoutId = when (viewType) {
+             ITEM_EVENT -> R.layout.event_item_day_view
+             else -> R.layout.event_item_day_view_simple
+         }*/
         return createViewHolder(R.layout.event_item_day_view_simple, parent)
     }
 
@@ -98,7 +99,7 @@ class DayEventsAdapter(
 
     private fun setupView(view: View, event: Event, position: Int) {
         view.apply {
-          //  var event = e
+            //  var event = e
             event_item_frame.isSelected = selectedKeys.contains(event.id?.toInt())
 
             event_item_description1?.text =
@@ -110,40 +111,50 @@ class DayEventsAdapter(
                 )
 
             if (position > 0) {
+                Log.d(
+                    "tgggggg",
+                    "kkkk......." + events[position] + "........" + events[position - 1]
+                )
                 if (events.get(position).equals(events.get(position - 1))) {
                     count++
-                    if (count == 1) {
-                        if(event.location=="Bapunagar") {
+                    if (count == 2) {
+                        if (event.location == "Bapunagar") {
                             event_item_title2.text = event.title
-                        }else{
+                        } else {
                             event_item_title4.text = event.title
                         }
                     } else
-                        if (count == 2) {
-                            if(event.location=="Bapunagar") {
+                        if (count == 3) {
+                            if (event.location == "Bapunagar") {
                                 event_item_title1.text = event.title
-                            }else{
+                            } else {
                                 event_item_title3.text = event.title
                             }
                         } else
-                            if (count == 3) {
-                                if(event.location=="Bapunagar") {
+                            if (count == 4) {
+                                if (event.location == "Bapunagar") {
                                     event_item_title2.text = event.title
-                                }else{
+                                } else {
                                     event_item_title4.text = event.title
                                 }
                             }
-                }else{
-                    if(event.location=="Bapunagar") {
+                } else {
+                    count++
+                    if (event.location == "Bapunagar") {
                         event_item_title1.text = event.title
-                    }else{
+                    } else {
                         event_item_title3.text = event.title
                     }
                 }
-            }else{
-                if(event.location=="Bapunagar") {
+            } else {
+                Log.d(
+                    "tgggggg",
+                    "kkkk......." + events[position]
+                )
+                count++
+                if (event.location == "Bapunagar") {
                     event_item_title1.text = event.title
-                }else{
+                } else {
                     event_item_title3.text = event.title
                 }
             }
@@ -152,7 +163,7 @@ class DayEventsAdapter(
             //event_item_title2.text = e.title2
             //event_item_title3.text = e.title3
             //event_item_title4.text = e.title4
-         //   event_item_end?.beInvisibleIf(event.startTS == event.endTS)
+            //   event_item_end?.beInvisibleIf(event.startTS == event.endTS)
             event_item_color_bar.background.applyColorFilter(event.color)
 
             if (event.startTS != event.endTS) {
