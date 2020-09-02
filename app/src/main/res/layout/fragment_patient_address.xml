@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/space_12"
+            android:padding="@dimen/space_10"
             tools:context=".dashBoard.patientFragment.patientAddress.PatientAddressFragment">
 
             <Spinner
@@ -38,7 +38,7 @@
                 android:id="@+id/ed_address_line_1"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:cursorVisible="false"
                 android:focusable="false"
@@ -52,7 +52,7 @@
                 android:id="@+id/ed_address_line_2"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Address Line 2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
                 android:id="@+id/ed_address_city"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="City"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,7 @@
                 android:id="@+id/ed_address_state"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_8"
                 android:hint="State"
                 app:layout_constraintEnd_toStartOf="@id/guideline3"
@@ -92,7 +92,7 @@
                 android:id="@+id/ed_address_pin"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_8"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Pin Code"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -103,27 +103,48 @@
                 android:id="@+id/ed_address_country"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Country"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_pin" />
 
-
-            <Button
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@id/ed_address_country">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_10"
+                android:background="@drawable/login_button_drawable"
+                android:onClick="@{vm::onPreviousClick}"
+                android:text="Previous"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_16"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_10"
                 android:background="@drawable/login_button_drawable"
                 android:onClick="@{vm::onSaveClick}"
                 android:text="Save"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/space_10"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_16"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_country" />
-
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

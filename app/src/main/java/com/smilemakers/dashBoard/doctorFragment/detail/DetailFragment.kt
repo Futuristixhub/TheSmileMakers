@@ -1,6 +1,9 @@
 package com.smilemakers.dashBoard.doctorFragment.detail
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +12,9 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.google.android.gms.common.api.Status
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.smilemakers.R
 import com.smilemakers.dashBoard.DashboardActivity
 import com.smilemakers.databinding.FragmentAddDoctorBinding
@@ -62,6 +68,20 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
         spinner_tratment.onItemSelectedListener = this
 
         return binding?.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1223) {
+            if (resultCode == Activity.RESULT_OK) {
+                val place = Autocomplete.getPlaceFromIntent(data!!)
+                Log.i("DashBoard TAG", "Place: " + place.name + ", " + place.id)
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) { // TODO: Handle the error.
+                val status: Status = Autocomplete.getStatusFromIntent(data!!)
+                Log.i("DashBoard TAG", status.getStatusMessage())
+            } else if (resultCode == Activity.RESULT_CANCELED) { // The user canceled the operation.
+            }
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

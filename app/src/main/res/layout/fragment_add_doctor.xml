@@ -15,12 +15,12 @@
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:background="@drawable/background_drawable_grey_ligh"
-        tools:context=".dashBoard.patientFragment.addPatient.AddPatientFragment">
+        tools:context=".dashBoard.doctorFragment.addDoctor.AddDoctorFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/space_12"
+            android:padding="@dimen/space_10"
             android:background="@drawable/background_drawable_grey_ligh"
             >
 
@@ -38,7 +38,7 @@
                 android:id="@+id/ed_patient_last_name"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Last Name*"
                 android:inputType="textPersonName"
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_8"
                 android:background="@drawable/color_primary_rounded_border"
                 android:orientation="vertical"
@@ -115,7 +115,7 @@
                 android:id="@+id/ed_patient_dob"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_8"
                 android:hint="DOB*"
                 android:inputType="date"
@@ -127,7 +127,7 @@
                 android:id="@+id/ed_patient_age"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_8"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:clickable="false"
                 android:cursorVisible="false"
@@ -142,7 +142,7 @@
                 android:id="@+id/ed_patient_referral_id"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Education"
                 android:inputType="numberDecimal"
@@ -150,10 +150,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_dob" />
 
+            <EditText
+                android:id="@+id/ed_patient_referral_name"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Email ID"
+                android:layout_marginTop="@dimen/space_10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_patient_referral_id" />
+
+            <EditText
+                android:id="@+id/ed_patient_mobile"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Mobile Number*"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_name" />
+
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:background="@drawable/login_button_drawable"
                 android:onClick="@{vm::onNextClick}"
                 android:text="Next"
@@ -161,7 +185,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_16"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_id" />
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

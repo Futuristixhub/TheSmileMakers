@@ -10,7 +10,7 @@ class AddPatientFragmentVM(val mFragment: AddPatientFragment, val mActivity: Das
     fun onAddressClick(view: View) {
         val transaction = mActivity.supportFragmentManager.beginTransaction()
         transaction.addToBackStack(null)
-        transaction.add(R.id.fl_dash_container, PatientAddressFragment.newInstance(mActivity)!!)
+        transaction.replace(R.id.fl_dash_container, PatientAddressFragment.newInstance(mActivity)!!)
         transaction.commit()
     }
 }

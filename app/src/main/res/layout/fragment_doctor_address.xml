@@ -37,7 +37,7 @@
                 android:onClick="@{vm::onAddressFieldClick}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_shift" />
+                 />
 
             <EditText
                 android:id="@+id/ed_address_line_2"
