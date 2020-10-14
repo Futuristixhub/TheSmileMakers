@@ -1,26 +1,21 @@
 package com.smilemakers.dashBoard
 
-import android.R.attr
 import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.simplemobiletools.calendar.pro.fragments.DayFragmentsHolder
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.AppointmentFragment
-import com.smilemakers.dashBoard.appointmentFragment.SimpleActivity
+import com.smilemakers.dashBoard.appointmentFragment.calendar.AppointmentFragment
+import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
 import com.smilemakers.dashBoard.dashBoardFragment.DashboardFragment
 import com.smilemakers.dashBoard.doctorFragment.DoctorFragment
 import com.smilemakers.dashBoard.patientFragment.PatientFragment
@@ -29,12 +24,9 @@ import com.smilemakers.databinding.ActivityDashboardBinding
 import com.smilemakers.login.LoginActivity
 import com.smilemakers.utils.DAY_CODE
 import com.smilemakers.utils.Formatter
-import com.smilemakers.utils.Formatter.getDayCodeFromDateTime
 import com.smilemakers.utils.color
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import kotlinx.android.synthetic.main.fragment_appointment.*
 import org.joda.time.DateTime
-import java.util.*
 
 
 class DashboardActivity : SimpleActivity() {

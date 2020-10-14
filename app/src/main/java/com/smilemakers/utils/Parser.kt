@@ -3,8 +3,8 @@ package com.smilemakers.utils
 
 import com.simplemobiletools.commons.extensions.areDigitsOnly
 import com.simplemobiletools.commons.helpers.*
-import com.smilemakers.dashBoard.appointmentFragment.Event
-import com.smilemakers.dashBoard.appointmentFragment.EventRepetition
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.dashBoard.appointmentFragment.calendar.EventRepetition
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
 
@@ -55,7 +55,11 @@ class Parser {
                 repeatRule = REPEAT_LAST_DAY
             }
         }
-        return EventRepetition(repeatInterval, repeatRule, repeatLimit)
+        return EventRepetition(
+            repeatInterval,
+            repeatRule,
+            repeatLimit
+        )
     }
 
     private fun getFrequencySeconds(interval: String) = when (interval) {

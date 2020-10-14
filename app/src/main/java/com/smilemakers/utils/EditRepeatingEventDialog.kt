@@ -5,7 +5,7 @@ import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.hideKeyboard
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.SimpleActivity
+import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
 import kotlinx.android.synthetic.main.dialog_edit_repeating_event.view.*
 
 class EditRepeatingEventDialog(val activity: SimpleActivity, val callback: (allOccurrences: Boolean) -> Unit) {

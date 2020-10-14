@@ -2,9 +2,9 @@ package com.smilemakers.utils
 
 import android.content.Context
 import android.util.Log
-import com.smilemakers.dashBoard.appointmentFragment.DayMonthly
-import com.smilemakers.dashBoard.appointmentFragment.Event
-import com.smilemakers.dashBoard.appointmentFragment.MonthlyCalendar
+import com.smilemakers.dashBoard.appointmentFragment.calendar.DayMonthly
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.dashBoard.appointmentFragment.calendar.MonthlyCalendar
 import org.joda.time.DateTime
 import java.util.*
 import kotlin.collections.ArrayList
@@ -66,7 +66,16 @@ class MonthlyCalendarImpl(val callback: MonthlyCalendar, val context: Context) {
 
             val newDay = curDay.withDayOfMonth(value)
             val dayCode = Formatter.getDayCodeFromDateTime(newDay)
-            val day = DayMonthly(value, isThisMonth, isToday, dayCode, newDay.weekOfWeekyear, ArrayList(), i)
+            val day =
+                DayMonthly(
+                    value,
+                    isThisMonth,
+                    isToday,
+                    dayCode,
+                    newDay.weekOfWeekyear,
+                    ArrayList(),
+                    i
+                )
             days.add(day)
            value++
         }

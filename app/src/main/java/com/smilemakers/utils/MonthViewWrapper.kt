@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.simplemobiletools.commons.extensions.onGlobalLayout
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.DayMonthly
+import com.smilemakers.dashBoard.appointmentFragment.calendar.DayMonthly
 import kotlinx.android.synthetic.main.month_view.view.*
 
 

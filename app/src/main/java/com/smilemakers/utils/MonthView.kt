@@ -1,7 +1,6 @@
 package com.smilemakers.utils
 
 import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -15,9 +14,9 @@ import android.view.Display
 import android.view.View
 import com.simplemobiletools.commons.extensions.*
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.DayMonthly
-import com.smilemakers.dashBoard.appointmentFragment.Event
-import com.smilemakers.dashBoard.appointmentFragment.MonthViewEvent
+import com.smilemakers.dashBoard.appointmentFragment.calendar.DayMonthly
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.dashBoard.appointmentFragment.calendar.MonthViewEvent
 import org.joda.time.DateTime
 import org.joda.time.Days
 
@@ -100,17 +99,18 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
             if (day.dayEvents.size > 0) {
                 val event = day.dayEvents[0]
                 val daysCnt = getEventLastingDaysCount(event)
-                val monthViewEvent = MonthViewEvent(
-                    event.id!!,
-                    "" + day.dayEvents.size,
-                    event.startTS,
-                    event.color,
-                    day.indexOnMonthView,
-                    daysCnt,
-                    day.indexOnMonthView,
-                    event.getIsAllDay(),
-                    event.isPastEvent
-                )
+                val monthViewEvent =
+                    MonthViewEvent(
+                        event.id!!,
+                        "" + day.dayEvents.size,
+                        event.startTS,
+                        event.color,
+                        day.indexOnMonthView,
+                        daysCnt,
+                        day.indexOnMonthView,
+                        event.getIsAllDay(),
+                        event.isPastEvent
+                    )
                 allEvents.add(monthViewEvent)
             }
 //            day.dayEvents.forEach {

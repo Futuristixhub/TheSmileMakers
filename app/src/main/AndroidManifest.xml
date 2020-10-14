@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".dashBoard.appointmentFragment.AppointmentFormActivity" />
+        <activity android:name=".dashBoard.appointmentFragment.addAppointment.AppointmentFormActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

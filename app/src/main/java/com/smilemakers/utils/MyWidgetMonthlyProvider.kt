@@ -12,9 +12,9 @@ import android.widget.RemoteViews
 import com.simplemobiletools.commons.extensions.*
 import com.smilemakers.R
 import com.smilemakers.SplashActivity
-import com.smilemakers.dashBoard.appointmentFragment.DayMonthly
-import com.smilemakers.dashBoard.appointmentFragment.Event
-import com.smilemakers.dashBoard.appointmentFragment.MonthlyCalendar
+import com.smilemakers.dashBoard.appointmentFragment.calendar.DayMonthly
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.dashBoard.appointmentFragment.calendar.MonthlyCalendar
 import com.smilemakers.utils.*
 import org.joda.time.DateTime
 
@@ -159,7 +159,8 @@ class MyWidgetMonthlyProvider : AppWidgetProvider() {
         views.addView(id, newRemoteView)
     }
 
-    private val monthlyCalendar = object : MonthlyCalendar {
+    private val monthlyCalendar = object :
+        MonthlyCalendar {
         override fun updateMonthlyCalendar(context: Context, month: String, days: ArrayList<DayMonthly>, checkedEvents: Boolean, currTargetDate: DateTime) {
             val largerFontSize = context.config.getFontSize() + 3f
             val textColor = context.config.widgetTextColor

@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.appointmentFragment.AppointmentFragmentVM" />
+            type="com.smilemakers.dashBoard.appointmentFragment.calendar.AppointmentFragmentVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/background_drawable_grey_ligh"
         android:scrollbars="none"
-        tools:context=".dashBoard.appointmentFragment.AppointmentFragment">
+        tools:context=".dashBoard.appointmentFragment.calendar.AppointmentFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,6 +104,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_lbl_select_branch">
 
                     <RadioButton
+                        android:id="@+id/rb_b"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/colorPrimary"
@@ -111,6 +112,7 @@
                         android:textSize="17sp" />
 
                     <RadioButton
+                        android:id="@+id/rb_n"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_16"

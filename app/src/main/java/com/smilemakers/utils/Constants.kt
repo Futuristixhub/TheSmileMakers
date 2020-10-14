@@ -37,7 +37,7 @@ const val DAY = 86400
 const val WEEK = 604800
 const val MONTH = 2592001    // exact value not taken into account, Joda is used for adding months and years
 const val YEAR = 31536000
-
+const val HORIZONTAL = 0
 
 
 // Shared Preferences

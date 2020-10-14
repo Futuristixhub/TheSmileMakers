@@ -1,6 +1,5 @@
 package com.simplemobiletools.calendar.pro.adapters
 
-import android.app.LauncherActivity
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -13,10 +12,10 @@ import com.simplemobiletools.commons.extensions.setTextSize
 import com.smilemakers.R
 import com.smilemakers.R.id.event_item_holder
 import com.smilemakers.R.id.event_section_title
-import com.smilemakers.dashBoard.appointmentFragment.Event
-import com.smilemakers.dashBoard.appointmentFragment.ListEvent
-import com.smilemakers.dashBoard.appointmentFragment.ListItem
-import com.smilemakers.dashBoard.appointmentFragment.ListSection
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.ListEvent
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.ListItem
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.ListSection
 import com.smilemakers.utils.*
 import org.joda.time.DateTime
 
@@ -179,12 +178,30 @@ class EventListWidgetAdapter(val context: Context) : RemoteViewsService.RemoteVi
                 if (code != prevCode) {
                     val day = Formatter.getDayTitle(context, code)
                     val isToday = day == today
-                    val listSection = ListSection(day, code, isToday, !isToday && it.startTS < now)
+                    val listSection =
+                        ListSection(
+                            day,
+                            code,
+                            isToday,
+                            !isToday && it.startTS < now
+                        )
                     listItems.add(listSection)
                     prevCode = code
                 }
 
-                val listEvent = ListEvent(it.id!!, it.startTS, it.endTS, it.title, it.description, it.getIsAllDay(), it.color, it.location, it.isPastEvent, it.repeatInterval > 0)
+                val listEvent =
+                    ListEvent(
+                        it.id!!,
+                        it.startTS,
+                        it.endTS,
+                        it.title,
+                        it.description,
+                        it.getIsAllDay(),
+                        it.color,
+                        it.location,
+                        it.isPastEvent,
+                        it.repeatInterval > 0
+                    )
                 listItems.add(listEvent)
             }
 

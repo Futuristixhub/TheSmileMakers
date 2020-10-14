@@ -1,15 +1,13 @@
 package com.smilemakers.utils
 
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.extensions.getFileOutputStream
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.writeLn
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.CalDAVCalendar
-import com.smilemakers.dashBoard.appointmentFragment.Event
-import com.smilemakers.dashBoard.appointmentFragment.SimpleActivity
+import com.smilemakers.dashBoard.appointmentFragment.calendar.CalDAVCalendar
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
 import java.io.BufferedWriter
 import java.io.File
 

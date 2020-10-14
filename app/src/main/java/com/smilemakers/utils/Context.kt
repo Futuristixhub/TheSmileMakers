@@ -9,10 +9,7 @@ import android.media.AudioAttributes
 import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
-import android.util.Log
 import android.util.Range
-import android.view.Display
-import android.widget.Toast
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.app.NotificationCompat
 import com.simplemobiletools.calendar.pro.helpers.MyWidgetListProvider
@@ -20,13 +17,16 @@ import com.simplemobiletools.calendar.pro.helpers.MyWidgetMonthlyProvider
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.*
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.AppointmentFormActivity
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.SnoozeReminderActivity
+import com.smilemakers.dashBoard.appointmentFragment.calendar.EventTypesDao
+import com.smilemakers.dashBoard.appointmentFragment.calendar.EventsDao
+import com.smilemakers.dashBoard.appointmentFragment.calendar.EventsDatabase
 import com.smilemakers.utils.Formatter.getDateFromCode
 import com.smilemakers.utils.Formatter.getDateFromTS
 import com.smilemakers.utils.Formatter.getDayCodeFromTS
-import com.smilemakers.utils.Formatter.getLocalDateTimeFromCode
 import com.smilemakers.utils.Formatter.getTimeFromTS
-import kotlinx.android.synthetic.main.fragment_month.view.*
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
@@ -207,24 +207,6 @@ fun Context.getNewEventTimestampFromCode(dayCode: String): Long {
 
     // make sure the date doesn't change
     return newDateTime.withDate(dateTime.year, dateTime.monthOfYear, dateTime.dayOfMonth).seconds()
-}
-
-fun Range<Int>.touch(other: Range<Int>) = (upper > other.lower && lower < other.upper) || (other.upper > lower && other.lower < upper)
-
-fun Context.getRepetitionText(seconds: Int) = when (seconds) {
-    0 -> getString(R.string.no_repetition)
-    DAY -> getString(R.string.daily)
-    WEEK -> getString(R.string.weekly)
-    MONTH -> getString(R.string.monthly)
-    YEAR -> getString(R.string.yearly)
-    else -> {
-        when {
-            seconds % YEAR == 0 -> resources.getQuantityString(R.plurals.years, seconds / YEAR, seconds / YEAR)
-            seconds % MONTH == 0 -> resources.getQuantityString(R.plurals.months, seconds / MONTH, seconds / MONTH)
-            seconds % WEEK == 0 -> resources.getQuantityString(R.plurals.weeks, seconds / WEEK, seconds / WEEK)
-            else -> resources.getQuantityString(R.plurals.days, seconds / DAY, seconds / DAY)
-        }
-    }
 }
 
 private fun getPendingIntent(context: Context, event: Event): PendingIntent {

@@ -5,10 +5,9 @@ import android.widget.Toast
 import com.simplemobiletools.commons.extensions.areDigitsOnly
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.Event
-import com.smilemakers.dashBoard.appointmentFragment.EventType
-import com.smilemakers.dashBoard.appointmentFragment.Reminder
-import com.smilemakers.dashBoard.appointmentFragment.SimpleActivity
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.dashBoard.appointmentFragment.calendar.EventType
+import com.smilemakers.dashBoard.appointmentFragment.calendar.Reminder
 import org.joda.time.DateTimeZone
 import java.io.File
 
@@ -168,18 +167,50 @@ class IcsImporter(val activity: Context) {
                         }
 
                         var reminders = arrayListOf(
-                                Reminder(curReminderMinutes.getOrElse(0) { REMINDER_OFF }, curReminderActions.getOrElse(0) { REMINDER_NOTIFICATION }),
-                                Reminder(curReminderMinutes.getOrElse(1) { REMINDER_OFF }, curReminderActions.getOrElse(1) { REMINDER_NOTIFICATION }),
-                                Reminder(curReminderMinutes.getOrElse(2) { REMINDER_OFF }, curReminderActions.getOrElse(2) { REMINDER_NOTIFICATION })
+                            Reminder(
+                                curReminderMinutes.getOrElse(0) { REMINDER_OFF },
+                                curReminderActions.getOrElse(0) { REMINDER_NOTIFICATION }),
+                            Reminder(
+                                curReminderMinutes.getOrElse(1) { REMINDER_OFF },
+                                curReminderActions.getOrElse(1) { REMINDER_NOTIFICATION }),
+                            Reminder(
+                                curReminderMinutes.getOrElse(2) { REMINDER_OFF },
+                                curReminderActions.getOrElse(2) { REMINDER_NOTIFICATION })
                         )
 
                         reminders = reminders.sortedBy { it.minutes }.sortedBy { it.minutes == REMINDER_OFF }.toMutableList() as ArrayList<Reminder>
 
                         val eventType = eventTypes.firstOrNull { it.id == curEventTypeId }
                         val source = if (calDAVCalendarId == 0 || eventType?.isSyncedEventType() == false) SOURCE_IMPORTED_ICS else "$CALDAV-$calDAVCalendarId"
-                        val event = Event(null, curStart, curEnd, curTitle, curLocation, curDescription,"","", reminders[0].minutes,
-                                reminders[1].minutes, reminders[2].minutes, reminders[0].type, reminders[1].type, reminders[2].type, curRepeatInterval, curRepeatRule,
-                                curRepeatLimit, curRepeatExceptions, "", curImportId, DateTimeZone.getDefault().id, curFlags, curEventTypeId, 0, curLastModified, source)
+                        val event =
+                            Event(
+                                null,
+                                curStart,
+                                curEnd,
+                                curTitle,
+                                curLocation,
+                                curDescription,
+                                "",
+                                "",
+                                reminders[0].minutes,
+                                reminders[1].minutes,
+                                reminders[2].minutes,
+                                reminders[0].type,
+                                reminders[1].type,
+                                reminders[2].type,
+                                curRepeatInterval,
+                                curRepeatRule,
+                                curRepeatLimit,
+                                curRepeatExceptions,
+                                "",
+                                curImportId,
+                                DateTimeZone.getDefault().id,
+                                curFlags,
+                                curEventTypeId,
+                                0,
+                                curLastModified,
+                                source
+                            )
 
                         if (event.getIsAllDay() && curEnd > curStart) {
                             event.endTS -= DAY
@@ -279,7 +310,12 @@ class IcsImporter(val activity: Context) {
         val eventId = eventsHelper.getEventTypeIdWithTitle(eventTypeTitle)
         curEventTypeId = if (eventId == -1L) {
             val newTypeColor = if (curCategoryColor == -2) activity.resources.getColor(R.color.colorPrimary) else curCategoryColor
-            val eventType = EventType(null, eventTypeTitle, newTypeColor)
+            val eventType =
+                EventType(
+                    null,
+                    eventTypeTitle,
+                    newTypeColor
+                )
             eventsHelper.insertOrUpdateEventTypeSync(eventType)
         } else {
             eventId

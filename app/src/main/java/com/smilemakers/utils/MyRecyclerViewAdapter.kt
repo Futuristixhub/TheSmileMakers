@@ -9,19 +9,18 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.view.ActionMode
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.interfaces.MyActionModeCallback
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.SimpleActivity
+import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.LinkedHashSet
 
 abstract class MyRecyclerViewAdapter(val activity: SimpleActivity, val recyclerView: MyRecyclerView, val fastScroller: FastScroller? = null,
-val itemClick: (Any) -> Unit) : RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder>() {
+                                     val itemClick: (Any) -> Unit) : RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder>() {
     protected val baseConfig = activity.baseConfig
     protected val resources = activity.resources!!
     protected val layoutInflater = activity.layoutInflater
