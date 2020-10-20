@@ -1,0 +1,83 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="DayView">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/day_text_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="MetaView" parent="DayView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/meta_text_size</item>
+    </style>
+
+    <style name="WeekNumberStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">top|center_horizontal</item>
+        <item name="android:textSize">@dimen/day_monthly_text_size</item>
+        <item name="android:textColor">@color/default_text_color</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="SplashScreen" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_img_bg</item>
+        <item name="windowNoTitle">true</item>
+        <item name="actionBarStyle">@style/Theme.AppCompat.NoActionBar</item>
+    </style>
+
+    <style name="NoActionBar" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="actionBarStyle">@style/Theme.AppCompat.NoActionBar</item>
+    </style>
+
+    <style name="LoginPageStyle" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="actionBarStyle">@style/Theme.AppCompat.NoActionBar</item>
+        <item name="android:windowBackground">@drawable/login_background_drawable</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">@dimen/space_0</item>
+        <item name="android:layout_height">@dimen/space_50</item>
+        <item name="android:layout_marginStart">@dimen/space_16</item>
+        <item name="android:layout_marginEnd">@dimen/space_16</item>
+        <item name="android:padding">@dimen/space_10</item>
+        <item name="android:background">@drawable/color_primary_rounded_border</item>
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="DatePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="ArrowStyle">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="MonthStyle">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="TextStyleBNV">
+        <item name="android:textSize">@dimen/text_20</item>
+        <item name="android:padding">5dp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TextStyle">
+        <item name="android:textSize">@dimen/text_18</item>
+        <item name="android:padding">@dimen/space_10</item>
+        <item name="textAllCaps">false</item>
+    </style>
+</resources>

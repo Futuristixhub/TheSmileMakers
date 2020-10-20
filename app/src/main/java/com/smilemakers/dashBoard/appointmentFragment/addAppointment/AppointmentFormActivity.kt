@@ -398,7 +398,7 @@ class AppointmentFormActivity : SimpleActivity() {
     private fun setupNewEvent() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         ed_appointment_patient_name.requestFocus()
-        updateActionBarTitle(getString(R.string.new_event))
+        updateActionBarTitle(getString(R.string.add_appointment))
         if (config.defaultEventTypeId != -1L) {
             config.lastUsedCaldavCalendarId =
                 mStoredEventTypes.firstOrNull { it.id == config.defaultEventTypeId }?.caldavCalendarId

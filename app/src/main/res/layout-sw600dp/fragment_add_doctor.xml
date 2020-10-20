@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.smilemakers.dashBoard.doctorFragment.addDoctor.AddDoctorFragmentVM" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/background_drawable_grey_ligh"
+        tools:context=".dashBoard.doctorFragment.addDoctor.AddDoctorFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_10"
+            android:background="@drawable/background_drawable_grey_ligh"
+            >
+
+            <EditText
+                android:id="@+id/ed_patient_first_name"
+                style="@style/EditTextStyle"
+                android:layout_margin="@dimen/space_0"
+                android:hint="First Name*"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/ed_patient_last_name"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Last Name*"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_patient_first_name" />
+
+            <LinearLayout
+                android:id="@+id/ll_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_8"
+                android:background="@drawable/color_primary_rounded_border"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/ed_patient_last_name">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:paddingStart="@dimen/space_8"
+                    android:paddingTop="@dimen/space_8"
+                    android:text="@string/gender"
+                    android:textColor="@color/quantum_grey"
+                    android:textSize="@dimen/text_18" />
+
+                <RadioGroup
+                    android:id="@+id/rg_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/space_8"
+                    android:paddingBottom="@dimen/space_8"
+                    android:weightSum="3">
+
+                    <RadioButton
+                        android:id="@+id/rb_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:text="@string/male"
+                        android:textSize="@dimen/text_18" />
+
+                    <RadioButton
+                        android:id="@+id/rb_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:text="@string/female"
+                        android:textSize="@dimen/text_18" />
+
+                    <RadioButton
+                        android:id="@+id/rb_other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:text="@string/other"
+                        android:textSize="@dimen/text_18" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <EditText
+                android:id="@+id/ed_patient_dob"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_8"
+                android:hint="DOB*"
+                android:inputType="date"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_gender" />
+
+            <EditText
+                android:id="@+id/ed_patient_age"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_0"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:hint="Age*"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/ll_gender" />
+
+            <EditText
+                android:id="@+id/ed_patient_referral_id"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Education"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_dob" />
+
+            <EditText
+                android:id="@+id/ed_patient_referral_name"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Email ID"
+                android:layout_marginTop="@dimen/space_10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_patient_referral_id" />
+
+            <EditText
+                android:id="@+id/ed_patient_mobile"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Mobile Number*"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_name" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_10"
+                android:background="@drawable/login_button_drawable"
+                android:onClick="@{vm::onNextClick}"
+                android:text="Next"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_20"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

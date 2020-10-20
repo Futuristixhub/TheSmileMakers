@@ -59,7 +59,7 @@
                         android:elevation="@dimen/space_8"
                         android:text="@string/lbl_total_patients"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_16"
+                        android:textSize="@dimen/text_18"
                         android:textStyle="bold" />
 
                     <TextView
@@ -113,7 +113,7 @@
                         android:text="@string/lbl_total_admin"
                         android:textStyle="bold"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_16" />
+                        android:textSize="@dimen/text_18" />
 
                     <TextView
                         android:id="@+id/txt_total_admins_number"
@@ -175,7 +175,7 @@
                         android:text="@string/lbl_total_doctors"
                         android:textStyle="bold"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_16" />
+                        android:textSize="@dimen/text_18" />
 
                     <TextView
                         android:id="@+id/txt_total_appointments_number"

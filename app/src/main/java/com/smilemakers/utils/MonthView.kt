@@ -1,5 +1,6 @@
 package com.smilemakers.utils
 
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Canvas
@@ -8,6 +9,7 @@ import android.graphics.RectF
 import android.text.TextPaint
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.util.Log
 import android.util.SparseIntArray
 import android.view.Display
@@ -310,28 +312,49 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
         Log.i(ContentValues.TAG, "screenHeight = $screenHeight")
         Log.i(ContentValues.TAG, "screenWidth  = $screenWidth")
 
-        if (screenHeight == 1920 && screenWidth == 1080) {
+        if (checkIsTablet()) {
             drawEventTitle(
                 event,
                 canvas,
-                xPos + 50,
-                yPos + 185,
+                xPos ,
+                yPos +verticalOffset,
                 bgRight - bgLeft - smallPadding,
                 startDayIndex,
                 endDayIndex
             )
         } else {
-            drawEventTitle(
-                event,
-                canvas,
-                xPos + 35,
-                yPos + 145,
-                bgRight - bgLeft - smallPadding,
-                startDayIndex,
-                endDayIndex
-            )
+            if (screenHeight == 1920 && screenWidth == 1080) {
+                drawEventTitle(
+                    event,
+                    canvas,
+                    xPos + 50,
+                    yPos + 185,
+                    bgRight - bgLeft - smallPadding,
+                    startDayIndex,
+                    endDayIndex
+                )
+            } else if (screenHeight >= 2200 && screenWidth >= 1200) {
+                drawEventTitle(
+                    event,
+                    canvas,
+                    xPos + 70,
+                    yPos + 210,
+                    bgRight - bgLeft - smallPadding,
+                    startDayIndex,
+                    endDayIndex
+                )
+            }else{
+                drawEventTitle(
+                    event,
+                    canvas,
+                    xPos + 35,
+                    yPos + 145,
+                    bgRight - bgLeft - smallPadding,
+                    startDayIndex,
+                    endDayIndex
+                )
+            }
         }
-
 
         for (i in 0 until Math.min(event.daysCnt, 7 - event.startDayIndex % 7)) {
             dayVerticalOffsets.put(
@@ -339,6 +362,27 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
                 verticalOffset + eventTitleHeight + smallPadding * 2
             )
         }
+    }
+
+    fun checkIsTablet(): Boolean {
+        var isTablet: Boolean = false
+        val display = context.windowManager.defaultDisplay
+        val metrics = DisplayMetrics()
+        display.getMetrics(metrics)
+
+        val widthInches = metrics.widthPixels / metrics.xdpi
+        val heightInches = metrics.heightPixels / metrics.ydpi
+        val diagonalInches = Math.sqrt(
+            Math.pow(widthInches.toDouble(), 2.0) + Math.pow(
+                heightInches.toDouble(),
+                2.0
+            )
+        )
+        if (diagonalInches >= 7.0) {
+            isTablet = true
+        }
+
+        return isTablet
     }
 
     private fun drawEventTitle(

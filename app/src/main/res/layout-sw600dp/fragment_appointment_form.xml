@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.smilemakers.dashBoard.appointmentFragment.calendar.AppointmentFragmentVM" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_drawable_grey_ligh"
+        android:scrollbars="none"
+        tools:context=".dashBoard.appointmentFragment.calendar.AppointmentFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/space_16">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.simplemobiletools.commons.views.MyTextView
+                    android:id="@+id/ed_appointment_date"
+                    style="@style/EditTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="@dimen/space_0"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:layout_weight="1"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="Date *"
+                    android:textSize="@dimen/text_18"
+                    android:inputType="textPersonName"
+                    android:onClick="@{vm::onAppointmentDateClick}"
+                    android:text="@{vm.appointmentDate}"
+                    app:layout_constraintEnd_toStartOf="@id/guideline4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.simplemobiletools.commons.views.MyTextView
+                    android:id="@+id/ed_appointment_time"
+                    style="@style/EditTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_0"
+                    android:layout_weight="1"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="Time *"
+                    android:textSize="@dimen/text_18"
+                    android:onClick="@{vm::onAppointmentTimeClick}"
+                    android:text="@{vm.appointmentTime}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline4"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/ed_appointment_patient_name"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_16"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Patient Name *"
+                android:textSize="@dimen/text_18"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_appointment_date" />
+
+            <LinearLayout
+                android:id="@+id/ll_branch_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@drawable/color_primary_rounded_border"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/space_8"
+                app:layout_constraintTop_toBottomOf="@id/ed_appointment_patient_name">
+
+                <TextView
+                    android:id="@+id/tv_lbl_select_branch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Select Branch *"
+                    android:textSize="@dimen/text_18"
+                    app:layout_constraintTop_toBottomOf="@id/ed_appointment_patient_name" />
+
+                <RadioGroup
+                    android:id="@+id/rg_branch_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_5"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lbl_select_branch">
+
+                    <RadioButton
+                        android:id="@+id/rb_b"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
+                        android:text="Bapunagar"
+                        android:textSize="@dimen/text_18" />
+
+                    <RadioButton
+                        android:id="@+id/rb_n"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_16"
+                        android:buttonTint="@color/colorPrimary"
+                        android:text="Nikol"
+                        android:textSize="@dimen/text_18" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_shift_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@drawable/color_primary_rounded_border"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/space_8"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/ll_branch_container">
+
+                <TextView
+                    android:id="@+id/tv_lbl_select_shift"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Select Shift *"
+                    android:textSize="17sp"
+                    app:layout_constraintTop_toBottomOf="@id/ed_appointment_patient_name" />
+
+                <RadioGroup
+                    android:id="@+id/rg_select_shift"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_5"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lbl_select_branch">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
+                        android:text="First Shift"
+                        android:textSize="@dimen/text_18" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_16"
+                        android:buttonTint="@color/colorPrimary"
+                        android:text="Second Shift"
+                        android:textSize="@dimen/text_18" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/sp_treatment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:background="@drawable/color_primary_rounded_border"
+                android:prompt="@string/type_treatmnt"
+                android:spinnerMode="dialog"
+                android:layout_marginTop="@dimen/space_12"
+                android:textSize="@dimen/text_18"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
+
+            <Spinner
+                android:id="@+id/sp_doctors"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:background="@drawable/color_primary_rounded_border"
+                android:prompt="@string/doctors"
+                android:spinnerMode="dialog"
+                android:layout_marginTop="@dimen/space_12"
+                android:textSize="@dimen/text_18"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
+
+
+           <!-- <LinearLayout
+                android:id="@+id/ll_treatment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@drawable/color_primary_rounded_border"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/space_8"
+                app:layout_constraintTop_toBottomOf="@id/ll_shift_container">
+
+                <TextView
+                    android:id="@+id/tv_lbl_treatment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:drawableEnd="@drawable/ic_arrow_down_gray"
+                    android:text="Type of Treatments *"
+                    android:textSize="17sp"
+                    app:layout_constraintTop_toBottomOf="@id/ed_appointment_patient_name" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_doc_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@drawable/color_primary_rounded_border"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/space_8"
+                app:layout_constraintTop_toBottomOf="@id/ll_treatment">
+
+                <TextView
+                    android:id="@+id/tv_lbl_doc_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:drawableEnd="@drawable/ic_arrow_down_gray"
+                    android:text="Doctor's Name *"
+                    android:textSize="17sp"
+                    app:layout_constraintTop_toBottomOf="@id/ed_appointment_patient_name" />
+
+            </LinearLayout>-->
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@drawable/login_button_drawable"
+                android:text="Book Appointment"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_20"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_doc_name"
+                app:layout_constraintVertical_bias="1.0" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
