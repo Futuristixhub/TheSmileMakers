@@ -1,6 +1,7 @@
 package com.smilemakers.dashBoard.doctorFragment.doctorAddress
 
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -13,13 +14,11 @@ import com.smilemakers.dashBoard.patientFragment.patientAddress.PatientAddressFr
 import java.util.*
 
 class DoctorAddressFragmentVM(
-    val mFragment: DoctorAddressFragment,
-    val mActivity: DashboardActivity
 ) : ViewModel() {
 
     init {
-        Places.initialize(mActivity, "AIzaSyBMAD8TRAXSAhr3u9pJ3AGIuKs-vm2qMHw")
-        val placesClient = Places.createClient(mActivity)
+     //   Places.initialize(mActivity, "AIzaSyBMAD8TRAXSAhr3u9pJ3AGIuKs-vm2qMHw")
+      //  val placesClient = Places.createClient(mActivity)
     }
 
     fun onSaveClick(view: View) {
@@ -27,9 +26,9 @@ class DoctorAddressFragmentVM(
     }
 
     fun onPreviousClick(view: View) {
-        val transaction = mActivity.supportFragmentManager.beginTransaction()
+        val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
         transaction.addToBackStack(null)
-        transaction.replace(R.id.fl_dash_container, DetailFragment.newInstance(mActivity)!!)
+        transaction.replace(R.id.fl_dash_container, DetailFragment.newInstance()!!)
         transaction.commit()
     }
 
@@ -37,7 +36,7 @@ class DoctorAddressFragmentVM(
         val fields = Arrays.asList(Place.Field.ID, Place.Field.NAME)
         val intent = Autocomplete.IntentBuilder(
             AutocompleteActivityMode.OVERLAY, fields)
-            .build(mActivity)
-        mActivity.startActivityForResult(intent, 1223)
+            .build(view.context)
+        (view.context as AppCompatActivity).startActivityForResult(intent, 1223)
     }
 }

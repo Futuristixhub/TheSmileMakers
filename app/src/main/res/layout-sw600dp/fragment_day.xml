@@ -162,4 +162,15 @@
         android:clipToPadding="false"
         app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
 
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/top_value"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="@dimen/text_18"
+        android:text="@string/no_upcoming_events" />
+
 </RelativeLayout>

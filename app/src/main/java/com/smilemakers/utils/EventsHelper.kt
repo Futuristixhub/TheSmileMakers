@@ -2,6 +2,7 @@ package com.smilemakers.utils
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import androidx.collection.LongSparseArray
 import com.simplemobiletools.commons.extensions.getChoppedList
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
@@ -263,7 +264,8 @@ class EventsHelper(val context: Context) {
         val primaryColor = context.resources.getColor(R.color.colorPrimary)
         events.forEach {
             it.updateIsPastEvent()
-            it.color = eventTypeColors.get(it.eventType) ?: primaryColor
+            it.color = eventTypeColors.get(it.startTS) ?: primaryColor//background color set
+            Log.d("tag",".....h....."+it.eventType+"........."+it.startTS)
         }
 
         callback(events)

@@ -14,7 +14,7 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.simplemobiletools.calendar.pro.fragments.DayFragmentsHolder
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.calendar.AppointmentFragment
+import com.smilemakers.dashBoard.appointmentFragment.AppointmentFragment
 import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
 import com.smilemakers.dashBoard.dashBoardFragment.DashboardFragment
 import com.smilemakers.dashBoard.doctorFragment.DoctorFragment

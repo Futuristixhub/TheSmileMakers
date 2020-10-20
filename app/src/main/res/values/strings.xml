@@ -30,7 +30,7 @@
     <string name="shift">Shift</string>
     <string name="first">1st</string>
     <string name="second">2nd</string>
-    <string name="new_event">New Event</string>
+    <string name="new_event">New Appointment</string>
     <string name="february">February</string>
     <string name="march">March</string>
     <string name="april">April</string>
@@ -40,10 +40,10 @@
     <string name="october">October</string>
     <string name="november">November</string>
     <string name="december">December</string>
-    <string name="regular_event">Regular Event</string>
-    <string name="no_upcoming_events"><![CDATA[<string name=\"no_upcoming_events\">Seems like you don\'t have any upcoming events.</string>]]></string>
+    <string name="regular_event">Regular Appointment</string>
+    <string name="no_upcoming_events"><![CDATA[Seems like you don\'t have any upcoming Appointments.]]></string>
     <string name="all_day">All-Day</string>
-    <string name="public_event_notification_text">An event is upcoming</string>
+    <string name="public_event_notification_text">An Appointment is upcoming</string>
     <string name="going">Going</string>
     <string name="not_going">Not Going</string>
     <string name="maybe_going">Maybe Going</string>
@@ -51,7 +51,7 @@
     <string name="my_status">My Status :</string>
     <string name="please_fill_location"><![CDATA[<string name=\"please_fill_location\">Please fill in a location to be shown on a map</string>]]></string>
     <string name="insufficient_permissions">You are not allowed to write in the selected calendar</string>
-    <string name="end_before_start">The event cannot end earlier than it starts</string>
+    <string name="end_before_start">The Appointment cannot end earlier than it starts</string>
     <string name="title_empty">Title cannot be empty</string>
     <string name="store_locally_only">Store Locally Only</string>
     <string name="add_another_reminder">Add Another Remider</string>
@@ -90,7 +90,7 @@
     <string name="times">Times</string>
     <string name="repeat_till">Repeat Till</string>
     <string name="forever">Forever</string>
-    <string name="edit_event">Edit Event</string>
+    <string name="edit_event">Edit Appointment</string>
     <string name="select_a_different_caldav_color">Select a different color (might be applied locally only)</string>
 
     <string name="last_used_one">Last Used One</string>
@@ -107,7 +107,7 @@
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>
     <string name="yearly">Yearly</string>
-    <string name="event_is_repeatable">The event is repeatable</string>
+    <string name="event_is_repeatable">The Appointment is repeatable</string>
     <string name="update_one_only">Update the selected occurrence only</string>
     <string name="update_all_occurrences">Update all occurrences</string>
     <string name="weeks_raw">weeks</string>
@@ -116,9 +116,9 @@
     <string name="location">Location</string>
     <string name="description">Description</string>
     <string name="add_another_attendee">Add Another Attendee</string>
-    <string name="duplicate_event">Duplicate Event</string>
+    <string name="duplicate_event">Duplicate Appointment</string>
     <string name="enter_a_country">Enter a country or time zone</string>
-    <string name="selection_contains_repetition">The selection contains repeating events</string>
+    <string name="selection_contains_repetition">The selection contains repeating Appointments</string>
     <string name="delete_one_only">Delete the selected occurrence only</string>
     <string name="delete_future_occurrences">Delete this and all future occurrences</string>
     <string name="delete_all_occurrences">Delete all occurrences</string>
@@ -133,6 +133,7 @@
     <string name="not_avail_bapunagar">Only 2 slots allowed in same time in Bapunagar</string>
     <string name="not_avail_nikol">Only 2 slots allowed in same time in Nikol</string>
     <string name="add_appointment">Add Appointment</string>
+    <string name="not_selected_area">Please Select Area</string>
 
     <string-array name="registration_area">
         <item>Bapunagar</item>

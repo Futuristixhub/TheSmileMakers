@@ -24,11 +24,11 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
     lateinit var spinner: Spinner
     lateinit var spinner_tratment: Spinner
     companion object {
-        lateinit var mActivity: DashboardActivity
+       // lateinit var mActivity: DashboardActivity
         var fragment: DetailFragment? = null
 
-        fun newInstance(mActivity: DashboardActivity) : DetailFragment? {
-            this.mActivity = mActivity
+        fun newInstance() : DetailFragment? {
+            //this.mActivity = mActivity
             if (fragment == null)
                 fragment = DetailFragment()
             val bundle = Bundle()
@@ -38,7 +38,7 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     var binding: FragmentDetailBinding? = null
-    val addPatientFragmentVM = DetailFragmentVM(this, mActivity)
+    val addPatientFragmentVM = DetailFragmentVM()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

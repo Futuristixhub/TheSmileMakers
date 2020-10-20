@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
+import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.commons.extensions.toast
 import com.smilemakers.R
 import com.smilemakers.dashBoard.appointmentFragment.addAppointment.AppointmentFormActivity
 import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
@@ -17,6 +19,7 @@ import com.smilemakers.dashBoard.appointmentFragment.calendar.NavigationListener
 import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
 import com.smilemakers.utils.*
 import com.smilemakers.utils.Formatter
+import kotlinx.android.synthetic.main.fragment_day.*
 import kotlinx.android.synthetic.main.fragment_day.view.*
 import kotlinx.android.synthetic.main.top_navigation.view.*
 import java.util.*
@@ -138,15 +141,25 @@ class DayFragment : Fragment() {
                 )
             )
         }
-
-        DayEventsAdapter(
-            activity as SimpleActivity,
-            eventsnew,
-            mHolder.day_events
-        ) {
+        if (eventsnew.size > 0) {
+            DayEventsAdapter(
+                activity as SimpleActivity,
+                eventsnew,
+                mHolder.day_events
+            ) {
                 editEvent(it as Event)
-        }.apply {
-            mHolder.day_events.adapter = this
+            }.apply {
+                mHolder.day_events.adapter = this
+            }
+            mHolder.top_header.visibility = View.VISIBLE
+            mHolder.btm_header.visibility = View.VISIBLE
+            mHolder.day_events.visibility = View.VISIBLE
+            mHolder.tv_empty.visibility = View.GONE
+        } else {
+            mHolder.top_header.visibility = View.GONE
+            mHolder.btm_header.visibility = View.GONE
+            mHolder.day_events.visibility = View.GONE
+            mHolder.tv_empty.visibility = View.VISIBLE
         }
     }
 

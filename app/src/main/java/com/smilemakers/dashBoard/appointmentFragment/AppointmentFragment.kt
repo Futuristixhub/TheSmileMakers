@@ -1,4 +1,4 @@
-package com.smilemakers.dashBoard.appointmentFragment.calendar
+package com.smilemakers.dashBoard.appointmentFragment
 
 
 import android.os.Bundle
@@ -7,22 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.views.MyViewPager
 import com.smilemakers.R
 import com.smilemakers.dashBoard.DashboardActivity
+import com.smilemakers.dashBoard.appointmentFragment.calendar.MyMonthPagerAdapter
+import com.smilemakers.dashBoard.appointmentFragment.calendar.NavigationListener
 import com.smilemakers.databinding.FragmentAppointmentBinding
 import com.smilemakers.utils.*
 import kotlinx.android.synthetic.main.fragment_appointment.view.*
 import org.joda.time.DateTime
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
 
 /**
  * A simple [Fragment] subclass.
  */
 class AppointmentFragment : Fragment(),
-    NavigationListener {
+    NavigationListener, KodeinAware {
+
+    override val kodein by kodein()
+
+    private lateinit var viewModel: AppointmentFragmentVM
+    private val factory: AppointMentViemodelFactory by instance()
 
     private val PREFILLED_MONTHS = 251
 
@@ -48,11 +59,7 @@ class AppointmentFragment : Fragment(),
     }
 
     var binding: FragmentAppointmentBinding? = null
-    val appointmentVM =
-        AppointmentFragmentVM(
-            this,
-            mActivity
-        )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +74,9 @@ class AppointmentFragment : Fragment(),
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointment, container, false)
-        binding?.vm = appointmentVM
+        val  viewModel =
+            ViewModelProviders.of(this, factory).get(AppointmentFragmentVM::class.java)
+        binding?.vm = viewModel
 
         binding?.root!!.calendar_fab.beVisibleIf(requireContext().config.storedView != YEARLY_VIEW)
         binding?.root!!.calendar_fab.setOnClickListener {

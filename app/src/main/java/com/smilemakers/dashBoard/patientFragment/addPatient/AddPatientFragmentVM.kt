@@ -1,16 +1,17 @@
 package com.smilemakers.dashBoard.patientFragment.addPatient
 
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import com.smilemakers.R
 import com.smilemakers.dashBoard.DashboardActivity
 import com.smilemakers.dashBoard.patientFragment.patientAddress.PatientAddressFragment
 
-class AddPatientFragmentVM(val mFragment: AddPatientFragment, val mActivity: DashboardActivity) : ViewModel() {
+class AddPatientFragmentVM() : ViewModel() {
     fun onAddressClick(view: View) {
-        val transaction = mActivity.supportFragmentManager.beginTransaction()
+        val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
         transaction.addToBackStack(null)
-        transaction.replace(R.id.fl_dash_container, PatientAddressFragment.newInstance(mActivity)!!)
+        transaction.replace(R.id.fl_dash_container, PatientAddressFragment.newInstance()!!)
         transaction.commit()
     }
 }

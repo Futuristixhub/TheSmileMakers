@@ -27,10 +27,10 @@ class DoctorAddressFragment : Fragment(), AdapterView.OnItemSelectedListener {
     lateinit var spinner_tratment: Spinner
     companion object{
         var fragment: DoctorAddressFragment? = null
-        var mActivity: DashboardActivity? = null
+    //   var mActivity: DashboardActivity? = null
 
-        fun newInstance(mActivity: DashboardActivity) : DoctorAddressFragment? {
-            this.mActivity = mActivity
+        fun newInstance() : DoctorAddressFragment? {
+            //this.mActivity = mActivity
             if (fragment == null)
                 fragment = DoctorAddressFragment()
             val bundle = Bundle()
@@ -40,7 +40,7 @@ class DoctorAddressFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     var binding: FragmentDoctorAddressBinding? = null
-    var addressVM = DoctorAddressFragmentVM(this, mActivity!!)
+    var addressVM = DoctorAddressFragmentVM()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

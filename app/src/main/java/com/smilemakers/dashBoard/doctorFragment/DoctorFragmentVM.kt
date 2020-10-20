@@ -1,6 +1,7 @@
 package com.smilemakers.dashBoard.doctorFragment
 
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -8,8 +9,9 @@ import com.smilemakers.R
 import com.smilemakers.dashBoard.DashboardActivity
 import com.smilemakers.dashBoard.doctorFragment.addDoctor.AddDoctorFragment
 import com.smilemakers.dashBoard.patientFragment.addPatient.AddPatientFragment
+import com.smilemakers.dashBoard.profile.ProfileRepository
 
-class DoctorFragmentVM(val mFragment: DoctorFragment, val mActivity: DashboardActivity) :
+class DoctorFragmentVM(val repository: DoctorRepository) :
     ViewModel() {
 
     val patientList = ArrayList<DoctorPOJO>()
@@ -19,8 +21,8 @@ class DoctorFragmentVM(val mFragment: DoctorFragment, val mActivity: DashboardAc
     }
 
     fun createList(recView: RecyclerView) {
-        val viewManager = LinearLayoutManager(mFragment.requireContext())
-        val mAdapter = DoctorListAdapter(mFragment.requireContext(), patientList)
+        val viewManager = LinearLayoutManager(recView.context)
+        val mAdapter = DoctorListAdapter(recView.context, patientList)
         recView.apply {
             setHasFixedSize(true)
             layoutManager = viewManager as RecyclerView.LayoutManager?
@@ -112,9 +114,9 @@ class DoctorFragmentVM(val mFragment: DoctorFragment, val mActivity: DashboardAc
     }
 
     fun onAddDoctorClick(view: View) {
-        val transaction = mActivity.supportFragmentManager.beginTransaction()
+        val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
         transaction.addToBackStack(null)
-        transaction.add(R.id.fl_dash_container, AddDoctorFragment.newInstance(mActivity)!!)
+        transaction.add(R.id.fl_dash_container, AddDoctorFragment.newInstance()!!)
         transaction.commit()
     }
 }

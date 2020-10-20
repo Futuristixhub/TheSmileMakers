@@ -18,11 +18,11 @@ import com.smilemakers.databinding.FragmentAddPatientBinding
 class AddPatientFragment : Fragment() {
 
     companion object {
-        lateinit var mActivity: DashboardActivity
+     //   lateinit var mActivity: DashboardActivity
         var fragment: AddPatientFragment? = null
 
-        fun newInstance(mActivity: DashboardActivity) : AddPatientFragment? {
-            this.mActivity = mActivity
+        fun newInstance() : AddPatientFragment? {
+          //  this.mActivity = mActivity
             if (fragment == null)
                 fragment = AddPatientFragment()
             val bundle = Bundle()
@@ -32,7 +32,7 @@ class AddPatientFragment : Fragment() {
     }
 
     var binding: FragmentAddPatientBinding? = null
-    val addPatientFragmentVM = AddPatientFragmentVM(this, mActivity)
+    val addPatientFragmentVM = AddPatientFragmentVM()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

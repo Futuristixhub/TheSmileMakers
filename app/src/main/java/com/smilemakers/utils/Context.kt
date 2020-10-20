@@ -10,8 +10,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.util.Range
+import android.view.View
+import android.widget.ProgressBar
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.app.NotificationCompat
+import com.google.android.material.snackbar.Snackbar
 import com.simplemobiletools.calendar.pro.helpers.MyWidgetListProvider
 import com.simplemobiletools.calendar.pro.helpers.MyWidgetMonthlyProvider
 import com.simplemobiletools.commons.extensions.*
@@ -50,6 +53,22 @@ fun Context.updateWidgets() {
     }
 
     updateListWidget()
+}
+
+fun ProgressBar.show() {
+    visibility = View.VISIBLE
+}
+
+fun ProgressBar.hide() {
+    visibility = View.GONE
+}
+
+fun View.snackbar(message: String) {
+    Snackbar.make(this, message, Snackbar.LENGTH_LONG).also { snackbar ->
+        snackbar.setAction("Ok") {
+            snackbar.dismiss()
+        }
+    }.show()
 }
 
 fun Context.recheckCalDAVCalendars(callback: () -> Unit) {

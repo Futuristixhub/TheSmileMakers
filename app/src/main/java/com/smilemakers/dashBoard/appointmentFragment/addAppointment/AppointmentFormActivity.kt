@@ -775,20 +775,24 @@ class AppointmentFormActivity : SimpleActivity() {
                 }
             }
             val intSelectButton: Int = rg_branch_name!!.checkedRadioButtonId
-            val radioButton: RadioButton = findViewById(intSelectButton)
-            location_name = radioButton.text.toString()
-
-            if (location_name == str) {
-                if (count_b >= 2) {
-                    toast(R.string.not_avail_bapunagar)
-                } else {
-                    saveEvent()
-                }
+            if (intSelectButton == null) {
+                toast(R.string.not_selected_area)
             } else {
-                if (count_n >= 2) {
-                    toast(R.string.not_avail_nikol)
+                val radioButton: RadioButton = findViewById(intSelectButton)
+                location_name = radioButton.text.toString()
+
+                if (location_name == str) {
+                    if (count_b >= 2) {
+                        toast(R.string.not_avail_bapunagar)
+                    } else {
+                        saveEvent()
+                    }
                 } else {
-                    saveEvent()
+                    if (count_n >= 2) {
+                        toast(R.string.not_avail_nikol)
+                    } else {
+                        saveEvent()
+                    }
                 }
             }
         }

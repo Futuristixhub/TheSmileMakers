@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
 import org.joda.time.DateTime
 
-fun Int.color(activit: FragmentActivity): Int = ContextCompat.getColor(activit, this)
+fun Int.color(activit: Context): Int = ContextCompat.getColor(activit, this)
 //fun Int.color(activity: FragmentActivity): Int = ContextCompat.getColor(activity, this)
 
 fun Int.string(activit: FragmentActivity): String = activit.getResources().getString(this)

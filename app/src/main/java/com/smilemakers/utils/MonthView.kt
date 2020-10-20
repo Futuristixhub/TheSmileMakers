@@ -106,7 +106,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
                         event.id!!,
                         "" + day.dayEvents.size,
                         event.startTS,
-                        event.color,
+                        event.color,//events count background color
                         day.indexOnMonthView,
                         daysCnt,
                         day.indexOnMonthView,
@@ -280,10 +280,15 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
 
         // event background rectangle
         val backgroundY = yPos + verticalOffset
-        val bgLeft = xPos + smallPadding + 20
-        val bgTop = backgroundY + smallPadding - eventTitleHeight + 10
-        var bgRight = xPos - smallPadding + dayWidth * event.daysCnt - 20
-        val bgBottom = backgroundY + smallPadding * 6 + 15
+//        val bgLeft = xPos + smallPadding + 20
+//        val bgTop = backgroundY + smallPadding - eventTitleHeight + 10
+//        var bgRight = xPos - smallPadding + dayWidth * event.daysCnt - 20
+//        val bgBottom = backgroundY + smallPadding * 6 + 15
+
+        val bgLeft = xPos + eventTitleHeight + 10
+        val bgTop = backgroundY + smallPadding - eventTitleHeight
+        var bgRight = xPos - eventTitleHeight + verticalOffset
+        val bgBottom = backgroundY + smallPadding * 2 + 8
         if (bgRight > canvas.width.toFloat()) {
             bgRight = canvas.width.toFloat() - smallPadding
             val newStartDayIndex = (event.startDayIndex / 7 + 1) * 7
@@ -306,56 +311,78 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
             getEventBackgroundColor(event, startDayIndex, endDayIndex)
         )
 
-        val display: Display = context.windowManager.getDefaultDisplay()
-        val screenHeight = display.height
-        val screenWidth = display.width
-        Log.i(ContentValues.TAG, "screenHeight = $screenHeight")
-        Log.i(ContentValues.TAG, "screenWidth  = $screenWidth")
+        /*    val display: Display = context.windowManager.getDefaultDisplay()
+            val screenHeight = display.height
+            val screenWidth = display.width
+            Log.i(ContentValues.TAG, "screenHeight = $screenHeight")
+            Log.i(ContentValues.TAG, "screenWidth  = $screenWidth")
+    */
+        drawEventTitle(
+            event,
+            canvas,
+            xPos + verticalOffset / 2 -5,
+            yPos + verticalOffset + 3,
+            bgRight - bgLeft - smallPadding,
+            startDayIndex,
+            endDayIndex
+        )
+        /*  if (checkIsTablet()) {
+              if (screenHeight >= 1100 && screenWidth >= 550) {
+                  drawEventTitle(
+                      event,
+                      canvas,
+                      xPos + 50,
+                      yPos + 85,
+                      bgRight - bgLeft - smallPadding,
+                      startDayIndex,
+                      endDayIndex
+                  )
+              } else {
+                  drawEventTitle(
+                      event,
+                      canvas,
+                      xPos + 35,
+                      yPos + 85,
+                      bgRight - bgLeft - smallPadding,
+                      startDayIndex,
+                      endDayIndex
+                  )
+              }
+          } else {
+              if (screenHeight == 1920 && screenWidth == 1080) {
+                  drawEventTitle(
+                      event,
+                      canvas,
+                      xPos + 50,
+                      yPos + 185,
+                      bgRight - bgLeft - smallPadding,
+                      startDayIndex,
+                      endDayIndex
+                  )
+              } else if (screenHeight >= 2200 && screenWidth >= 1200) {
+                  drawEventTitle(
+                      event,
+                      canvas,
+                      xPos + 70,
+                      yPos + 210,
+                      bgRight - bgLeft - smallPadding,
+                      startDayIndex,
+                      endDayIndex
+                  )
+              } else {
 
-        if (checkIsTablet()) {
-            drawEventTitle(
-                event,
-                canvas,
-                xPos ,
-                yPos +verticalOffset,
-                bgRight - bgLeft - smallPadding,
-                startDayIndex,
-                endDayIndex
-            )
-        } else {
-            if (screenHeight == 1920 && screenWidth == 1080) {
-                drawEventTitle(
-                    event,
-                    canvas,
-                    xPos + 50,
-                    yPos + 185,
-                    bgRight - bgLeft - smallPadding,
-                    startDayIndex,
-                    endDayIndex
-                )
-            } else if (screenHeight >= 2200 && screenWidth >= 1200) {
-                drawEventTitle(
-                    event,
-                    canvas,
-                    xPos + 70,
-                    yPos + 210,
-                    bgRight - bgLeft - smallPadding,
-                    startDayIndex,
-                    endDayIndex
-                )
-            }else{
-                drawEventTitle(
-                    event,
-                    canvas,
-                    xPos + 35,
-                    yPos + 145,
-                    bgRight - bgLeft - smallPadding,
-                    startDayIndex,
-                    endDayIndex
-                )
-            }
-        }
-
+                  drawEventTitle(
+                      event,
+                      canvas,
+                      xPos + 35,
+                      yPos + 145,
+                      bgRight - bgLeft - smallPadding,
+                      startDayIndex,
+                      endDayIndex
+                  )
+              }
+          }
+  */
         for (i in 0 until Math.min(event.daysCnt, 7 - event.startDayIndex % 7)) {
             dayVerticalOffsets.put(
                 event.startDayIndex + i,
@@ -417,7 +444,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
         }
 
         if (!startDay.isThisMonth) {
-            paintColor = paintColor.adjustAlpha(MEDIUM_ALPHA)
+           paintColor = paintColor.adjustAlpha(MEDIUM_ALPHA)
         }
 
         return getColoredPaint(paintColor)
@@ -453,7 +480,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
         }
 
         val curPaint = Paint(eventTitlePaint)
-        curPaint.color = paintColor
+        curPaint.color = resources.getColor(R.color.md_grey_black_dark)//event count color
         return curPaint
     }
 
