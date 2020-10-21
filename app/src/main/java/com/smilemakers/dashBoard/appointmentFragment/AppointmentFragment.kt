@@ -1,10 +1,15 @@
 package com.smilemakers.dashBoard.appointmentFragment
 
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -63,7 +68,7 @@ class AppointmentFragment : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     //   currentDayCode = arguments?.getString(DAY_CODE) ?: ""
+        //   currentDayCode = arguments?.getString(DAY_CODE) ?: ""
         currentDayCode = Formatter.getTodayCode()
         todayDayCode = Formatter.getTodayCode()
     }
@@ -74,7 +79,7 @@ class AppointmentFragment : Fragment(),
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointment, container, false)
-        val  viewModel =
+        val viewModel =
             ViewModelProviders.of(this, factory).get(AppointmentFragmentVM::class.java)
         binding?.vm = viewModel
 
@@ -84,10 +89,15 @@ class AppointmentFragment : Fragment(),
         }
 
         Coroutines.io {
-            var result=IcsImporter(requireContext()).importEvents("india.ics", 2, 0, false)
+            var result = IcsImporter(requireContext()).importEvents(
+                context!!.getString(R.string.india_holiday_file),
+                2,
+                0,
+                false
+            )
         }
 
-      //  binding?.root!!.background = ColorDrawable(context!!.config.backgroundColor)
+        //  binding?.root!!.background = ColorDrawable(context!!.config.backgroundColor)
         viewPager = binding?.root!!.fragment_months_viewpager
         viewPager!!.id = (System.currentTimeMillis() % 100000).toInt()
         setupFragment()
@@ -96,6 +106,27 @@ class AppointmentFragment : Fragment(),
     }
 
     private fun setupFragment() {
+
+        val bar: ActionBar? = (activity as AppCompatActivity?)!!.supportActionBar
+        if (bar != null) {
+            val tv = TextView(context)
+            val lp: ActionBar.LayoutParams = ActionBar.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,  // Width of TextView
+                ActionBar.LayoutParams.WRAP_CONTENT
+            ) // Height of TextView
+            tv.layoutParams = lp
+            tv.setText(getString(R.string.appointment))
+            tv.setTextColor(Color.WHITE)
+
+            val typedValue = TypedValue()
+            resources.getValue(R.dimen.actionBar_text, typedValue, true)
+            val myFloatValue = typedValue.float
+
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, myFloatValue)
+            bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+            bar.setCustomView(tv)
+        }
+
         val codes = getMonths(currentDayCode)
         val monthlyAdapter =
             MyMonthPagerAdapter(

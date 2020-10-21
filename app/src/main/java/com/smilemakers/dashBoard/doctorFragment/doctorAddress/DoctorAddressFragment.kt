@@ -22,9 +22,8 @@ import com.smilemakers.dashBoard.patientFragment.patientAddress.PatientAddressFr
 import com.smilemakers.databinding.FragmentDoctorAddressBinding
 import com.smilemakers.databinding.FragmentPatientAddressBinding
 
-class DoctorAddressFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    lateinit var spinner: Spinner
-    lateinit var spinner_tratment: Spinner
+class DoctorAddressFragment : Fragment(){
+
     companion object{
         var fragment: DoctorAddressFragment? = null
     //   var mActivity: DashboardActivity? = null
@@ -68,12 +67,4 @@ class DoctorAddressFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val text: String = parent?.getItemAtPosition(position).toString()
-        //textView.text = text
-    }
 }

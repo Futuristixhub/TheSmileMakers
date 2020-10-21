@@ -11,7 +11,7 @@
     android:hyphenationFrequency="none"
     android:paddingStart="@dimen/tiny_margin"
     android:paddingEnd="@dimen/tiny_margin"
-    android:textSize="@dimen/text_16"
+    android:textSize="@dimen/text_18"
     tools:targetApi="m"
     android:textColor="@color/md_grey_black"
     tools:text="1"

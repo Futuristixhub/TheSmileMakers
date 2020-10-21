@@ -25,14 +25,15 @@
                 android:id="@+id/cardView_patient"
                 android:layout_width="@dimen/space_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_15"
-                android:layout_marginTop="@dimen/space_15"
-                android:layout_marginEnd="@dimen/space_15"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_20"
+                android:layout_marginEnd="@dimen/space_20"
                 app:cardBackgroundColor="@color/colorAccentLight"
                 app:cardCornerRadius="@dimen/space_8"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -44,7 +45,7 @@
 
                     <ImageView
                         android:id="@+id/img_total_patients"
-                        android:layout_width="@dimen/space_70"
+                        android:layout_width="@dimen/space_80"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_10"
                         android:adjustViewBounds="true"
@@ -60,7 +61,7 @@
                         android:text="@string/lbl_total_patients"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        android:textSize="@dimen/text_18" />
+                        android:textSize="@dimen/text_24" />
 
                     <TextView
                         android:id="@+id/txt_total_patients_number"
@@ -70,18 +71,19 @@
                         android:elevation="@dimen/space_8"
                         android:text="2024"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18"
+                        android:textSize="@dimen/text_22"
                         android:textStyle="bold" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
                 android:id="@+id/cardView_appointment"
                 android:layout_width="@dimen/space_0"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_15"
-                android:layout_marginEnd="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_20"
+                android:layout_marginEnd="@dimen/space_20"
                 app:cardBackgroundColor="@color/colorAccentLight"
                 app:cardCornerRadius="@dimen/space_8"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +99,7 @@
 
                     <ImageView
                         android:id="@+id/img_total_admins"
-                        android:layout_width="@dimen/space_70"
+                        android:layout_width="@dimen/space_80"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_10"
                         android:adjustViewBounds="true"
@@ -113,7 +115,7 @@
                         android:textStyle="bold"
                         android:text="@string/lbl_total_admin"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18" />
+                        android:textSize="@dimen/text_24" />
 
                     <TextView
                         android:id="@+id/txt_total_admins_number"
@@ -123,7 +125,7 @@
                         android:elevation="@dimen/space_8"
                         android:text="7"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18"
+                        android:textSize="@dimen/text_22"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -137,12 +139,13 @@
                 app:layout_constraintGuide_percent="0.5" />
 
             <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
                 android:id="@+id/cardView_outstanding_appointments"
                 android:layout_width="@dimen/space_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_15"
-                android:layout_marginEnd="@dimen/space_15"
-                android:layout_marginTop="@dimen/space_15"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginEnd="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_20"
                 app:cardBackgroundColor="@color/colorAccentLight"
                 app:cardCornerRadius="@dimen/space_8"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +162,7 @@
 
                     <ImageView
                         android:id="@+id/img_total_appointments"
-                        android:layout_width="@dimen/space_70"
+                        android:layout_width="@dimen/space_80"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_10"
                         android:adjustViewBounds="true"
@@ -175,7 +178,7 @@
                         android:text="@string/lbl_total_doctors"
                         android:textStyle="bold"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18" />
+                        android:textSize="@dimen/text_24" />
 
                     <TextView
                         android:id="@+id/txt_total_appointments_number"
@@ -185,20 +188,20 @@
                         android:elevation="@dimen/space_8"
                         android:text="14"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18"
+                        android:textSize="@dimen/text_22"
                         android:textStyle="bold" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-
             <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
                 android:id="@+id/cardView_city_one"
                 android:layout_width="@dimen/space_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_15"
-                android:layout_marginTop="@dimen/space_15"
-                android:layout_marginEnd="@dimen/space_15"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_20"
+                android:layout_marginEnd="@dimen/space_20"
                 app:cardBackgroundColor="@color/colorAccentLight"
                 app:cardCornerRadius="@dimen/space_8"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -214,7 +217,7 @@
 
                     <ImageView
                         android:id="@+id/img_city_one"
-                        android:layout_width="@dimen/space_70"
+                        android:layout_width="@dimen/space_80"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_10"
                         android:adjustViewBounds="true"
@@ -230,18 +233,19 @@
                         android:elevation="@dimen/space_8"
                         android:text="Bapunagar"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18"
+                        android:textSize="@dimen/text_24"
                         android:textStyle="bold" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
                 android:id="@+id/cardView_city_two"
                 android:layout_width="@dimen/space_0"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_15"
-                android:layout_marginEnd="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_20"
+                android:layout_marginEnd="@dimen/space_20"
                 app:cardBackgroundColor="@color/colorAccentLight"
                 app:cardCornerRadius="@dimen/space_8"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -257,7 +261,7 @@
 
                     <ImageView
                         android:id="@+id/img_city_two"
-                        android:layout_width="@dimen/space_70"
+                        android:layout_width="@dimen/space_80"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_10"
                         android:adjustViewBounds="true"
@@ -273,7 +277,7 @@
                         android:elevation="@dimen/space_8"
                         android:text="Nikol"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18"
+                        android:textSize="@dimen/text_24"
                         android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

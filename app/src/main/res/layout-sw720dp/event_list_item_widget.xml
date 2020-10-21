@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/event_item_color_bar"
         android:text="13:00"
-        android:textSize="@dimen/text_20"/>
+        android:textSize="@dimen/text_22"/>
 
     <TextView
         android:id="@+id/event_item_end"
@@ -34,7 +34,7 @@
         android:layout_toEndOf="@+id/event_item_color_bar"
         android:includeFontPadding="false"
         android:text="15:00"
-        android:textSize="@dimen/text_20"/>
+        android:textSize="@dimen/text_22"/>
 
     <TextView
         android:id="@+id/event_item_title"
@@ -45,7 +45,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingEnd="@dimen/small_margin"
-        android:textSize="@dimen/text_20"
+        android:textSize="@dimen/text_22"
         tools:text="Event title"/>
 
     <TextView
@@ -59,7 +59,7 @@
         android:includeFontPadding="false"
         android:maxLines="1"
         android:paddingEnd="@dimen/small_margin"
-        android:textSize="@dimen/text_20"
+        android:textSize="@dimen/text_22"
         tools:text="Event description"/>
 
 </RelativeLayout>

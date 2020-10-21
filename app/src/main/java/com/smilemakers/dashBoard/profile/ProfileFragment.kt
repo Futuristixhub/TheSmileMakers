@@ -1,10 +1,15 @@
 package com.smilemakers.dashBoard.profile
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.smilemakers.R
@@ -48,6 +53,26 @@ class ProfileFragment : Fragment(), KodeinAware {
         val  viewModel =
             ViewModelProviders.of(this, factory).get(ProfileVM::class.java)
         binding?.vm = viewModel
+
+        val bar: ActionBar? = (activity as AppCompatActivity?)!!.supportActionBar
+        if (bar != null) {
+            val tv = TextView(context)
+            val lp: ActionBar.LayoutParams = ActionBar.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,  // Width of TextView
+                ActionBar.LayoutParams.WRAP_CONTENT
+            ) // Height of TextView
+            tv.layoutParams = lp
+            tv.setText(getString(R.string.profile))
+            tv.setTextColor(Color.WHITE)
+
+            val typedValue = TypedValue()
+            resources.getValue(R.dimen.actionBar_text, typedValue, true)
+            val myFloatValue = typedValue.float
+
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, myFloatValue)
+            bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+            bar.setCustomView(tv)
+        }
         return binding?.root
     }
 

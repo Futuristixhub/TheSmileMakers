@@ -26,8 +26,8 @@ class PatientAddressFragmentVM() : ViewModel() {
 
     fun onPreviousClick(view: View) {
         val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-        transaction.addToBackStack(null)
-        transaction.replace(R.id.fl_dash_container, AddPatientFragment.newInstance()!!)
+     //   transaction.addToBackStack(null)
+        transaction.replace(R.id.fl_container, AddPatientFragment.newInstance()!!)
         transaction.commit()
     }
 

@@ -261,7 +261,7 @@ class EventsHelper(val context: Context) {
             eventTypeColors.put(it.id!!, it.color)
         }
 
-        val primaryColor = context.resources.getColor(R.color.colorPrimary)
+        val primaryColor = context.resources.getColor(R.color.colorAccentLight)
         events.forEach {
             it.updateIsPastEvent()
             it.color = eventTypeColors.get(it.startTS) ?: primaryColor//background color set

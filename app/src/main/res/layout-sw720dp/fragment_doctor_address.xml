@@ -21,11 +21,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/space_12"
+            android:padding="@dimen/space_25"
             tools:context=".dashBoard.patientFragment.patientAddress.PatientAddressFragment">
 
 
             <EditText
+                android:textSize="@dimen/text_22"
                 android:id="@+id/ed_address_line_1"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
@@ -40,6 +41,7 @@
                  />
 
             <EditText
+                android:textSize="@dimen/text_22"
                 android:id="@+id/ed_address_line_2"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
@@ -51,6 +53,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ed_address_line_1" />
 
             <EditText
+                android:textSize="@dimen/text_22"
                 android:id="@+id/ed_address_city"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
@@ -75,11 +78,13 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_8"
                 android:hint="State"
+                android:textSize="@dimen/text_22"
                 app:layout_constraintEnd_toStartOf="@id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_city" />
 
             <EditText
+                android:textSize="@dimen/text_22"
                 android:id="@+id/ed_address_pin"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_8"
@@ -97,6 +102,7 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Country"
+                android:textSize="@dimen/text_22"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_pin" />
@@ -118,7 +124,7 @@
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_22"
+                android:textSize="@dimen/text_24"
                 android:textStyle="bold" />
 
 
@@ -133,7 +139,7 @@
                 android:layout_marginStart="@dimen/space_10"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_22"
+                android:textSize="@dimen/text_24"
                 android:textStyle="bold"
                  />
             </LinearLayout>

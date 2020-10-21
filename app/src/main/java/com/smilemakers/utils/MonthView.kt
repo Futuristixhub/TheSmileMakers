@@ -225,7 +225,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
             val xPos = horizontalOffset + (i + 1) * dayWidth - dayWidth / 2
             var weekDayLetterPaint = paint
             if (i == currDayOfWeek) {
-                weekDayLetterPaint = getColoredPaint(primaryColor)
+                weekDayLetterPaint = getColoredPaint(resources.getColor(R.color.colorPrimaryDark))
             }
             canvas.drawText(dayLetters[i], xPos, weekDaysLetterHeight * 0.7f, weekDayLetterPaint)
         }
@@ -480,7 +480,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
         }
 
         val curPaint = Paint(eventTitlePaint)
-        curPaint.color = resources.getColor(R.color.md_grey_black_dark)//event count color
+        curPaint.color = resources.getColor(R.color.white)//event count color
         return curPaint
     }
 
@@ -490,7 +490,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
         if (!day.isThisMonth) {
             paintColor = paintColor.adjustAlpha(MEDIUM_ALPHA)
         }
-        curPaint.color = paintColor
+        curPaint.color = resources.getColor(R.color.colorPrimaryDark)
         return curPaint
     }
 

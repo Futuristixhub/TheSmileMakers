@@ -1,6 +1,7 @@
 package com.smilemakers.dashBoard.appointmentFragment.calendar
 
 import android.content.Intent
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -79,45 +80,56 @@ class DayEventsAdapter(
                     context,
                     event.event.startTS
                 )
-            var eventlstnew = arrayListOf<Event>()
+            val eventlstnew = arrayListOf<Event>()
             for (i in event.eventlst.indices) {
                 if (i < event.eventlst.size) {
                     if (event.event.startTS.equals(event.eventlst[i].startTS)) {
-                        eventlstnew!!.add(event.eventlst[i])
+                        eventlstnew.add(event.eventlst[i])
                     }
                 }
             }
             for (i in eventlstnew.indices) {
-                if (eventlstnew[i].location == "Bapunagar") {
+                if (eventlstnew[i].location == context.getString(R.string.bapunagar)) {
                     if (event_item_title1.text.isEmpty()) {
                         event_item_title1.text = eventlstnew[i].title
-                        event_item_title1.hint= eventlstnew[i].id.toString()
+                        event_item_title1.hint = eventlstnew[i].id.toString()
                     } else if (event_item_title2.text.isEmpty()) {
                         event_item_title2.text = eventlstnew[i].title
-                        event_item_title2.hint= eventlstnew[i].id.toString()
+                        event_item_title2.hint = eventlstnew[i].id.toString()
                     }
-                } else if (eventlstnew[i].location == "Nikol") {
+                } else if (eventlstnew[i].location == context.getString(R.string.nikol)) {
                     if (event_item_title3.text.isEmpty()) {
                         event_item_title3.text = eventlstnew[i].title
-                        event_item_title3.hint= eventlstnew[i].id.toString()
+                        event_item_title3.hint = eventlstnew[i].id.toString()
                     } else if (event_item_title4.text.isEmpty()) {
                         event_item_title4.text = eventlstnew[i].title
-                        event_item_title4.hint= eventlstnew[i].id.toString()
+                        event_item_title4.hint = eventlstnew[i].id.toString()
                     }
                 }
             }
 
             event_item_title1.setOnClickListener {
-               editEvent(event_item_title1.hint.toString(),event.event.startTS)
+                if (!event_item_title1.text.isEmpty()) {
+                    editEvent(event_item_title1.hint.toString(), event.event.startTS)
+                }
             }
+
             event_item_title2.setOnClickListener {
-                editEvent(event_item_title2.hint.toString(),event.event.startTS)
+                if (!event_item_title2.text.isEmpty()) {
+                    editEvent(event_item_title2.hint.toString(), event.event.startTS)
+                }
             }
+
             event_item_title3.setOnClickListener {
-                editEvent(event_item_title3.hint.toString(),event.event.startTS)
+                if (!event_item_title3.text.isEmpty()) {
+                    editEvent(event_item_title3.hint.toString(), event.event.startTS)
+                }
             }
+
             event_item_title4.setOnClickListener {
-                editEvent(event_item_title4.hint.toString(),event.event.startTS)
+                if (!event_item_title4.text.isEmpty()) {
+                    editEvent(event_item_title4.hint.toString(), event.event.startTS)
+                }
             }
 
             event_item_color_bar.background.applyColorFilter(event.event.color)
@@ -125,10 +137,10 @@ class DayEventsAdapter(
         }
     }
 
-    private fun editEvent(id: String, startTs:Long) {
+    private fun editEvent(id: String, startTs: Long) {
         Intent(activity, AppointmentFormActivity::class.java).apply {
             putExtra(EVENT_ID, id.toLong())
-            putExtra(EVENT_OCCURRENCE_TS,startTs)
+            putExtra(EVENT_OCCURRENCE_TS, startTs)
             activity.startActivity(this)
         }
     }
@@ -137,23 +149,23 @@ class DayEventsAdapter(
 
     private fun askConfirmDelete() {
         val eventIds = selectedKeys.map { it.toLong() }.toMutableList()
-        val eventsToDelete = events.filter { selectedKeys.contains(it.event!!.id?.toInt()) }
-        val timestamps = eventsToDelete.map { it.event!!.startTS }
+        val eventsToDelete = events.filter { selectedKeys.contains(it.event.id?.toInt()) }
+        val timestamps = eventsToDelete.map { it.event.startTS }
         val positions = getSelectedItemPositions()
 
-        val hasRepeatableEvent = eventsToDelete.any { it.event!!.repeatInterval > 0 }
+        val hasRepeatableEvent = eventsToDelete.any { it.event.repeatInterval > 0 }
         DeleteEventDialog(activity, eventIds, hasRepeatableEvent) { it ->
             events.removeAll(eventsToDelete)
 
             ensureBackgroundThread {
                 val nonRepeatingEventIDs =
-                    eventsToDelete.asSequence().filter { it.event!!.repeatInterval == 0 }
-                        .mapNotNull { it.event!!.id }.toMutableList()
+                    eventsToDelete.asSequence().filter { it.event.repeatInterval == 0 }
+                        .mapNotNull { it.event.id }.toMutableList()
                 activity.eventsHelper.deleteEvents(nonRepeatingEventIDs, true)
 
                 val repeatingEventIDs =
-                    eventsToDelete.asSequence().filter { it.event!!.repeatInterval != 0 }
-                        .mapNotNull { it.event!!.id }.toList()
+                    eventsToDelete.asSequence().filter { it.event.repeatInterval != 0 }
+                        .mapNotNull { it.event.id }.toList()
                 activity.handleEventDeleting(repeatingEventIDs, timestamps, it)
                 activity.runOnUiThread {
                     removeSelectedItems(positions)

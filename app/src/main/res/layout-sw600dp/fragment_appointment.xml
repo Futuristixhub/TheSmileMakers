@@ -33,7 +33,7 @@
                 android:layout_margin="@dimen/space_16"
                 android:contentDescription="@string/new_event"
                 android:src="@drawable/ic_add"
-                app:backgroundTint="@color/colorPrimary"
+                app:backgroundTint="@color/colorAccent"
                 app:rippleColor="@color/pressed_item_foreground" />
 
             <RelativeLayout

@@ -23,11 +23,12 @@ import com.smilemakers.databinding.FragmentDetailBinding
 class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
     lateinit var spinner: Spinner
     lateinit var spinner_tratment: Spinner
+
     companion object {
-       // lateinit var mActivity: DashboardActivity
+        // lateinit var mActivity: DashboardActivity
         var fragment: DetailFragment? = null
 
-        fun newInstance() : DetailFragment? {
+        fun newInstance(): DetailFragment? {
             //this.mActivity = mActivity
             if (fragment == null)
                 fragment = DetailFragment()
@@ -51,7 +52,7 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.registration_area,
-            android.R.layout.simple_spinner_item
+            R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
@@ -61,7 +62,7 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val adapter_treatment = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.treatment_type,
-            android.R.layout.simple_spinner_item
+            R.layout.simple_spinner_item
         )
         adapter_treatment.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_tratment.adapter = adapter_treatment

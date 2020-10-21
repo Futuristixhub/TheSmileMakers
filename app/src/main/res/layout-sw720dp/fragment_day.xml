@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="13:00 PM"
-            android:textSize="@dimen/text_20"
+            android:textSize="@dimen/text_24"
             android:visibility="invisible" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:paddingBottom="@dimen/normal_margin"
             android:text="@string/bapunagar"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_20" />
+            android:textSize="@dimen/text_24" />
 
         <ImageView
             android:layout_width="@dimen/event_color_width"
@@ -60,7 +60,7 @@
             android:paddingEnd="@dimen/activity_margin"
             android:text="@string/nikol"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_20" />
+            android:textSize="@dimen/text_24" />
 
     </LinearLayout>
 
@@ -84,7 +84,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_20"
+            android:textSize="@dimen/text_24"
             android:visibility="invisible"
             android:text="13:00 PM" />
 
@@ -99,7 +99,7 @@
             android:text="@string/seat1"
             android:maxLines="1"
             android:textColor="@color/md_grey_black"
-            android:textSize="@dimen/text_20" />
+            android:textSize="@dimen/text_24" />
 
         <ImageView
             android:layout_width="@dimen/event_color_width"
@@ -115,7 +115,7 @@
             android:text="@string/seat2"
             android:maxLines="1"
             android:textColor="@color/md_grey_black"
-            android:textSize="@dimen/text_20" />
+            android:textSize="@dimen/text_24" />
 
         <ImageView
             android:layout_width="@dimen/event_color_width"
@@ -131,7 +131,7 @@
             android:text="@string/seat1"
             android:maxLines="1"
             android:textColor="@color/md_grey_black"
-            android:textSize="@dimen/text_20" />
+            android:textSize="@dimen/text_24" />
 
         <ImageView
             android:layout_width="@dimen/event_color_width"
@@ -147,7 +147,7 @@
             android:text="@string/seat2"
             android:maxLines="1"
             android:textColor="@color/md_grey_black"
-            android:textSize="@dimen/text_20" />
+            android:textSize="@dimen/text_24" />
 
     </LinearLayout>
 
@@ -167,7 +167,7 @@
         android:layout_below="@+id/top_value"
         android:gravity="center"
         android:visibility="gone"
-        android:textSize="@dimen/text_20"
+        android:textSize="@dimen/text_24"
         android:text="@string/no_upcoming_events" />
 
 </RelativeLayout>

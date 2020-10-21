@@ -13,7 +13,7 @@
         android:title="Appointment"
         android:icon="@drawable/ic_appointment"/>
     <item android:id="@+id/btm_nav_action_settings"
-        android:title="Settings"
+        android:title="Profile"
         android:icon="@drawable/ic_settings"/>
 
 </menu>

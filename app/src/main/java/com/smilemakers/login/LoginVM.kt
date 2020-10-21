@@ -9,6 +9,7 @@ import com.smilemakers.R
 import com.smilemakers.dashBoard.DashboardActivity
 import com.smilemakers.forgotPassword.ForgotPasswordActivity
 import com.smilemakers.utils.color
+import com.smilemakers.utils.showErrorSnackBar
 
 class LoginVM(private val repository: UserRepository) : ViewModel() {
 
@@ -53,34 +54,23 @@ class LoginVM(private val repository: UserRepository) : ViewModel() {
     fun isValid(view: View): Boolean {
 
         if (mobileNumber.value == null || mobileNumber.value?.isEmpty()!!) {
-            showErrorSnackBar(view,"Please enter mobile number", "OK")
+            view.context.showErrorSnackBar(view,view.context.getString(R.string.empty_mob_no))
             return false
         }
         if (mobileNumber.value?.length!! < 10) {
-            showErrorSnackBar(view,"Please enter valid mobile number", "OK")
+            view.context.showErrorSnackBar(view,view.context.getString(R.string.valid_mob_no))
             return false
         }
         if (password.value == null || password.value?.isEmpty()!!) {
-            showErrorSnackBar(view,"Please enter password", "OK")
+            view.context.showErrorSnackBar(view,view.context.getString(R.string.empty_pwd))
             return false
         }
         if (password.value?.length!! < 4) {
-            showErrorSnackBar(view,"Password must have at least 4 characters", "OK")
+            view.context.showErrorSnackBar(view,view.context.getString(R.string.valid_pwd))
             return false
         }
         return true
     }
 
-    fun showErrorSnackBar(view: View, errorMsg: String, actionBtn: String = "") {
-        val errorSnackbar =
-            Snackbar.make(view, errorMsg, Snackbar.LENGTH_LONG)
-        if (actionBtn.isNotEmpty()) {
-            errorSnackbar.setAction(actionBtn) {
-                if (errorSnackbar.isShown)
-                    errorSnackbar.dismiss()
-            }
-            errorSnackbar.setActionTextColor(R.color.white.color(view.context))
-        }
-        errorSnackbar.show()
-    }
+
 }

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/proceed_with_deletion"
-        android:textSize="@dimen/text_20"/>
+        android:textSize="@dimen/text_22"/>
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/delete_event_repeat_description"
@@ -23,7 +23,7 @@
         android:layout_marginTop="@dimen/activity_margin"
         android:paddingBottom="@dimen/normal_margin"
         android:text="@string/event_is_repeatable"
-        android:textSize="@dimen/text_18"/>
+        android:textSize="@dimen/text_20"/>
 
     <RadioGroup
         android:id="@+id/delete_event_radio_view"
@@ -37,7 +37,7 @@
             android:checked="true"
             android:paddingBottom="@dimen/normal_margin"
             android:paddingTop="@dimen/normal_margin"
-            android:textSize="@dimen/text_18"
+            android:textSize="@dimen/text_20"
             android:text="@string/delete_one_only"/>
 
         <com.simplemobiletools.commons.views.MyCompatRadioButton
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/normal_margin"
             android:paddingTop="@dimen/normal_margin"
-            android:textSize="@dimen/text_18"
+            android:textSize="@dimen/text_20"
             android:text="@string/delete_future_occurrences"/>
 
         <com.simplemobiletools.commons.views.MyCompatRadioButton
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/normal_margin"
             android:paddingTop="@dimen/normal_margin"
-            android:textSize="@dimen/text_18"
+            android:textSize="@dimen/text_20"
             android:text="@string/delete_all_occurrences"/>
     </RadioGroup>
 </LinearLayout>

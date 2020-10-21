@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="login_app_logo">200dp</dimen>
     <dimen name="app_logo_size_2">100dp</dimen>
+    <item name="actionBar_text" type="dimen" format="float">20</item>
     <dimen name="space_0">0dp</dimen>
     <dimen name="space_1">1dp</dimen>
     <dimen name="space_2">2dp</dimen>
@@ -52,6 +53,7 @@
     <dimen name="text_22">22sp</dimen>
     <dimen name="text_24">24sp</dimen>
     <dimen name="text_25">25sp</dimen>
+    <dimen name="text_26">26sp</dimen>
     <dimen name="space_200">200dp</dimen>
     <dimen name="space_35">35dp</dimen>
     <dimen name="event_color_bar_width">4dp</dimen>
@@ -66,4 +68,8 @@
     <dimen name="weekly_view_events_height">1440dp</dimen>
     <dimen name="event_color_width">1dp</dimen>
     <dimen name="norml_text_size">16sp</dimen>
+
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">18sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">20sp</dimen>
+    <dimen name="design_bottom_navigation_height" tools:override="true">60dp</dimen>
 </resources>

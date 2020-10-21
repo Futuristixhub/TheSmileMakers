@@ -48,7 +48,7 @@
 
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">@dimen/space_0</item>
-        <item name="android:layout_height">@dimen/space_50</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/space_16</item>
         <item name="android:layout_marginEnd">@dimen/space_16</item>
         <item name="android:padding">@dimen/space_10</item>

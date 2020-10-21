@@ -29,8 +29,8 @@ class AppointmentFragmentVM( val repository: AppointmentRepository) : ViewModel(
         val datePickerDialog = DatePickerDialog(view.context, R.style.DatePickerDialog, object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
                 val date = "$dayOfMonth-$month-$year"
-                val inputPatter = "dd-MM-yyyy"
-                val outputPatter = "dd-MMM-yyyy"
+                val inputPatter = view!!.context.getString(R.string.date_format)
+                val outputPatter = view!!.context.getString(R.string.date_format2)
                 val inputFormat = SimpleDateFormat(inputPatter)
                 val outputFormat = SimpleDateFormat(outputPatter)
                 var formattedDate = inputFormat.parse(date)

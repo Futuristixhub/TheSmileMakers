@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_drawable_grey_ligh"
+        android:background="@color/grey"
         tools:context=".dashBoard.paitentFragment.PaitentFragment">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -19,6 +19,7 @@
             android:layout_height="match_parent"
             android:paddingTop="@dimen/space_8"
             android:paddingBottom="@dimen/space_80"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:clipToPadding="false"
             tools:listitem="@layout/patient_list_single_item"/>
 

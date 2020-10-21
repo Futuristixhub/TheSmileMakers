@@ -10,8 +10,8 @@ import com.smilemakers.dashBoard.patientFragment.patientAddress.PatientAddressFr
 class AddPatientFragmentVM() : ViewModel() {
     fun onAddressClick(view: View) {
         val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-        transaction.addToBackStack(null)
-        transaction.replace(R.id.fl_dash_container, PatientAddressFragment.newInstance()!!)
+      //  transaction.addToBackStack(null)
+        transaction.replace(R.id.fl_container, PatientAddressFragment.newInstance()!!)
         transaction.commit()
     }
 }

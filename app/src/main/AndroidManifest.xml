@@ -36,6 +36,8 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".dashBoard.appointmentFragment.addAppointment.AppointmentFormActivity" />
+        <activity android:name=".dashBoard.doctorFragment.addDoctor.AddDoctorActivity" />
+        <activity android:name=".dashBoard.patientFragment.addPatient.AddPatientActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

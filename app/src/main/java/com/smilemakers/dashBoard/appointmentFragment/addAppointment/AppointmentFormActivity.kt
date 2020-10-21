@@ -3,26 +3,22 @@ package com.smilemakers.dashBoard.appointmentFragment.addAppointment
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
-import android.database.Cursor
+import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
-import android.provider.CalendarContract
-import android.provider.ContactsContract
-import android.text.TextUtils
 import android.util.Log
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import androidx.appcompat.app.ActionBar
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
-import com.simplemobiletools.commons.models.RadioItem
-import com.simplemobiletools.commons.views.MyAutoCompleteTextView
 import com.smilemakers.R
 import com.smilemakers.dashBoard.appointmentFragment.calendar.*
 import com.smilemakers.utils.*
@@ -91,7 +87,26 @@ class AppointmentFormActivity : SimpleActivity() {
             return
         }
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val bar: ActionBar? = supportActionBar
+        if (bar != null) {
+            val tv = TextView(applicationContext)
+            val lp: ActionBar.LayoutParams = ActionBar.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,  // Width of TextView
+                ActionBar.LayoutParams.WRAP_CONTENT
+            ) // Height of TextView
+            tv.layoutParams = lp
+            tv.setText(getString(R.string.add_appointment))
+            tv.setTextColor(Color.WHITE)
+
+            val typedValue = TypedValue()
+            resources.getValue(R.dimen.actionBar_text, typedValue, true)
+            val myFloatValue = typedValue.float
+
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, myFloatValue)
+            bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+            bar.setDisplayHomeAsUpEnabled(true)
+            bar.setCustomView(tv)
+        }
 
         str = resources.getString(R.string.bapunagar)
         dayCode = intent.extras!!.getString(DAY_CODE, "")
@@ -179,7 +194,7 @@ class AppointmentFormActivity : SimpleActivity() {
         val adapter = ArrayAdapter.createFromResource(
             this,
             R.array.treatment_type,
-            android.R.layout.simple_spinner_item
+            R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sp_treatment.adapter = adapter
@@ -206,7 +221,7 @@ class AppointmentFormActivity : SimpleActivity() {
         val adapter1 = ArrayAdapter.createFromResource(
             this,
             R.array.doctors_name,
-            android.R.layout.simple_spinner_item
+            R.layout.simple_spinner_item
         )
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sp_doctors.adapter = adapter1
@@ -356,7 +371,26 @@ class AppointmentFormActivity : SimpleActivity() {
         val realStart = if (mEventOccurrenceTS == 0L) mEvent.startTS else mEventOccurrenceTS
         val duration = mEvent.endTS - mEvent.startTS
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-        updateActionBarTitle(getString(R.string.edit_event))
+        val bar: ActionBar? = supportActionBar
+        if (bar != null) {
+            val tv = TextView(applicationContext)
+            val lp: ActionBar.LayoutParams = ActionBar.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,  // Width of TextView
+                ActionBar.LayoutParams.WRAP_CONTENT
+            ) // Height of TextView
+            tv.layoutParams = lp
+            tv.setText(getString(R.string.edit_event))
+            tv.setTextColor(Color.WHITE)
+
+            val typedValue = TypedValue()
+            resources.getValue(R.dimen.actionBar_text, typedValue, true)
+            val myFloatValue = typedValue.float
+
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, myFloatValue)
+            bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+            bar.setDisplayHomeAsUpEnabled(true)
+            bar.setCustomView(tv)
+        }
         mOriginalTimeZone = mEvent.timeZone
         if (config.allowChangingTimeZones) {
             try {
@@ -365,7 +399,8 @@ class AppointmentFormActivity : SimpleActivity() {
                 mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
                     .withZone(DateTimeZone.forID(mOriginalTimeZone))
             } catch (e: Exception) {
-                showErrorToast(e)
+              //  showErrorToast(e)
+                showErrorSnackBar(root_layout, e.toString())
                 mEventStartDateTime = Formatter.getDateTimeFromTS(realStart)
                 mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
             }
@@ -707,15 +742,19 @@ class AppointmentFormActivity : SimpleActivity() {
     }
 
     private fun checkValidate() {
+        val imm: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(root_layout.getWindowToken(), 0)
+
         ptitle = ed_appointment_patient_name.value
         if (ptitle.isEmpty()) {
-            toast(R.string.title_empty)
+            showErrorSnackBar(root_layout, getString(R.string.title_empty))
             runOnUiThread {
                 ed_appointment_patient_name.requestFocus()
             }
             return
         } else if (location_name.isEmpty()) {
-            toast("Please Select Branch First")
+            showErrorSnackBar(root_layout, getString(R.string.branch_error))
             runOnUiThread {
                 rg_branch_name.requestFocus()
             }
@@ -775,21 +814,28 @@ class AppointmentFormActivity : SimpleActivity() {
                 }
             }
             val intSelectButton: Int = rg_branch_name!!.checkedRadioButtonId
-            if (intSelectButton == null) {
-                toast(R.string.not_selected_area)
+            Log.d("gggg", "....." + intSelectButton)
+            if (intSelectButton < 0) {
+                showErrorSnackBar(root_layout, resources.getString(R.string.not_selected_area))
             } else {
                 val radioButton: RadioButton = findViewById(intSelectButton)
                 location_name = radioButton.text.toString()
 
                 if (location_name == str) {
                     if (count_b >= 2) {
-                        toast(R.string.not_avail_bapunagar)
+                        showErrorSnackBar(
+                            root_layout,
+                            resources.getString(R.string.not_avail_bapunagar)
+                        )
                     } else {
                         saveEvent()
                     }
                 } else {
                     if (count_n >= 2) {
-                        toast(R.string.not_avail_nikol)
+                        showErrorSnackBar(
+                            root_layout,
+                            resources.getString(R.string.not_avail_nikol)
+                        )
                     } else {
                         saveEvent()
                     }
@@ -818,7 +864,7 @@ class AppointmentFormActivity : SimpleActivity() {
             mEventEndDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
 
         if (newStartTS > newEndTS) {
-            toast(R.string.end_before_start)
+            showErrorSnackBar(root_layout, getString(R.string.end_before_start))
             return
         }
 
@@ -835,7 +881,10 @@ class AppointmentFormActivity : SimpleActivity() {
                     ?.apply {
                         if (!canWrite()) {
                             runOnUiThread {
-                                toast(R.string.insufficient_permissions)
+                                showErrorSnackBar(
+                                    root_layout,
+                                    getString(R.string.insufficient_permissions)
+                                )
                             }
                             return
                         }

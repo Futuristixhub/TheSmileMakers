@@ -2,14 +2,11 @@ package com.simplemobiletools.calendar.pro.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
-import com.simplemobiletools.commons.extensions.showErrorToast
-import com.simplemobiletools.commons.extensions.toast
 import com.smilemakers.R
 import com.smilemakers.dashBoard.appointmentFragment.addAppointment.AppointmentFormActivity
 import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
@@ -19,7 +16,6 @@ import com.smilemakers.dashBoard.appointmentFragment.calendar.NavigationListener
 import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
 import com.smilemakers.utils.*
 import com.smilemakers.utils.Formatter
-import kotlinx.android.synthetic.main.fragment_day.*
 import kotlinx.android.synthetic.main.fragment_day.view.*
 import kotlinx.android.synthetic.main.top_navigation.view.*
 import java.util.*
@@ -77,7 +73,7 @@ class DayFragment : Fragment() {
             pointerRight?.isAutoMirrored = true
             setImageDrawable(pointerRight)
         }
-        .20
+        //.20
         val day = Formatter.getDayTitle(context!!, mDayCode)
         mHolder.top_value.apply {
             text = day
@@ -124,7 +120,7 @@ class DayFragment : Fragment() {
     }
 
     private fun updateEvents(events: ArrayList<Event>) {
-        var eventsnew = arrayListOf<Events>()
+        val eventsnew = arrayListOf<Events>()
         if (activity == null)
             return
         val newList = arrayListOf<Event>()

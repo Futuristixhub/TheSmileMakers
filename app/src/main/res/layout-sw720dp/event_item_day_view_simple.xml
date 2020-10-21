@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
-            android:textSize="@dimen/text_20"
+            android:textSize="@dimen/text_24"
             tools:text="13:00 PM" />
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:maxLines="1"
-            android:textSize="@dimen/text_20"
+            android:textSize="@dimen/text_24"
             tools:text="Event title" />
 
           <ImageView
@@ -57,7 +57,7 @@
               android:layout_weight="1"
               android:gravity="center_horizontal"
               android:maxLines="1"
-              android:textSize="@dimen/text_20"
+              android:textSize="@dimen/text_24"
               tools:text="Event title" />
 
           <ImageView
@@ -72,7 +72,7 @@
               android:layout_weight="1"
               android:maxLines="1"
               android:gravity="center_horizontal"
-              android:textSize="@dimen/text_20"
+              android:textSize="@dimen/text_24"
               tools:text="Event title" />
 
           <ImageView
@@ -87,7 +87,7 @@
               android:layout_weight="1"
               android:maxLines="1"
               android:gravity="center_horizontal"
-              android:textSize="@dimen/text_20"
+              android:textSize="@dimen/text_24"
               tools:text="Event title" />
 
     </LinearLayout>

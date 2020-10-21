@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.smilemakers.R
 import com.smilemakers.db.entities.User
 
 @Database(
@@ -30,7 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
-                "MyDayabase.db"
+                context.getString(R.string.mydb_name)
             ).build()
 
     }

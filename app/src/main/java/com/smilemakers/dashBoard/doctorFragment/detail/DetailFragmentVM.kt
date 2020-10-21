@@ -22,15 +22,15 @@ class DetailFragmentVM() : ViewModel() {
 
     fun onAddressClick(view: View) {
         val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-        transaction.addToBackStack(null)
-        transaction.add(R.id.fl_dash_container, DoctorAddressFragment.newInstance()!!)
+    //    transaction.addToBackStack(null)
+        transaction.add(R.id.fl_container, DoctorAddressFragment.newInstance()!!)
         transaction.commit()
     }
 
     fun onPreviousClick(view: View) {
         val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-        transaction.addToBackStack(null)
-        transaction.replace(R.id.fl_dash_container, AddDoctorFragment.newInstance()!!)
+      //  transaction.addToBackStack(null)
+        transaction.replace(R.id.fl_container, AddDoctorFragment.newInstance()!!)
         transaction.commit()
     }
 

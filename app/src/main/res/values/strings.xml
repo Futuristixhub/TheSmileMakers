@@ -134,6 +134,24 @@
     <string name="not_avail_nikol">Only 2 slots allowed in same time in Nikol</string>
     <string name="add_appointment">Add Appointment</string>
     <string name="not_selected_area">Please Select Area</string>
+    <string name="branch_error">Please Select Branch First</string>
+    <string name="empty_mob_no">Please enter mobile number</string>
+    <string name="valid_mob_no">Please enter valid mobile number</string>
+    <string name="empty_pwd">Please enter password</string>
+    <string name="valid_pwd">Password must have at least 4 characters</string>
+    <string name="mydb_name">MyDayabase.db</string>
+    <string name="india_holiday_file">india.ics</string>
+    <string name="date_format">dd-MM-yyyy</string>
+    <string name="date_format2">dd-MMM-yyyy</string>
+    <string name="add_doctor">Add Doctor</string>
+    <string name="add_patient">Add Patient</string>
+    <string name="contact">Contact Details</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="patient">Patient</string>
+    <string name="doctor">Doctor</string>
+    <string name="appointment">Appointment</string>
+    <string name="profile">Profile</string>
 
     <string-array name="registration_area">
         <item>Bapunagar</item>

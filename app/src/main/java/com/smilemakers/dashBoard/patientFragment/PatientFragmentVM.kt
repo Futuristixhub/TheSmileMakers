@@ -1,5 +1,6 @@
 package com.smilemakers.dashBoard.patientFragment
 
+import android.content.Intent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.smilemakers.R
 import com.smilemakers.dashBoard.DashboardActivity
+import com.smilemakers.dashBoard.doctorFragment.addDoctor.AddDoctorActivity
+import com.smilemakers.dashBoard.patientFragment.addPatient.AddPatientActivity
 import com.smilemakers.dashBoard.patientFragment.addPatient.AddPatientFragment
 
 
@@ -23,7 +26,7 @@ class PatientFragmentVM( val repository: PatientRepository) : ViewModel() {
         val mAdapter = PatientListAdapter(recView.context, patientList)
         recView.apply {
             setHasFixedSize(true)
-            layoutManager = viewManager as RecyclerView.LayoutManager?
+         //   layoutManager = viewManager as RecyclerView.LayoutManager?
             adapter = mAdapter
         }
     }
@@ -113,9 +116,14 @@ class PatientFragmentVM( val repository: PatientRepository) : ViewModel() {
 
     fun onAddPatientClick(view: View) {
 
-        val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-        transaction.addToBackStack(null)
-        transaction.add(R.id.fl_dash_container, AddPatientFragment.newInstance()!!)
-        transaction.commit()
+//        val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
+//        transaction.addToBackStack(null)
+//        transaction.add(R.id.fl_dash_container, AddPatientFragment.newInstance()!!)
+//        transaction.commit()
+
+        Intent(view.context, AddPatientActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            view.context.startActivity(this)
+        }
     }
 }

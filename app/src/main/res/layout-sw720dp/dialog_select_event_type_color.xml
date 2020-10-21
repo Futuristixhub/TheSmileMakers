@@ -20,7 +20,7 @@
             android:paddingEnd="@dimen/activity_margin"
             android:paddingBottom="@dimen/activity_margin"
             android:text="@string/select_a_different_caldav_color"
-            android:textSize="@dimen/text_18"/>
+            android:textSize="@dimen/text_20"/>
 
         <ImageView
             android:id="@+id/dialog_select_event_type_other_divider"

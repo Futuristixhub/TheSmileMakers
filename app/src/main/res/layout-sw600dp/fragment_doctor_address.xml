@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/space_12"
+            android:padding="@dimen/space_15"
             tools:context=".dashBoard.patientFragment.patientAddress.PatientAddressFragment">
 
 

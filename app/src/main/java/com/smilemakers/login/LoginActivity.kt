@@ -9,7 +9,7 @@ import com.smilemakers.databinding.ActivityLoginBinding
 import com.smilemakers.db.entities.User
 import com.smilemakers.utils.hide
 import com.smilemakers.utils.show
-import com.smilemakers.utils.snackbar
+import com.smilemakers.utils.showErrorSnackBar
 import kotlinx.android.synthetic.main.activity_login.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -45,6 +45,6 @@ class LoginActivity : AppCompatActivity() , AuthListener, KodeinAware {
 
     override fun onFailure(message: String) {
         progress_bar.hide()
-        root_layout.snackbar(message)
+        showErrorSnackBar(root_layout,message)
     }
 }

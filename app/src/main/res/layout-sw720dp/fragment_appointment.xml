@@ -33,7 +33,7 @@
                 android:layout_margin="@dimen/space_16"
                 android:contentDescription="@string/new_event"
                 android:src="@drawable/ic_add"
-                app:backgroundTint="@color/colorPrimary"
+                app:backgroundTint="@color/colorAccent"
                 app:rippleColor="@color/pressed_item_foreground" />
 
             <RelativeLayout
@@ -55,7 +55,7 @@
                     android:paddingStart="@dimen/activity_margin"
                     android:paddingEnd="@dimen/activity_margin"
                     android:text="@string/no_items_found"
-                    android:textSize="@dimen/text_20" />
+                    android:textSize="@dimen/text_22" />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/search_placeholder_2"
@@ -70,7 +70,7 @@
                     android:paddingBottom="@dimen/medium_margin"
                     android:textColor="@color/md_grey_black"
                     android:text="@string/type_2_characters"
-                    android:textSize="@dimen/text_20" />
+                    android:textSize="@dimen/text_22" />
 
                 <com.simplemobiletools.commons.views.MyRecyclerView
                     android:id="@+id/search_results_list"

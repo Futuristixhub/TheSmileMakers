@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="vm"
             type="com.smilemakers.dashBoard.doctorFragment.DoctorPOJO" />
     </data>
+
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -12,14 +15,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_8"
         android:layout_marginEnd="@dimen/space_8"
-        android:layout_marginBottom="@dimen/space_8"
+        app:cardUseCompatPadding="true"
         app:cardCornerRadius="@dimen/space_8">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/space_8"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/space_10">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -28,8 +32,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circleImageView"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/space_80"
+                    android:layout_height="@dimen/space_80"
                     android:src="@drawable/patient_default_image"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +41,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
@@ -44,36 +49,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_8"
+                        android:text="@{vm.name}"
+                        android:textColor="@color/colorAccent"
                         android:textSize="@dimen/text_20"
                         android:textStyle="bold"
-                        android:textColor="@color/colorAccent"
                         app:layout_constraintStart_toEndOf="@+id/circleImageView"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{vm.name}" />
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_8"
-                        android:layout_marginTop="@dimen/space_4"
-                        android:textSize="@dimen/text_18"
-                        android:textColor="@color/textDark"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/circleImageView"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_patient_email"
-                        android:text="Mobile Number :" />
-
-                    <TextView
-                        android:id="@+id/txt_patient_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_8"
-                        android:textSize="@dimen/text_18"
-                        android:textColor="@color/textDark"
-                        app:layout_constraintStart_toEndOf="@+id/circleImageView"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10"
-                        android:text="@{vm.mobile}" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -82,76 +63,104 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_18"
                         android:layout_marginTop="@dimen/space_4"
-                        android:textStyle="bold"
+                        android:text="Mobile Number :"
                         android:textColor="@color/textDark"
-                        android:text="Clinic :" />
+                        android:textSize="@dimen/text_18"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_patient_email" />
 
                     <TextView
                         android:id="@+id/textView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_4"
+                        android:text="Age :"
+                        android:textColor="@color/textDark"
                         android:textSize="@dimen/text_18"
                         android:textStyle="bold"
-                        android:textColor="@color/textDark"
-                        android:layout_marginTop="@dimen/space_4"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView5"
-                        android:text="Age :" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_4"
+                        android:text="Clinic :"
+                        android:textColor="@color/textDark"
+                        android:textSize="@dimen/text_18"
+                        android:textStyle="bold" />
+
 
                     <TextView
                         android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_4"
+                        android:text="Type of Treatment :"
+                        android:textColor="@color/textDark"
                         android:textSize="@dimen/text_18"
                         android:textStyle="bold"
-                        android:layout_marginTop="@dimen/space_4"
-                        android:textColor="@color/textDark"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView7"
-                        android:text="Type of Treatment :" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txt_ref_id"
+                        android:id="@+id/txt_patient_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_18"
-                        android:layout_marginStart="@dimen/space_8"
+                        android:text="@{vm.mobile}"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.clinic}" />
+                        android:textColor="@color/textDark"
+                        android:textSize="@dimen/text_18"
+                        app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
                     <TextView
                         android:id="@+id/txt_birth_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_18"
                         android:layout_marginStart="@dimen/space_8"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.age}" />
+                        android:text="@{vm.age}"
+                        android:textSize="@dimen/text_18" />
+
+                    <TextView
+                        android:id="@+id/txt_ref_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:layout_marginTop="@dimen/space_4"
+                        android:text="@{vm.clinic}"
+                        android:textSize="@dimen/text_18" />
+
 
                     <TextView
                         android:id="@+id/txt_registered_from"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_18"
                         android:layout_marginStart="@dimen/space_8"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.typeOfTreatment}" />
+                        android:text="@{vm.typeOfTreatment}"
+                        android:textSize="@dimen/text_18" />
 
                 </LinearLayout>
             </LinearLayout>

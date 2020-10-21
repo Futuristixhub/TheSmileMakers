@@ -1,5 +1,6 @@
 package com.smilemakers.dashBoard.doctorFragment
 
+import android.content.Intent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
@@ -7,9 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.smilemakers.R
 import com.smilemakers.dashBoard.DashboardActivity
+import com.smilemakers.dashBoard.appointmentFragment.addAppointment.AppointmentFormActivity
+import com.smilemakers.dashBoard.doctorFragment.addDoctor.AddDoctorActivity
 import com.smilemakers.dashBoard.doctorFragment.addDoctor.AddDoctorFragment
+import com.smilemakers.dashBoard.doctorFragment.detail.DetailFragment
 import com.smilemakers.dashBoard.patientFragment.addPatient.AddPatientFragment
 import com.smilemakers.dashBoard.profile.ProfileRepository
+import com.smilemakers.utils.DAY_CODE
+import com.smilemakers.utils.NEW_EVENT_START_TS
+import com.smilemakers.utils.getNewEventTimestampFromCode
 
 class DoctorFragmentVM(val repository: DoctorRepository) :
     ViewModel() {
@@ -25,7 +32,7 @@ class DoctorFragmentVM(val repository: DoctorRepository) :
         val mAdapter = DoctorListAdapter(recView.context, patientList)
         recView.apply {
             setHasFixedSize(true)
-            layoutManager = viewManager as RecyclerView.LayoutManager?
+           // layoutManager = viewManager as RecyclerView.LayoutManager?
             adapter = mAdapter
         }
     }
@@ -38,7 +45,7 @@ class DoctorFragmentVM(val repository: DoctorRepository) :
                 "preyansh.brahmbhatt@gmail.com",
                 "bapunagar",
                 "25",
-                "Costmetic Dentistry ,Restorative Dentistry,Implant Dentistry"
+                "Costmetic Dentistry "
             )
         )
         patientList.add(
@@ -58,7 +65,7 @@ class DoctorFragmentVM(val repository: DoctorRepository) :
                 "preyansh.brahmbhatt@gmail.com",
                 "bapunagar",
                 "25",
-                "Costmetic Dentistry ,Restorative Dentistry,Implant Dentistry"
+                "Costmetic Dentistry"
             )
         )
         patientList.add(
@@ -78,7 +85,7 @@ class DoctorFragmentVM(val repository: DoctorRepository) :
                 "preyansh.brahmbhatt@gmail.com",
                 "bapunagar",
                 "25",
-                "Costmetic Dentistry ,Restorative Dentistry,Implant Dentistry"
+                "Costmetic Dentistry "
             )
         )
         patientList.add(
@@ -98,7 +105,7 @@ class DoctorFragmentVM(val repository: DoctorRepository) :
                 "preyansh.brahmbhatt@gmail.com",
                 "bapunagar",
                 "25",
-                "Costmetic Dentistry ,Restorative Dentistry,Implant Dentistry"
+                "Costmetic Dentistry"
             )
         )
         patientList.add(
@@ -114,9 +121,16 @@ class DoctorFragmentVM(val repository: DoctorRepository) :
     }
 
     fun onAddDoctorClick(view: View) {
-        val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-        transaction.addToBackStack(null)
-        transaction.add(R.id.fl_dash_container, AddDoctorFragment.newInstance()!!)
-        transaction.commit()
+//        val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
+//        transaction.addToBackStack(null)
+//        transaction.add(R.id.fl_dash_container, AddDoctorFragment.newInstance()!!)
+//        transaction.commit()
+
+        Intent(view.context, AddDoctorActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            view.context.startActivity(this)
+        }
     }
+
+
 }

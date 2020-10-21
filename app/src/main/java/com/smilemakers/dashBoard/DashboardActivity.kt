@@ -1,12 +1,18 @@
 package com.smilemakers.dashBoard
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.gms.common.api.Status
@@ -39,6 +45,28 @@ class DashboardActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
+      /*  supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        supportActionBar?.setCustomView(R.layout.custom_action_bar);*/
+
+        val bar: ActionBar? = supportActionBar
+        if (bar != null) {
+            val tv = TextView(applicationContext)
+            val lp: ActionBar.LayoutParams = ActionBar.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,  // Width of TextView
+                ActionBar.LayoutParams.WRAP_CONTENT
+            ) // Height of TextView
+            tv.layoutParams = lp
+            tv.setText(getString(R.string.title_dashboard))
+            tv.setTextColor(Color.WHITE)
+
+            val typedValue = TypedValue()
+            resources.getValue(R.dimen.actionBar_text, typedValue, true)
+            val myFloatValue = typedValue.float
+
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, myFloatValue)
+            bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+            bar.setCustomView(tv)
+        }
         setUpBinding()
 
         btm_navigation.itemBackgroundResource = R.drawable.bottom_nav_background_state
@@ -126,7 +154,17 @@ class DashboardActivity : SimpleActivity() {
         if (fragment != null) {
             removeTopFragment()
         } else {
-            super.onBackPressed()
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+            builder.setTitle(R.string.app_name)
+            builder.setIcon(R.mipmap.logo)
+            builder.setMessage("Do you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",
+                    DialogInterface.OnClickListener { dialog, id -> finish() })
+                .setNegativeButton("No",
+                    DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+            val alert: AlertDialog = builder.create()
+            alert.show()
         }
     }
 

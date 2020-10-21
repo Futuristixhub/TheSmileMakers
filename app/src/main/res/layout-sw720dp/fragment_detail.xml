@@ -20,7 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/space_10">
+            android:padding="@dimen/space_25">
 
             <Spinner
                 android:id="@+id/sp_regis_area"
@@ -30,7 +30,7 @@
                 android:background="@drawable/color_primary_rounded_border"
                 android:prompt="@string/regis_area"
                 android:spinnerMode="dialog"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_22"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
@@ -41,7 +41,7 @@
                 android:background="@drawable/color_primary_rounded_border"
                 android:prompt="@string/type_treatmnt"
                 android:spinnerMode="dialog"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_22"
                 app:layout_constraintTop_toBottomOf="@+id/sp_regis_area" />
 
 
@@ -54,6 +54,7 @@
                 android:layout_marginEnd="@dimen/space_0"
                 android:cursorVisible="false"
                 android:focusable="false"
+                android:textSize="@dimen/text_22"
                 android:hint="Address Line 1"
                 android:onClick="@{vm::onAddressFieldClick}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -66,6 +67,7 @@
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
                 android:layout_marginTop="@dimen/space_12"
+                android:textSize="@dimen/text_22"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Address Line 2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -77,6 +79,7 @@
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
                 android:layout_marginTop="@dimen/space_12"
+                android:textSize="@dimen/text_22"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="City"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +99,7 @@
                 android:layout_marginStart="@dimen/space_0"
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_8"
+                android:textSize="@dimen/text_22"
                 android:hint="State"
                 app:layout_constraintEnd_toStartOf="@id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -108,6 +112,7 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Pin Code"
+                android:textSize="@dimen/text_22"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline3"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_city" />
@@ -119,6 +124,7 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Country"
+                android:textSize="@dimen/text_22"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_pin" />
@@ -140,7 +146,7 @@
                     android:layout_weight="1"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_22"
+                    android:textSize="@dimen/text_24"
                     android:textStyle="bold" />
 
                 <Button
@@ -154,7 +160,7 @@
                     android:text="Address Detail"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_22"
+                    android:textSize="@dimen/text_24"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

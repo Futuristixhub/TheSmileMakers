@@ -18,7 +18,7 @@
         android:maxLines="1"
         android:paddingStart="@dimen/medium_margin"
         android:paddingEnd="@dimen/medium_margin"
-        android:textSize="@dimen/text_18"
+        android:textSize="@dimen/text_20"
         tools:text="July 18"/>
 
     <ImageView
@@ -68,6 +68,6 @@
         android:paddingStart="@dimen/big_margin"
         android:paddingEnd="@dimen/big_margin"
         android:text="@string/no_upcoming_events"
-        android:textSize="@dimen/text_20"/>
+        android:textSize="@dimen/text_22"/>
 
 </RelativeLayout>

@@ -8,5 +8,5 @@
     android:drawableTop="@drawable/divider_width"
     android:paddingBottom="@dimen/small_margin"
     android:paddingTop="@dimen/small_margin"
-    android:textSize="@dimen/text_18"
+    android:textSize="@dimen/text_20"
     android:textStyle="bold"/>

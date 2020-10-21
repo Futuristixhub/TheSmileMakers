@@ -20,7 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/space_10"
+            android:padding="@dimen/space_25"
             android:background="@drawable/background_drawable_grey_ligh"
             >
 
@@ -29,6 +29,7 @@
                 style="@style/EditTextStyle"
                 android:layout_margin="@dimen/space_0"
                 android:hint="First Name*"
+                android:textSize="@dimen/text_22"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +42,7 @@
                 android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Last Name*"
+                android:textSize="@dimen/text_22"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_0"
                 android:layout_marginTop="@dimen/space_10"
-                android:layout_marginEnd="@dimen/space_8"
                 android:background="@drawable/color_primary_rounded_border"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/ed_patient_last_name">
@@ -65,7 +66,7 @@
                     android:paddingTop="@dimen/space_8"
                     android:text="@string/gender"
                     android:textColor="@color/quantum_grey"
-                    android:textSize="@dimen/text_20" />
+                    android:textSize="@dimen/text_22" />
 
                 <RadioGroup
                     android:id="@+id/rg_gender"
@@ -82,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:text="@string/male"
-                        android:textSize="@dimen/text_20" />
+                        android:textSize="@dimen/text_22" />
 
                     <RadioButton
                         android:id="@+id/rb_female"
@@ -90,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:text="@string/female"
-                        android:textSize="@dimen/text_20" />
+                        android:textSize="@dimen/text_22" />
 
                     <RadioButton
                         android:id="@+id/rb_other"
@@ -98,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:text="@string/other"
-                        android:textSize="@dimen/text_20" />
+                        android:textSize="@dimen/text_22" />
 
                 </RadioGroup>
 
@@ -118,6 +119,7 @@
                 android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_8"
                 android:hint="DOB*"
+                android:textSize="@dimen/text_22"
                 android:inputType="date"
                 app:layout_constraintEnd_toStartOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
@@ -133,6 +135,7 @@
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:hint="Age*"
+                android:textSize="@dimen/text_22"
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -145,6 +148,7 @@
                 android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Education"
+                android:textSize="@dimen/text_22"
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -157,6 +161,7 @@
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Email ID"
                 android:layout_marginTop="@dimen/space_10"
+                android:textSize="@dimen/text_22"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -170,6 +175,7 @@
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Mobile Number*"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="@dimen/text_22"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_name" />
 
@@ -183,7 +189,7 @@
                 android:text="Next"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_22"
+                android:textSize="@dimen/text_24"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
 
