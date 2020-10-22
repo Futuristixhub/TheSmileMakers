@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.view.ActionMode
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.github.vipulasri.timelineview.TimelineView
 import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.interfaces.MyActionModeCallback
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.smilemakers.R
 import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
+import kotlinx.android.synthetic.main.event_item_day_view_simple.view.*
 import java.util.ArrayList
 import java.util.HashSet
 import java.util.LinkedHashSet
@@ -52,8 +53,6 @@ abstract class MyRecyclerViewAdapter(val activity: SimpleActivity, val recyclerV
     abstract fun onActionModeCreated()
 
     abstract fun onActionModeDestroyed()
-
-    protected fun isOneItemSelected() = selectedKeys.size == 1
 
     init {
         fastScroller?.resetScrollPositions()
@@ -243,42 +242,13 @@ abstract class MyRecyclerViewAdapter(val activity: SimpleActivity, val recyclerV
         }
     }
 
-    fun setupZoomListener(zoomListener: MyRecyclerView.MyZoomListener?) {
-        recyclerView.setupZoomListener(zoomListener)
-    }
-
-    fun addVerticalDividers(add: Boolean) {
-        if (recyclerView.itemDecorationCount > 0) {
-            recyclerView.removeItemDecorationAt(0)
-        }
-
-        if (add) {
-            DividerItemDecoration(activity, DividerItemDecoration.VERTICAL).apply {
-                setDrawable(resources.getDrawable(R.drawable.divider))
-                recyclerView.addItemDecoration(this)
-            }
-        }
-    }
-
     fun finishActMode() {
         actMode?.finish()
     }
 
-    fun updateTextColor(textColor: Int) {
-        this.textColor = textColor
-        notifyDataSetChanged()
-    }
-
-    fun updatePrimaryColor(primaryColor: Int) {
-        this.primaryColor = primaryColor
-    }
-
-    fun updateBackgroundColor(backgroundColor: Int) {
-        this.backgroundColor = backgroundColor
-    }
-
     protected fun createViewHolder(layoutType: Int, parent: ViewGroup?): ViewHolder {
         val view = layoutInflater.inflate(layoutType, parent, false)
+        view.timeline.initLine(layoutType)
         return ViewHolder(view)
     }
 
@@ -294,7 +264,13 @@ abstract class MyRecyclerViewAdapter(val activity: SimpleActivity, val recyclerV
         fastScroller?.measureRecyclerView()
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return TimelineView.getTimeLineViewType(position, getItemCount());
+    }
+
     open inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+
         fun bindView(any: Any, allowSingleClick: Boolean, allowLongClick: Boolean, callback: (itemView: View, adapterPosition: Int) -> Unit): View {
             return itemView.apply {
                 callback(this, adapterPosition)

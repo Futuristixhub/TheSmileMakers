@@ -8,4 +8,5 @@
     android:gravity="center_vertical"
     android:paddingStart="@dimen/space_10"
     tools:ignore="RtlSymmetry"
+    android:id="@+id/name"
     />

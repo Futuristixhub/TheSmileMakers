@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import com.github.vipulasri.timelineview.TimelineView
 import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -51,7 +53,7 @@ class DayEventsAdapter(
         events.getOrNull(position)?.event!!.id?.toInt()
 
     override fun getItemKeyPosition(key: Int) =
-        events.indexOfFirst { it.event!!.id?.toInt() == key }
+        events.indexOfFirst { it.event.id?.toInt() == key }
 
     override fun onActionModeCreated() {}
 
@@ -71,8 +73,29 @@ class DayEventsAdapter(
 
     override fun getItemCount() = events.size
 
+    override fun getItemViewType(position: Int): Int {
+        return TimelineView.getTimeLineViewType(position, getItemCount());
+    }
+
     private fun setupView(view: View, event: Events, position: Int) {
         view.apply {
+
+            when {
+                event.event.flags == 0 -> {
+                    //      timeline.marker = VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_inactive, mAttributes.markerColor)
+                    timeline.marker = resources.getDrawable(R.drawable.ic_active)
+                }
+                event.event.flags > 0 -> {
+                    //    timeline.marker = VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_active,  mAttributes.markerColor)
+                    timeline.marker = resources.getDrawable(R.drawable.ic_inactive)
+                }
+                else -> {
+                    //  timeline.setMarker(ContextCompat.getDrawable(context, R.drawable.ic_marker), mAttributes.markerColor)
+                    timeline.marker = resources.getDrawable(R.drawable.ic_complete)
+                }
+            }
+
+
             event_item_frame.isSelected = selectedKeys.contains(event.event.id?.toInt())
 
             event_item_start.text =
@@ -132,7 +155,7 @@ class DayEventsAdapter(
                 }
             }
 
-            event_item_color_bar.background.applyColorFilter(event.event.color)
+//            event_item_color_bar.background.applyColorFilter(event.event.color)
 
         }
     }

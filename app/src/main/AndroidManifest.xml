@@ -3,7 +3,7 @@
     package="com.smilemakers">
 
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
 
     <application
         android:name=".AppController"
@@ -13,9 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".dashBoard.DashboardActivity"/>
 
 
+        <activity android:name=".dashBoard.DashboardActivity" />
         <activity
             android:name=".forgotPassword.ForgotPasswordActivity"
             android:theme="@style/LoginPageStyle" />

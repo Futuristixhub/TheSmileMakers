@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "273786819936",
-    "firebase_url": "https://thesmilemakers-5f655.firebaseio.com",
-    "project_id": "thesmilemakers-5f655",
-    "storage_bucket": "thesmilemakers-5f655.appspot.com"
+    "project_number": "210577244289",
+    "firebase_url": "https://smilemakers-7ecbf.firebaseio.com",
+    "project_id": "smilemakers-7ecbf",
+    "storage_bucket": "smilemakers-7ecbf.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:273786819936:android:d4a12befa87ebe2d6afa05",
+        "mobilesdk_app_id": "1:210577244289:android:24de358cab4cd24de2cd80",
         "android_client_info": {
-          "package_name": "com.thesmilemakers"
+          "package_name": "com.smilemakers"
         }
       },
       "oauth_client": [
         {
-          "client_id": "273786819936-troioo1i5s4dthmsm3pnl15n1dl29luj.apps.googleusercontent.com",
+          "client_id": "210577244289-9a7mufhlcbjhh7jje632og9uclk17ina.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smilemakers",
+            "certificate_hash": "2dab1cb5b61807e1bffb0ca51b59b25f04fa80f1"
+          }
+        },
+        {
+          "client_id": "210577244289-631f1j97r2hi2knfc5nht3snlshdckj4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBMAD8TRAXSAhr3u9pJ3AGIuKs-vm2qMHw"
+          "current_key": "AIzaSyCB5zig5tQirsN191e0AyAO6dmLy59wI_8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "273786819936-troioo1i5s4dthmsm3pnl15n1dl29luj.apps.googleusercontent.com",
+              "client_id": "210577244289-631f1j97r2hi2knfc5nht3snlshdckj4.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

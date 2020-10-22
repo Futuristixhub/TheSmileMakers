@@ -1,16 +1,15 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.thesmilemakers"
+        applicationId "com.smilemakers"
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
@@ -60,7 +59,9 @@ dependencies {
     implementation 'joda-time:joda-time:2.10.1'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+    implementation 'com.google.firebase:firebase-analytics'
+  // implementation 'com.google.firebase:firebase-analytics:17.5.0'
     implementation 'com.google.android.libraries.places:places:2.3.0'
 //    implementation 'com.google.android.libraries.places:places-compat:2.2.0'
 
@@ -83,5 +84,8 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
     implementation "androidx.room:room-ktx:2.3.0-alpha02"
     kapt "androidx.room:room-compiler:2.3.0-alpha02"
+
+    //timeline
+    implementation 'com.github.vipulasri:timelineview:1.1.5'
 
 }

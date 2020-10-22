@@ -152,6 +152,7 @@
     <string name="doctor">Doctor</string>
     <string name="appointment">Appointment</string>
     <string name="profile">Profile</string>
+    <string name="invalid_time">Please Select Valid Time</string>
 
     <string-array name="registration_area">
         <item>Bapunagar</item>

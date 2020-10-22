@@ -17,6 +17,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.smilemakers.R
@@ -27,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_appointment_form.*
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import java.util.*
+
 
 class AppointmentFormActivity : SimpleActivity() {
 
@@ -77,15 +79,19 @@ class AppointmentFormActivity : SimpleActivity() {
     var treatmenttype = ""
     var doctorname = ""
     var str = ""
+    var adapter: ArrayAdapter<String>? = null
+    var ed_patient_name: AppCompatAutoCompleteTextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_appointment_form)
 
-
+        ed_patient_name = findViewById(R.id.ed_appointment_patient_name)
         if (checkAppSideloading()) {
             return
         }
+
+        patientSearch()
 
         val bar: ActionBar? = supportActionBar
         if (bar != null) {
@@ -137,6 +143,17 @@ class AppointmentFormActivity : SimpleActivity() {
                 gotEvent(savedInstanceState, localEventType, event)
             }
         }
+
+    }
+
+    private fun patientSearch() {
+        val products = arrayOf<String>("Mansi", "Apoorv", "Virat", "Vishal", "Madhuri")
+        adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1, products
+        )
+
+        ed_patient_name!!.setAdapter(adapter)
 
     }
 
@@ -353,7 +370,7 @@ class AppointmentFormActivity : SimpleActivity() {
         ) {
             val timeZone = resultData.getSerializableExtra(TIME_ZONE) as MyTimeZone
             mEvent.timeZone = timeZone.zoneName
-            updateTimeZoneText()
+
         }
         super.onActivityResult(requestCode, resultCode, resultData)
     }
@@ -362,8 +379,7 @@ class AppointmentFormActivity : SimpleActivity() {
         updateRepetitionText()
         checkReminderTexts()
         updateStartTexts()
-        updateEndTexts()
-        updateTimeZoneText()
+
         updateAttendeesVisibility()
     }
 
@@ -399,7 +415,7 @@ class AppointmentFormActivity : SimpleActivity() {
                 mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
                     .withZone(DateTimeZone.forID(mOriginalTimeZone))
             } catch (e: Exception) {
-              //  showErrorToast(e)
+                //  showErrorToast(e)
                 showErrorSnackBar(root_layout, e.toString())
                 mEventStartDateTime = Formatter.getDateTimeFromTS(realStart)
                 mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
@@ -409,8 +425,11 @@ class AppointmentFormActivity : SimpleActivity() {
             mEventStartDateTime = Formatter.getDateTimeFromTS(realStart)
             mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
         }
-
-        ed_appointment_patient_name.setText(mEvent.title)
+        ed_patient_name!!.postDelayed(Runnable {
+            ed_patient_name!!.setText(mEvent.title)
+            ed_patient_name!!.showDropDown()
+        }, 10)
+        //    ed_appointment_patient_name.setT(mEvent.title)
         if (mEvent.location == str) {
             rb_b.isChecked = true
         } else {
@@ -456,8 +475,11 @@ class AppointmentFormActivity : SimpleActivity() {
                 mEvent.flags = mEvent.flags or FLAG_ALL_DAY
                 toggleAllDay(true)
             }
-
-            ed_appointment_patient_name.setText(intent.getStringExtra("title"))
+            ed_patient_name!!.postDelayed(Runnable {
+                ed_patient_name!!.setText(intent.getStringExtra("title"))
+                ed_patient_name!!.showDropDown()
+            }, 10)
+            //   ed_appointment_patient_name.setText(intent.getStringExtra("title"))
         } else {
             val startTS = intent.getLongExtra(NEW_EVENT_START_TS, 0L)
             val dateTime = Formatter.getDateTimeFromTS(startTS)
@@ -693,8 +715,6 @@ class AppointmentFormActivity : SimpleActivity() {
                 mEventStartDateTime.secondOfMinute,
                 0
             )
-            updateEndTimeText()
-            checkStartEndValidity()
         }
     }
 
@@ -746,7 +766,7 @@ class AppointmentFormActivity : SimpleActivity() {
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(root_layout.getWindowToken(), 0)
 
-        ptitle = ed_appointment_patient_name.value
+        ptitle = ed_patient_name!!.text.toString()
         if (ptitle.isEmpty()) {
             showErrorSnackBar(root_layout, getString(R.string.title_empty))
             runOnUiThread {
@@ -1037,36 +1057,17 @@ class AppointmentFormActivity : SimpleActivity() {
     }
 
     private fun updateStartDateText() {
+
         ed_appointment_date.text = Formatter.getDate(applicationContext, mEventStartDateTime)
+
         Log.d("tagjj", "date.." + mEventStartDateTime)
-        checkStartEndValidity()
+
     }
 
     private fun updateStartTimeText() {
         ed_appointment_time.text = Formatter.getTime(this, mEventStartDateTime)
-        checkStartEndValidity()
     }
 
-    private fun updateEndTexts() {
-        updateEndDateText()
-        updateEndTimeText()
-    }
-
-    private fun updateEndDateText() {
-        checkStartEndValidity()
-    }
-
-    private fun updateEndTimeText() {
-        checkStartEndValidity()
-    }
-
-    private fun updateTimeZoneText() {
-    }
-
-    private fun checkStartEndValidity() {
-        val textColor =
-            if (mEventStartDateTime.isAfter(mEventEndDateTime)) resources.getColor(R.color.colorPrimary) else config.textColor
-    }
 
     private fun setupStartDate() {
         hideKeyboard()
@@ -1082,6 +1083,7 @@ class AppointmentFormActivity : SimpleActivity() {
 
         datepicker.datePicker.firstDayOfWeek =
             if (config.isSundayFirst) Calendar.SUNDAY else Calendar.MONDAY
+        datepicker.datePicker.minDate = System.currentTimeMillis() - 1000
         datepicker.show()
     }
 
@@ -1095,6 +1097,7 @@ class AppointmentFormActivity : SimpleActivity() {
             mEventStartDateTime.minuteOfHour,
             config.use24HourFormat
         ).show()
+
     }
 
     private fun setupEndDate() {
@@ -1120,7 +1123,20 @@ class AppointmentFormActivity : SimpleActivity() {
 
     private val startTimeSetListener =
         TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            timeSet(hourOfDay, minute, true)
+            val datetime = Calendar.getInstance()
+            val calendar = Calendar.getInstance()
+            datetime[Calendar.HOUR_OF_DAY] = hourOfDay
+            datetime[Calendar.MINUTE] = minute
+            if (datetime.timeInMillis >= calendar.timeInMillis) {
+                val hour = hourOfDay % 12
+                timeSet(hourOfDay, minute, true)
+            } else {
+                Toast.makeText(
+                    this@AppointmentFormActivity,
+                    getString(R.string.invalid_time),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
     private val endDateSetListener =
@@ -1142,10 +1158,10 @@ class AppointmentFormActivity : SimpleActivity() {
             checkRepeatRule()
 
             mEventEndDateTime = mEventStartDateTime.plusSeconds(diff.toInt())
-            updateEndTexts()
+
         } else {
             mEventEndDateTime = mEventEndDateTime.withDate(year, month + 1, day)
-            updateEndDateText()
+
         }
     }
 
@@ -1159,10 +1175,10 @@ class AppointmentFormActivity : SimpleActivity() {
                 updateStartTimeText()
 
                 mEventEndDateTime = mEventStartDateTime.plusSeconds(diff.toInt())
-                updateEndTexts()
+
             } else {
                 mEventEndDateTime = mEventEndDateTime.withHourOfDay(hours).withMinuteOfHour(minutes)
-                updateEndTimeText()
+
             }
         } catch (e: Exception) {
             timeSet(hours + 1, minutes, isStart)

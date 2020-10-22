@@ -7,4 +7,5 @@
     android:textColor="@color/md_grey_black"
     android:gravity="center_vertical"
     android:paddingStart="@dimen/space_10"
+    android:id="@+id/name"
     tools:ignore="RtlSymmetry" />

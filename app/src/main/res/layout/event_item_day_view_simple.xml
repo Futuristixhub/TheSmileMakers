@@ -16,15 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="4">
-
-        <ImageView
-            android:id="@+id/event_item_color_bar"
-            android:layout_width="@dimen/event_color_bar_width"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/small_margin"
-            android:background="@drawable/event_list_color_bar"
-            android:layout_marginTop="@dimen/space_5"
-            android:layout_marginBottom="@dimen/space_5" />
+        
 
         <TextView
             android:id="@+id/event_item_start"
@@ -33,7 +25,19 @@
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:textSize="@dimen/text_14"
-            tools:text="13:00" />
+            android:layout_marginStart="@dimen/space_8"
+            tools:text="13:00 PM" />
+
+        <com.github.vipulasri.timelineview.TimelineView
+            android:id="@+id/timeline"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/space_8"
+            android:layout_marginEnd="@dimen/space_18"
+            app:endLineColor="@color/colorAccent"
+            app:lineWidth="2dp"
+            app:markerSize="@dimen/space_12"
+            app:startLineColor="@color/colorAccent" />
 
         <TextView
             android:id="@+id/event_item_title1"
@@ -48,7 +52,7 @@
           <ImageView
               android:layout_width="@dimen/event_color_width"
               android:layout_height="match_parent"
-              android:background="@color/md_grey_black" />
+              android:background="@color/md_grey_300" />
 
           <TextView
               android:id="@+id/event_item_title2"
@@ -63,7 +67,7 @@
           <ImageView
               android:layout_width="@dimen/event_color_width"
               android:layout_height="match_parent"
-              android:background="@color/md_grey_black" />
+              android:background="@color/md_grey_300" />
 
           <TextView
               android:id="@+id/event_item_title3"
@@ -78,7 +82,7 @@
           <ImageView
               android:layout_width="@dimen/event_color_width"
               android:layout_height="match_parent"
-              android:background="@color/md_grey_black" />
+              android:background="@color/md_grey_300" />
 
           <TextView
               android:id="@+id/event_item_title4"

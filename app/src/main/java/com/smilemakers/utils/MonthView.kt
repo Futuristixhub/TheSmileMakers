@@ -440,11 +440,11 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
     private fun getTextPaint(startDay: DayMonthly): Paint {
         var paintColor = textColor
         if (startDay.isToday) {
-            paintColor = primaryColor.getContrastColor()
+            paintColor = primaryColor.getContrastColor() //current date color
         }
 
         if (!startDay.isThisMonth) {
-           paintColor = paintColor.adjustAlpha(MEDIUM_ALPHA)
+           paintColor = paintColor.adjustAlpha(MEDIUM_ALPHA) //previous month date color
         }
 
         return getColoredPaint(paintColor)

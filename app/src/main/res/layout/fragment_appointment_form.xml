@@ -63,7 +63,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/ed_appointment_patient_name"
                 style="@style/EditTextStyle"
                 android:layout_width="match_parent"
