@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.doctorFragment.addDoctor.AddDoctorFragmentVM" />
+            type="com.smilemakers.dashBoard.profile.ProfileVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -20,9 +20,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/space_10"
             android:background="@drawable/background_drawable_grey_ligh"
-            >
+            android:padding="@dimen/space_10">
 
             <EditText
                 android:id="@+id/ed_patient_first_name"
@@ -30,6 +29,7 @@
                 android:layout_margin="@dimen/space_0"
                 android:hint="First Name*"
                 android:inputType="textPersonName"
+                android:text="@={vm.edt_fname}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,100 +42,23 @@
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Last Name*"
                 android:inputType="textPersonName"
+                android:text="@={vm.edt_lname}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_patient_first_name" />
 
-            <LinearLayout
-                android:id="@+id/ll_gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_10"
-                android:background="@drawable/color_primary_rounded_border"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/ed_patient_last_name">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:paddingStart="@dimen/space_8"
-                    android:paddingTop="@dimen/space_8"
-                    android:text="@string/gender"
-                    android:textColor="@color/quantum_grey"
-                    android:textSize="@dimen/text_18" />
-
-                <RadioGroup
-                    android:id="@+id/rg_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/space_8"
-                    android:paddingBottom="@dimen/space_8"
-                    android:weightSum="3">
-
-                    <RadioButton
-                        android:id="@+id/rb_male"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".5"
-                        android:text="@string/male"
-                        android:textSize="@dimen/text_16" />
-
-                    <RadioButton
-                        android:id="@+id/rb_female"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".5"
-                        android:text="@string/female"
-                        android:textSize="@dimen/text_16" />
-
-                    <RadioButton
-                        android:id="@+id/rb_other"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".5"
-                        android:text="@string/other"
-                        android:textSize="@dimen/text_16" />
-
-                </RadioGroup>
-
-            </LinearLayout>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
-
             <EditText
-                android:id="@+id/ed_patient_dob"
+                android:id="@+id/ed_patient_sub_title"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_10"
-                android:layout_marginEnd="@dimen/space_8"
-                android:hint="DOB*"
-                android:inputType="date"
-                app:layout_constraintEnd_toStartOf="@id/guideline2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_gender" />
-
-            <EditText
-                android:id="@+id/ed_patient_age"
-                style="@style/EditTextStyle"
-                android:layout_marginStart="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
-                android:clickable="false"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:hint="Age*"
-                android:inputType="number"
+                android:hint="Bio*"
+                android:inputType="text"
+                android:text="@={vm.edt_subname}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@id/ll_gender" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_patient_last_name" />
 
             <EditText
                 android:id="@+id/ed_patient_referral_id"
@@ -143,20 +66,22 @@
                 android:layout_marginStart="@dimen/space_0"
                 android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
-                android:hint="Education"
+                android:hint="Location*"
                 android:inputType="text"
+                android:text="@={vm.edt_location}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_patient_dob" />
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_sub_title" />
 
             <EditText
                 android:id="@+id/ed_patient_referral_name"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginEnd="@dimen/space_0"
-                android:hint="Email ID"
                 android:layout_marginTop="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Email ID*"
                 android:inputType="textEmailAddress"
+                android:text="@={vm.edt_email}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_patient_referral_id" />
@@ -169,6 +94,7 @@
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Mobile Number*"
                 android:inputType="phone"
+                android:text="@={vm.edt_mob_no}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_name" />
@@ -177,11 +103,11 @@
             <Button
                 android:layout_width="@dimen/btn_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_20"
+                android:padding="@dimen/space_15"
                 android:background="@drawable/login_button_drawable"
-                android:onClick="@{vm::onNextClick}"
-                android:padding="@dimen/space_10"
-                android:text="Next"
+                android:onClick="@{vm::onSubmitClick}"
+                android:text="Submit"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_18"

@@ -6,7 +6,6 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -27,6 +26,10 @@ import com.smilemakers.utils.Formatter
 import kotlinx.android.synthetic.main.fragment_appointment_form.*
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
+import org.joda.time.LocalDate
+import org.joda.time.LocalDateTime
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -69,9 +72,7 @@ class AppointmentFormActivity : SimpleActivity() {
     private var mStoredEventTypes = ArrayList<EventType>()
     private var mOriginalTimeZone = DateTimeZone.getDefault().id
 
-    private lateinit var mAttendeePlaceholder: Drawable
     private lateinit var mEventStartDateTime: DateTime
-    private lateinit var mEventEndDateTime: DateTime
     private lateinit var mEvent: Event
 
     var location_name = ""
@@ -266,7 +267,6 @@ class AppointmentFormActivity : SimpleActivity() {
         ed_appointment_date.setOnClickListener { setupStartDate() }
         ed_appointment_time.setOnClickListener { setupStartTime() }
 
-        updateIconColors()
         mWasActivityInitialized = true
     }
 
@@ -306,7 +306,6 @@ class AppointmentFormActivity : SimpleActivity() {
         outState.apply {
             putSerializable(EVENT, mEvent)
             putLong(START_TS, mEventStartDateTime.seconds())
-            putLong(END_TS, mEventEndDateTime.seconds())
             putString(TIME_ZONE, mEvent.timeZone)
 
             putInt(REMINDER_1_MINUTES, mReminder1Minutes)
@@ -337,7 +336,6 @@ class AppointmentFormActivity : SimpleActivity() {
         savedInstanceState.apply {
             mEvent = getSerializable(EVENT) as Event
             mEventStartDateTime = Formatter.getDateTimeFromTS(getLong(START_TS))
-            mEventEndDateTime = Formatter.getDateTimeFromTS(getLong(END_TS))
             mEvent.timeZone = getString(TIME_ZONE) ?: TimeZone.getDefault().id
 
             mReminder1Minutes = getInt(REMINDER_1_MINUTES)
@@ -376,11 +374,7 @@ class AppointmentFormActivity : SimpleActivity() {
     }
 
     private fun updateTexts() {
-        updateRepetitionText()
-        checkReminderTexts()
         updateStartTexts()
-
-        updateAttendeesVisibility()
     }
 
     private fun setupEditEvent() {
@@ -412,18 +406,15 @@ class AppointmentFormActivity : SimpleActivity() {
             try {
                 mEventStartDateTime = Formatter.getDateTimeFromTS(realStart)
                     .withZone(DateTimeZone.forID(mOriginalTimeZone))
-                mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
-                    .withZone(DateTimeZone.forID(mOriginalTimeZone))
+
             } catch (e: Exception) {
                 //  showErrorToast(e)
                 showErrorSnackBar(root_layout, e.toString())
                 mEventStartDateTime = Formatter.getDateTimeFromTS(realStart)
-                mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
             }
         } else {
 
             mEventStartDateTime = Formatter.getDateTimeFromTS(realStart)
-            mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
         }
         ed_patient_name!!.postDelayed(Runnable {
             ed_patient_name!!.setText(mEvent.title)
@@ -468,8 +459,6 @@ class AppointmentFormActivity : SimpleActivity() {
             val startTS = intent.getLongExtra("beginTime", System.currentTimeMillis()) / 1000L
             mEventStartDateTime = Formatter.getDateTimeFromTS(startTS)
 
-            val endTS = intent.getLongExtra("endTime", System.currentTimeMillis()) / 1000L
-            mEventEndDateTime = Formatter.getDateTimeFromTS(endTS)
 
             if (intent.getBooleanExtra("allDay", false)) {
                 mEvent.flags = mEvent.flags or FLAG_ALL_DAY
@@ -490,7 +479,6 @@ class AppointmentFormActivity : SimpleActivity() {
             } else {
                 config.defaultDuration
             }
-            mEventEndDateTime = mEventStartDateTime.plusMinutes(addMinutes)
         }
 
     }
@@ -498,7 +486,6 @@ class AppointmentFormActivity : SimpleActivity() {
 
     private fun setRepeatInterval(interval: Int) {
         mRepeatInterval = interval
-        updateRepetitionText()
         checkRepeatTexts(interval)
 
         when {
@@ -619,34 +606,6 @@ class AppointmentFormActivity : SimpleActivity() {
         }
     }
 
-    private fun checkReminderTexts() {
-        updateReminder1Text()
-        updateReminder2Text()
-        updateReminder3Text()
-        updateReminderTypeImages()
-    }
-
-    private fun updateReminder1Text() {
-    }
-
-    private fun updateReminder2Text() {
-
-    }
-
-    private fun updateReminder3Text() {
-
-    }
-
-    private fun updateReminderTypeImages() {
-    }
-
-    private fun updateAttendeesVisibility() {
-        val isSyncedEvent = mEventCalendarId != STORED_LOCALLY_ONLY
-    }
-
-    private fun updateRepetitionText() {
-    }
-
     private fun updateEventType() {
         ensureBackgroundThread {
             val eventType = eventTypesDB.getEventTypeWithId(mEventTypeId)
@@ -703,25 +662,9 @@ class AppointmentFormActivity : SimpleActivity() {
         }
     }
 
-    private fun resetTime() {
-        if (mEventEndDateTime.isBefore(mEventStartDateTime) &&
-            mEventStartDateTime.dayOfMonth() == mEventEndDateTime.dayOfMonth() &&
-            mEventStartDateTime.monthOfYear() == mEventEndDateTime.monthOfYear()
-        ) {
-
-            mEventEndDateTime = mEventEndDateTime.withTime(
-                mEventStartDateTime.hourOfDay,
-                mEventStartDateTime.minuteOfHour,
-                mEventStartDateTime.secondOfMinute,
-                0
-            )
-        }
-    }
-
     private fun toggleAllDay(isChecked: Boolean) {
         hideKeyboard()
         ed_appointment_time.beGoneIf(isChecked)
-        resetTime()
     }
 
     private fun deleteEvent() {
@@ -762,106 +705,107 @@ class AppointmentFormActivity : SimpleActivity() {
     }
 
     private fun checkValidate() {
-        val imm: InputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(root_layout.getWindowToken(), 0)
-
-        ptitle = ed_patient_name!!.text.toString()
-        if (ptitle.isEmpty()) {
-            showErrorSnackBar(root_layout, getString(R.string.title_empty))
-            runOnUiThread {
-                ed_appointment_patient_name.requestFocus()
+        hideKeyboard()
+        if (DateTime.now().isAfter(mEventStartDateTime.millis)) {
+            showErrorSnackBar(root_layout, getString(R.string.date_error))
+        } else {
+            ptitle = ed_patient_name!!.text.toString()
+            if (ptitle.isEmpty()) {
+                showErrorSnackBar(root_layout, getString(R.string.title_empty))
+                runOnUiThread {
+                    ed_appointment_patient_name.requestFocus()
+                }
+                return
+            } else if (location_name.isEmpty()) {
+                showErrorSnackBar(root_layout, getString(R.string.branch_error))
+                runOnUiThread {
+                    rg_branch_name.requestFocus()
+                }
             }
-            return
-        } else if (location_name.isEmpty()) {
-            showErrorSnackBar(root_layout, getString(R.string.branch_error))
-            runOnUiThread {
-                rg_branch_name.requestFocus()
+            ensureBackgroundThread {
+                var events = arrayListOf<Event>()
+                val newList = arrayListOf<Event>()
+                val newList2 = arrayListOf<Event>()
+                val newList3 = arrayListOf<Event>()
+                val offset = if (!config.allowChangingTimeZones || mEvent.getTimeZoneString()
+                        .equals(mOriginalTimeZone, true)
+                ) {
+                    0
+                } else {
+                    val original =
+                        if (mOriginalTimeZone.isEmpty()) DateTimeZone.getDefault().id else mOriginalTimeZone
+                    (DateTimeZone.forID(mEvent.getTimeZoneString())
+                        .getOffset(System.currentTimeMillis()) - DateTimeZone.forID(original)
+                        .getOffset(System.currentTimeMillis())) / 1000L
+                }
+                val newStartTS =
+                    mEventStartDateTime.withSecondOfMinute(0).withMillisOfSecond(0)
+                        .seconds() - offset
+                eventsHelper.getEvents(newStartTS, 0) {
+                    events = it
+                }
+                var count_b = 0
+                var count_n = 0
+                for (element in events) {
+                    // then add it
+                    if (!newList.contains(element)) {
+                        newList.add(element)
+                    } else {
+                        newList2.add(element)
+                    }
+                }
+                for (e in events) {
+                    // then add it
+                    if (newList2.contains(e)) {
+                        newList3.add(e)
+                    }
+                }
+                for (i in newList3.indices) {
+                    if (i > 0) {
+                        if (newList3[i].location == str) {
+                            count_b++
+                        } else {
+                            count_n++
+                        }
+                    } else {
+                        if (newList3[i].location == str) {
+                            count_b++
+                        } else {
+                            count_n++
+                        }
+                    }
+                }
+                val intSelectButton: Int = rg_branch_name!!.checkedRadioButtonId
+                Log.d("gggg", "....." + intSelectButton)
+                if (intSelectButton < 0) {
+                    showErrorSnackBar(root_layout, resources.getString(R.string.not_selected_area))
+                } else {
+                    val radioButton: RadioButton = findViewById(intSelectButton)
+                    location_name = radioButton.text.toString()
+
+                    if (location_name == str) {
+                        if (count_b >= 2) {
+                            showErrorSnackBar(
+                                root_layout,
+                                resources.getString(R.string.not_avail_bapunagar)
+                            )
+                        } else {
+                            saveEvent()
+                        }
+                    } else {
+                        if (count_n >= 2) {
+                            showErrorSnackBar(
+                                root_layout,
+                                resources.getString(R.string.not_avail_nikol)
+                            )
+                        } else {
+                            saveEvent()
+                        }
+                    }
+                }
             }
         }
-        ensureBackgroundThread {
-            var events = arrayListOf<Event>()
-            val newList = arrayListOf<Event>()
-            val newList2 = arrayListOf<Event>()
-            val newList3 = arrayListOf<Event>()
-            val offset = if (!config.allowChangingTimeZones || mEvent.getTimeZoneString()
-                    .equals(mOriginalTimeZone, true)
-            ) {
-                0
-            } else {
-                val original =
-                    if (mOriginalTimeZone.isEmpty()) DateTimeZone.getDefault().id else mOriginalTimeZone
-                (DateTimeZone.forID(mEvent.getTimeZoneString())
-                    .getOffset(System.currentTimeMillis()) - DateTimeZone.forID(original)
-                    .getOffset(System.currentTimeMillis())) / 1000L
-            }
-            val newStartTS =
-                mEventStartDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
-            val newEndTS =
-                mEventEndDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
-            eventsHelper.getEvents(newStartTS, newEndTS) {
-                events = it
-            }
-            var count_b = 0
-            var count_n = 0
-            for (element in events) {
-                // then add it
-                if (!newList.contains(element)) {
-                    newList.add(element)
-                } else {
-                    newList2.add(element)
-                }
-            }
-            for (e in events) {
-                // then add it
-                if (newList2.contains(e)) {
-                    newList3.add(e)
-                }
-            }
-            for (i in newList3.indices) {
-                if (i > 0) {
-                    if (newList3[i].location == str) {
-                        count_b++
-                    } else {
-                        count_n++
-                    }
-                } else {
-                    if (newList3[i].location == str) {
-                        count_b++
-                    } else {
-                        count_n++
-                    }
-                }
-            }
-            val intSelectButton: Int = rg_branch_name!!.checkedRadioButtonId
-            Log.d("gggg", "....." + intSelectButton)
-            if (intSelectButton < 0) {
-                showErrorSnackBar(root_layout, resources.getString(R.string.not_selected_area))
-            } else {
-                val radioButton: RadioButton = findViewById(intSelectButton)
-                location_name = radioButton.text.toString()
 
-                if (location_name == str) {
-                    if (count_b >= 2) {
-                        showErrorSnackBar(
-                            root_layout,
-                            resources.getString(R.string.not_avail_bapunagar)
-                        )
-                    } else {
-                        saveEvent()
-                    }
-                } else {
-                    if (count_n >= 2) {
-                        showErrorSnackBar(
-                            root_layout,
-                            resources.getString(R.string.not_avail_nikol)
-                        )
-                    } else {
-                        saveEvent()
-                    }
-                }
-            }
-        }
     }
 
     private fun saveEvent() {
@@ -880,13 +824,6 @@ class AppointmentFormActivity : SimpleActivity() {
 
         val newStartTS =
             mEventStartDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
-        val newEndTS =
-            mEventEndDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
-
-        if (newStartTS > newEndTS) {
-            showErrorSnackBar(root_layout, getString(R.string.end_before_start))
-            return
-        }
 
         val wasRepeatable = mEvent.repeatInterval > 0
         val oldSource = mEvent.source
@@ -968,7 +905,6 @@ class AppointmentFormActivity : SimpleActivity() {
 
         mEvent.apply {
             startTS = newStartTS
-            endTS = newEndTS
             title = ptitle
             location = location_name
             doctor_name = doctorname
@@ -1100,22 +1036,6 @@ class AppointmentFormActivity : SimpleActivity() {
 
     }
 
-    private fun setupEndDate() {
-        hideKeyboard()
-        val datepicker = DatePickerDialog(
-            this,
-            mDialogTheme,
-            endDateSetListener,
-            mEventEndDateTime.year,
-            mEventEndDateTime.monthOfYear - 1,
-            mEventEndDateTime.dayOfMonth
-        )
-
-        datepicker.datePicker.firstDayOfWeek =
-            if (config.isSundayFirst) Calendar.SUNDAY else Calendar.MONDAY
-        datepicker.show()
-    }
-
     private val startDateSetListener =
         DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             dateSet(year, monthOfYear, dayOfMonth, true)
@@ -1139,46 +1059,21 @@ class AppointmentFormActivity : SimpleActivity() {
             }
         }
 
-    private val endDateSetListener =
-        DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            dateSet(
-                year,
-                monthOfYear,
-                dayOfMonth,
-                false
-            )
-        }
 
     private fun dateSet(year: Int, month: Int, day: Int, isStart: Boolean) {
         if (isStart) {
-            val diff = mEventEndDateTime.seconds() - mEventStartDateTime.seconds()
-
             mEventStartDateTime = mEventStartDateTime.withDate(year, month + 1, day)
             updateStartDateText()
             checkRepeatRule()
-
-            mEventEndDateTime = mEventStartDateTime.plusSeconds(diff.toInt())
-
-        } else {
-            mEventEndDateTime = mEventEndDateTime.withDate(year, month + 1, day)
-
         }
     }
 
     private fun timeSet(hours: Int, minutes: Int, isStart: Boolean) {
         try {
             if (isStart) {
-                val diff = mEventEndDateTime.seconds() - mEventStartDateTime.seconds()
-
                 mEventStartDateTime =
                     mEventStartDateTime.withHourOfDay(hours).withMinuteOfHour(minutes)
                 updateStartTimeText()
-
-                mEventEndDateTime = mEventStartDateTime.plusSeconds(diff.toInt())
-
-            } else {
-                mEventEndDateTime = mEventEndDateTime.withHourOfDay(hours).withMinuteOfHour(minutes)
-
             }
         } catch (e: Exception) {
             timeSet(hours + 1, minutes, isStart)
@@ -1200,9 +1095,4 @@ class AppointmentFormActivity : SimpleActivity() {
         }
     }
 
-
-    private fun updateIconColors() {
-        val textColor = config.textColor
-
-    }
 }

@@ -68,4 +68,5 @@
     <dimen name="design_bottom_navigation_text_size" tools:override="true">20sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">22sp</dimen>
     <dimen name="design_bottom_navigation_height" tools:override="true">70dp</dimen>
+    <dimen name="btn_width">200dp</dimen>
 </resources>

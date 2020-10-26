@@ -78,12 +78,13 @@
 
                 <Button
                     android:id="@+id/button"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/btn_width"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_16"
-                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_15"
                     android:layout_marginEnd="@dimen/space_16"
                     android:layout_marginBottom="@dimen/space_50"
+                    android:padding="@dimen/space_10"
                     android:text="@string/btn_login"
                     android:textSize="@dimen/text_18"
                     android:onClick="@{vm::onLoginClick}"

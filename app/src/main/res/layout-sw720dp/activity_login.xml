@@ -86,9 +86,10 @@
 
                 <Button
                     android:id="@+id/button"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/btn_width"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_10"
+                    android:layout_marginTop="@dimen/space_25"
+                    android:padding="@dimen/space_20"
                     android:layout_marginStart="@dimen/space_50"
                     android:layout_marginEnd="@dimen/space_50"
                     android:layout_marginBottom="@dimen/space_50"
@@ -99,7 +100,6 @@
                     android:background="@drawable/login_button_drawable"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:padding="@dimen/space_15"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView"

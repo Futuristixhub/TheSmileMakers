@@ -49,10 +49,10 @@
             android:textSize="@dimen/text_24"
             tools:text="Event title" />
 
-        <ImageView
-            android:layout_width="@dimen/event_color_width"
+        <View
+            android:layout_width="@dimen/space_1"
             android:layout_height="match_parent"
-            android:background="@color/md_grey_300" />
+            android:background="@color/md_grey_400" />
 
         <TextView
             android:id="@+id/event_item_title2"
@@ -64,10 +64,10 @@
             android:textSize="@dimen/text_24"
             tools:text="Event title" />
 
-        <ImageView
-            android:layout_width="@dimen/event_color_width"
+        <View
+            android:layout_width="@dimen/space_1"
             android:layout_height="match_parent"
-            android:background="@color/md_grey_300" />
+            android:background="@color/md_grey_400" />
 
         <TextView
             android:id="@+id/event_item_title3"
@@ -79,10 +79,10 @@
             android:textSize="@dimen/text_24"
             tools:text="Event title" />
 
-        <ImageView
-            android:layout_width="@dimen/event_color_width"
+        <View
+            android:layout_width="@dimen/space_1"
             android:layout_height="match_parent"
-            android:background="@color/md_grey_300" />
+            android:background="@color/md_grey_400" />
 
         <TextView
             android:id="@+id/event_item_title4"

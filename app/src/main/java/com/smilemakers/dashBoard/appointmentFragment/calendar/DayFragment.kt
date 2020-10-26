@@ -11,6 +11,7 @@ import com.smilemakers.R
 import com.smilemakers.dashBoard.appointmentFragment.addAppointment.AppointmentFormActivity
 import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
 import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Events
+import com.smilemakers.dashBoard.appointmentFragment.calendar.AppointmentDetailActivity
 import com.smilemakers.dashBoard.appointmentFragment.calendar.DayEventsAdapter
 import com.smilemakers.dashBoard.appointmentFragment.calendar.NavigationListener
 import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
@@ -160,7 +161,7 @@ class DayFragment : Fragment() {
     }
 
     private fun editEvent(event: Event) {
-        Intent(context, AppointmentFormActivity::class.java).apply {
+        Intent(context, AppointmentDetailActivity::class.java).apply {
             putExtra(EVENT_ID, event.id)
             putExtra(EVENT_OCCURRENCE_TS, event.startTS)
             startActivity(this)

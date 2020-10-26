@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.smilemakers.dashBoard.profile.ProfileVM" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/background_drawable_grey_ligh"
+        tools:context=".dashBoard.doctorFragment.addDoctor.AddDoctorFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_drawable_grey_ligh"
+            android:padding="@dimen/space_25">
+
+            <EditText
+                android:id="@+id/ed_patient_first_name"
+                style="@style/EditTextStyle"
+                android:layout_margin="@dimen/space_0"
+                android:hint="First Name*"
+                android:inputType="textPersonName"
+                android:text="@={vm.edt_fname}"
+                android:textSize="@dimen/text_22"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/ed_patient_last_name"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+              android:layout_marginTop="@dimen/space_25"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Last Name*"
+                android:inputType="textPersonName"
+                android:text="@={vm.edt_lname}"
+                android:textSize="@dimen/text_22"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_patient_first_name" />
+
+            <EditText
+                android:id="@+id/ed_patient_sub_title"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+              android:layout_marginTop="@dimen/space_25"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Bio*"
+                android:inputType="text"
+                android:text="@={vm.edt_subname}"
+                android:textSize="@dimen/text_22"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_patient_last_name" />
+
+            <EditText
+                android:id="@+id/ed_patient_referral_id"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+              android:layout_marginTop="@dimen/space_25"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Location*"
+                android:inputType="text"
+                android:text="@={vm.edt_location}"
+                android:textSize="@dimen/text_22"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_sub_title" />
+
+            <EditText
+                android:id="@+id/ed_patient_referral_name"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+              android:layout_marginTop="@dimen/space_25"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Email ID"
+                android:inputType="textEmailAddress"
+                android:text="@={vm.edt_email}"
+                android:textSize="@dimen/text_22"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ed_patient_referral_id" />
+
+            <EditText
+                android:id="@+id/ed_patient_mobile"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+              android:layout_marginTop="@dimen/space_25"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Mobile Number*"
+                android:text="@={vm.edt_mob_no}"
+                android:textSize="@dimen/text_22"
+                android:inputType="phone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_name" />
+
+
+            <Button
+                android:layout_width="@dimen/btn_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_25"
+                android:padding="@dimen/space_20"
+                android:background="@drawable/login_button_drawable"
+                android:onClick="@{vm::onSubmitClick}"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_24"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

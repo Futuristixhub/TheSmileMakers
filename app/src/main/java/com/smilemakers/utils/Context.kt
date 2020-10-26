@@ -11,6 +11,8 @@ import android.os.Bundle
 import android.provider.CalendarContract
 import android.util.Range
 import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.app.NotificationCompat
@@ -30,6 +32,7 @@ import com.smilemakers.utils.Formatter.getDateFromCode
 import com.smilemakers.utils.Formatter.getDateFromTS
 import com.smilemakers.utils.Formatter.getDayCodeFromTS
 import com.smilemakers.utils.Formatter.getTimeFromTS
+import kotlinx.android.synthetic.main.fragment_appointment_form.*
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
@@ -55,6 +58,12 @@ fun Context.updateWidgets() {
     }
 
     updateListWidget()
+}
+
+fun Context.hideKeyboard(view: View) {
+    val imm: InputMethodManager =
+        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
 }
 
 fun ProgressBar.show() {

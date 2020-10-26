@@ -132,7 +132,7 @@
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:hint="Age*"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@id/ll_gender" />
@@ -144,7 +144,7 @@
                 android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Referral Id"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_dob" />
@@ -168,22 +168,26 @@
                 android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Mobile Number*"
+                android:inputType="phone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_name" />
 
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/btn_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_15"
                 android:background="@drawable/login_button_drawable"
                 android:onClick="@{vm::onAddressClick}"
                 android:text="Next"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_16"
+                android:textSize="@dimen/text_18"
+                android:padding="@dimen/space_10"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

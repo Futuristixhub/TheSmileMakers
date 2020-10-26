@@ -70,7 +70,7 @@ class PatientAddressFragment : Fragment() , AdapterView.OnItemSelectedListener {
             if (resultCode == Activity.RESULT_OK) {
                 val place = Autocomplete.getPlaceFromIntent(data!!)
                 Log.i("DashBoard TAG", "Place: " + place.name + ", " + place.id)
-            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) { // TODO: Handle the error.
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 val status: Status = Autocomplete.getStatusFromIntent(data!!)
                 Log.i("DashBoard TAG", status.getStatusMessage())
             } else if (resultCode == Activity.RESULT_CANCELED) { // The user canceled the operation.
@@ -79,7 +79,7 @@ class PatientAddressFragment : Fragment() , AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

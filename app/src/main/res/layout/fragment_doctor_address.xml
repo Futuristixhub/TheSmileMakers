@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/space_12"
+            android:padding="@dimen/space_10"
             tools:context=".dashBoard.patientFragment.patientAddress.PatientAddressFragment">
 
 
@@ -29,10 +29,10 @@
                 android:id="@+id/ed_address_line_1"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-                android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_0"
                 android:cursorVisible="false"
                 android:focusable="false"
+                android:inputType="text"
                 android:hint="Address Line 1"
                 android:onClick="@{vm::onAddressFieldClick}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +45,7 @@
                 android:layout_marginStart="@dimen/space_0"
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_0"
+                android:inputType="text"
                 android:hint="Address Line 2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +58,7 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="City"
+                android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_line_2" />
@@ -75,6 +77,7 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_8"
                 android:hint="State"
+                android:inputType="text"
                 app:layout_constraintEnd_toStartOf="@id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_city" />
@@ -86,6 +89,7 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Pin Code"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline3"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_city" />
@@ -97,6 +101,7 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Country"
+                android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_pin" />
@@ -106,34 +111,33 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_15"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_country">
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/btn_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12"
                 android:background="@drawable/login_button_drawable"
                 android:onClick="@{vm::onPreviousClick}"
                 android:text="Previous"
-                android:layout_weight="1"
                 android:textAllCaps="false"
+                android:padding="@dimen/space_10"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_16"
+                android:textSize="@dimen/text_18"
                 android:textStyle="bold" />
 
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/btn_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12"
                 android:background="@drawable/login_button_drawable"
                 android:onClick="@{vm::onSaveClick}"
                 android:text="Save"
-                android:layout_weight="1"
+                android:padding="@dimen/space_10"
                 android:layout_marginStart="@dimen/space_10"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_16"
+                android:textSize="@dimen/text_18"
                 android:textStyle="bold"
                  />
             </LinearLayout>

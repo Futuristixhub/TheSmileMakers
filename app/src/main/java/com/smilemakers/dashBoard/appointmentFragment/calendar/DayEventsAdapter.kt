@@ -161,7 +161,7 @@ class DayEventsAdapter(
     }
 
     private fun editEvent(id: String, startTs: Long) {
-        Intent(activity, AppointmentFormActivity::class.java).apply {
+        Intent(activity, AppointmentDetailActivity::class.java).apply {
             putExtra(EVENT_ID, id.toLong())
             putExtra(EVENT_OCCURRENCE_TS, startTs)
             activity.startActivity(this)

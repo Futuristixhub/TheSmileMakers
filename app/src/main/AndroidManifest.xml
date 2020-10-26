@@ -38,6 +38,9 @@
         <activity android:name=".dashBoard.appointmentFragment.addAppointment.AppointmentFormActivity" />
         <activity android:name=".dashBoard.doctorFragment.addDoctor.AddDoctorActivity" />
         <activity android:name=".dashBoard.patientFragment.addPatient.AddPatientActivity" />
+        <activity android:name=".dashBoard.appointmentFragment.calendar.AppointmentDetailActivity" />
+        <activity android:name=".dashBoard.profile.EditProfileActivity" />
+        <activity android:name=".dashBoard.profile.ChangePasswordActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

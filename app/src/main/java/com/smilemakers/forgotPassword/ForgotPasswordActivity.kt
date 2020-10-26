@@ -18,7 +18,6 @@ class ForgotPasswordActivity : AppCompatActivity() , KodeinAware {
 
     override val kodein by kodein()
 
-    private lateinit var viewModel: ForgotPasswordVM
     private val factory: ForgotPasswordViewModelFactory by instance()
 
     var binding : ActivityForgotPasswordBinding? = null
