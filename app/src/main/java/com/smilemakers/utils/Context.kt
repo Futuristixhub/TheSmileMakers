@@ -74,6 +74,22 @@ fun ProgressBar.hide() {
     visibility = View.GONE
 }
 
+fun Context.saveData(context: Context, key: String, value: String) {
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("SmileMakerFile", Context.MODE_PRIVATE)
+    val editor: SharedPreferences.Editor = sharedPreferences.edit()
+    editor.putString(key, value)
+    editor.apply()
+    editor.commit()
+}
+
+fun Context.getData(context: Context, key: String): String? {
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("SmileMakerFile", Context.MODE_PRIVATE)
+    val value = sharedPreferences.getString(key, "")
+    return value
+}
+
 fun Context.showErrorSnackBar(view: View, errorMsg: String) {
     val errorSnackbar =
         Snackbar.make(view, errorMsg, Snackbar.LENGTH_LONG)

@@ -20,6 +20,9 @@
             android:name=".forgotPassword.ForgotPasswordActivity"
             android:theme="@style/LoginPageStyle" />
         <activity
+            android:name=".forgotPassword.ResetPasswordActivity"
+            android:theme="@style/LoginPageStyle" />
+        <activity
             android:name=".login.LoginActivity"
             android:theme="@style/LoginPageStyle"
             android:windowSoftInputMode="adjustResize">
@@ -40,7 +43,7 @@
         <activity android:name=".dashBoard.patientFragment.addPatient.AddPatientActivity" />
         <activity android:name=".dashBoard.appointmentFragment.calendar.AppointmentDetailActivity" />
         <activity android:name=".dashBoard.profile.EditProfileActivity" />
-        <activity android:name=".dashBoard.profile.ChangePasswordActivity" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

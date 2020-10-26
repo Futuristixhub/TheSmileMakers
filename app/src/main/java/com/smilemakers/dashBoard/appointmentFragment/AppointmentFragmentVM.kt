@@ -37,16 +37,22 @@ class AppointmentFragmentVM(val repository: AppointmentRepository) : ViewModel()
     val dr_name: String? = null
     val presc = MutableLiveData<String>()
 
+    val time: String? = null
+    val title1: String? = null
+    val title2: String? = null
+    val title3: String? = null
+    val title4: String? = null
+
     fun onSubmitClick(view: View) {
-         if (isValid(view)) {
-        (view.context as AppCompatActivity).finish()
-       }
+        if (isValid(view)) {
+            (view.context as AppCompatActivity).finish()
+        }
     }
 
     fun isValid(view: View): Boolean {
 
         if (presc.value == null || presc.value?.isEmpty()!!) {
-            view.context.showErrorSnackBar(view,view.context.getString(R.string.empty_presc))
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_presc))
             return false
         }
 

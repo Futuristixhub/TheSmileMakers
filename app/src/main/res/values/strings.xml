@@ -165,6 +165,22 @@
     <string name="empty_npwd">Please Enter New Password</string>
     <string name="empty_cfpwd">Please Enter Confirm Password</string>
     <string name="pwd_match_error">New And Confirm Password Not Match</string>
+    <string name="lbl_otp">OTP</string>
+    <string name="lbl_new_password">New Password</string>
+    <string name="lbl_confirm_password">Confirm Password</string>
+    <string name="empty_otp">Please Enter OTP</string>
+    <string name="empty_dob">Please Enter DOB</string>
+    <string name="empty_age">Please Enter Age</string>
+    <string name="empty_ref_id">Please Enter Reference Id</string>
+    <string name="empty_ref_name">Please Enter Reference Name</string>
+    <string name="empty_adr">Please Enter Address</string>
+    <string name="empty_city">Please Enter City</string>
+    <string name="empty_state">Please Enter State</string>
+    <string name="empty_pincode">Please Enter Pin Code</string>
+    <string name="empty_country">Please Enter Country</string>
+    <string name="empty_education">Please Enter Education</string>
+    <string name="valid_email">Please Enter Valid Email</string>
+    <string name="is_logged_in">logged In Status</string>
 
     <string-array name="registration_area">
         <item>Bapunagar</item>

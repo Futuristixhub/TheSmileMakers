@@ -18,14 +18,15 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/transparentWhite"
             app:cardCornerRadius="@dimen/space_8"
-            android:layout_margin="@dimen/space_24"
+            android:layout_margin="@dimen/space_35"
             android:layout_gravity="center_vertical"
             >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".login.LoginActivity">
+                tools:context=".login.LoginActivity"
+                android:padding="@dimen/space_10">
 
                 <ImageView
                     android:id="@+id/imageView"

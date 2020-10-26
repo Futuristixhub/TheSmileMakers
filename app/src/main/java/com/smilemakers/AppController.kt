@@ -65,6 +65,7 @@ public class AppController : Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         val context: Context = AppController.applicationContext()
+
     }
 
     init {

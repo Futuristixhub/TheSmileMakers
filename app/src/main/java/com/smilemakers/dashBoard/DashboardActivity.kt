@@ -31,6 +31,7 @@ import com.smilemakers.login.LoginActivity
 import com.smilemakers.utils.DAY_CODE
 import com.smilemakers.utils.Formatter
 import com.smilemakers.utils.color
+import com.smilemakers.utils.saveData
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import org.joda.time.DateTime
 
@@ -45,8 +46,8 @@ class DashboardActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-      /*  supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        supportActionBar?.setCustomView(R.layout.custom_action_bar);*/
+        /*  supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+          supportActionBar?.setCustomView(R.layout.custom_action_bar);*/
 
         val bar: ActionBar? = supportActionBar
         if (bar != null) {
@@ -115,10 +116,24 @@ class DashboardActivity : SimpleActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_logout -> {
-                val loginIntent = Intent(this, LoginActivity::class.java)
-                loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(loginIntent)
-                finish()
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                builder.setTitle(R.string.app_name)
+                builder.setIcon(R.mipmap.logo)
+                builder.setMessage("Are you sure you want to Logout?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes",
+                        DialogInterface.OnClickListener { dialog, id ->
+                            saveData(this, getString(R.string.is_logged_in), "false")
+                            val loginIntent = Intent(this, LoginActivity::class.java)
+                            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            startActivity(loginIntent)
+                            finish()
+                        })
+                    .setNegativeButton("No",
+                        DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+                val alert: AlertDialog = builder.create()
+                alert.show()
+
             }
             android.R.id.home -> onBackPressed()
         }
