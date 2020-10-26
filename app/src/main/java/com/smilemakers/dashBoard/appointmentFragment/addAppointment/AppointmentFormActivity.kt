@@ -73,6 +73,7 @@ class AppointmentFormActivity : SimpleActivity() {
     private var mOriginalTimeZone = DateTimeZone.getDefault().id
 
     private lateinit var mEventStartDateTime: DateTime
+    private lateinit var mEventEndDateTime: DateTime
     private lateinit var mEvent: Event
 
     var location_name = ""
@@ -267,6 +268,7 @@ class AppointmentFormActivity : SimpleActivity() {
         ed_appointment_date.setOnClickListener { setupStartDate() }
         ed_appointment_time.setOnClickListener { setupStartTime() }
 
+        updateIconColors()
         mWasActivityInitialized = true
     }
 
@@ -306,6 +308,7 @@ class AppointmentFormActivity : SimpleActivity() {
         outState.apply {
             putSerializable(EVENT, mEvent)
             putLong(START_TS, mEventStartDateTime.seconds())
+            putLong(END_TS, mEventEndDateTime.seconds())
             putString(TIME_ZONE, mEvent.timeZone)
 
             putInt(REMINDER_1_MINUTES, mReminder1Minutes)
@@ -336,6 +339,7 @@ class AppointmentFormActivity : SimpleActivity() {
         savedInstanceState.apply {
             mEvent = getSerializable(EVENT) as Event
             mEventStartDateTime = Formatter.getDateTimeFromTS(getLong(START_TS))
+            mEventEndDateTime = Formatter.getDateTimeFromTS(getLong(END_TS))
             mEvent.timeZone = getString(TIME_ZONE) ?: TimeZone.getDefault().id
 
             mReminder1Minutes = getInt(REMINDER_1_MINUTES)
@@ -374,7 +378,11 @@ class AppointmentFormActivity : SimpleActivity() {
     }
 
     private fun updateTexts() {
+        updateRepetitionText()
+        checkReminderTexts()
         updateStartTexts()
+
+        updateAttendeesVisibility()
     }
 
     private fun setupEditEvent() {
@@ -406,15 +414,18 @@ class AppointmentFormActivity : SimpleActivity() {
             try {
                 mEventStartDateTime = Formatter.getDateTimeFromTS(realStart)
                     .withZone(DateTimeZone.forID(mOriginalTimeZone))
-
+                mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
+                    .withZone(DateTimeZone.forID(mOriginalTimeZone))
             } catch (e: Exception) {
                 //  showErrorToast(e)
                 showErrorSnackBar(root_layout, e.toString())
                 mEventStartDateTime = Formatter.getDateTimeFromTS(realStart)
+                mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
             }
         } else {
 
             mEventStartDateTime = Formatter.getDateTimeFromTS(realStart)
+            mEventEndDateTime = Formatter.getDateTimeFromTS(realStart + duration)
         }
         ed_patient_name!!.postDelayed(Runnable {
             ed_patient_name!!.setText(mEvent.title)
@@ -459,6 +470,8 @@ class AppointmentFormActivity : SimpleActivity() {
             val startTS = intent.getLongExtra("beginTime", System.currentTimeMillis()) / 1000L
             mEventStartDateTime = Formatter.getDateTimeFromTS(startTS)
 
+            val endTS = intent.getLongExtra("endTime", System.currentTimeMillis()) / 1000L
+            mEventEndDateTime = Formatter.getDateTimeFromTS(endTS)
 
             if (intent.getBooleanExtra("allDay", false)) {
                 mEvent.flags = mEvent.flags or FLAG_ALL_DAY
@@ -479,6 +492,7 @@ class AppointmentFormActivity : SimpleActivity() {
             } else {
                 config.defaultDuration
             }
+            mEventEndDateTime = mEventStartDateTime.plusMinutes(addMinutes)
         }
 
     }
@@ -486,6 +500,7 @@ class AppointmentFormActivity : SimpleActivity() {
 
     private fun setRepeatInterval(interval: Int) {
         mRepeatInterval = interval
+        updateRepetitionText()
         checkRepeatTexts(interval)
 
         when {
@@ -606,6 +621,34 @@ class AppointmentFormActivity : SimpleActivity() {
         }
     }
 
+    private fun checkReminderTexts() {
+        updateReminder1Text()
+        updateReminder2Text()
+        updateReminder3Text()
+        updateReminderTypeImages()
+    }
+
+    private fun updateReminder1Text() {
+    }
+
+    private fun updateReminder2Text() {
+
+    }
+
+    private fun updateReminder3Text() {
+
+    }
+
+    private fun updateReminderTypeImages() {
+    }
+
+    private fun updateAttendeesVisibility() {
+        val isSyncedEvent = mEventCalendarId != STORED_LOCALLY_ONLY
+    }
+
+    private fun updateRepetitionText() {
+    }
+
     private fun updateEventType() {
         ensureBackgroundThread {
             val eventType = eventTypesDB.getEventTypeWithId(mEventTypeId)
@@ -662,9 +705,25 @@ class AppointmentFormActivity : SimpleActivity() {
         }
     }
 
+    private fun resetTime() {
+        if (mEventEndDateTime.isBefore(mEventStartDateTime) &&
+            mEventStartDateTime.dayOfMonth() == mEventEndDateTime.dayOfMonth() &&
+            mEventStartDateTime.monthOfYear() == mEventEndDateTime.monthOfYear()
+        ) {
+
+            mEventEndDateTime = mEventEndDateTime.withTime(
+                mEventStartDateTime.hourOfDay,
+                mEventStartDateTime.minuteOfHour,
+                mEventStartDateTime.secondOfMinute,
+                0
+            )
+        }
+    }
+
     private fun toggleAllDay(isChecked: Boolean) {
         hideKeyboard()
         ed_appointment_time.beGoneIf(isChecked)
+        resetTime()
     }
 
     private fun deleteEvent() {
@@ -705,7 +764,7 @@ class AppointmentFormActivity : SimpleActivity() {
     }
 
     private fun checkValidate() {
-        hideKeyboard()
+       hideKeyboard()
         if (DateTime.now().isAfter(mEventStartDateTime.millis)) {
             showErrorSnackBar(root_layout, getString(R.string.date_error))
         } else {
@@ -741,7 +800,9 @@ class AppointmentFormActivity : SimpleActivity() {
                 val newStartTS =
                     mEventStartDateTime.withSecondOfMinute(0).withMillisOfSecond(0)
                         .seconds() - offset
-                eventsHelper.getEvents(newStartTS, 0) {
+                val newEndTS =
+                    mEventEndDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
+                eventsHelper.getEvents(newStartTS, newEndTS) {
                     events = it
                 }
                 var count_b = 0
@@ -805,7 +866,6 @@ class AppointmentFormActivity : SimpleActivity() {
                 }
             }
         }
-
     }
 
     private fun saveEvent() {
@@ -824,6 +884,13 @@ class AppointmentFormActivity : SimpleActivity() {
 
         val newStartTS =
             mEventStartDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
+        val newEndTS =
+            mEventEndDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
+
+        if (newStartTS > newEndTS) {
+            showErrorSnackBar(root_layout, getString(R.string.end_before_start))
+            return
+        }
 
         val wasRepeatable = mEvent.repeatInterval > 0
         val oldSource = mEvent.source
@@ -905,6 +972,7 @@ class AppointmentFormActivity : SimpleActivity() {
 
         mEvent.apply {
             startTS = newStartTS
+            endTS = newEndTS
             title = ptitle
             location = location_name
             doctor_name = doctorname
@@ -1036,6 +1104,22 @@ class AppointmentFormActivity : SimpleActivity() {
 
     }
 
+    private fun setupEndDate() {
+        hideKeyboard()
+        val datepicker = DatePickerDialog(
+            this,
+            mDialogTheme,
+            endDateSetListener,
+            mEventEndDateTime.year,
+            mEventEndDateTime.monthOfYear - 1,
+            mEventEndDateTime.dayOfMonth
+        )
+
+        datepicker.datePicker.firstDayOfWeek =
+            if (config.isSundayFirst) Calendar.SUNDAY else Calendar.MONDAY
+        datepicker.show()
+    }
+
     private val startDateSetListener =
         DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             dateSet(year, monthOfYear, dayOfMonth, true)
@@ -1059,21 +1143,46 @@ class AppointmentFormActivity : SimpleActivity() {
             }
         }
 
+    private val endDateSetListener =
+        DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            dateSet(
+                year,
+                monthOfYear,
+                dayOfMonth,
+                false
+            )
+        }
 
     private fun dateSet(year: Int, month: Int, day: Int, isStart: Boolean) {
         if (isStart) {
+            val diff = mEventEndDateTime.seconds() - mEventStartDateTime.seconds()
+
             mEventStartDateTime = mEventStartDateTime.withDate(year, month + 1, day)
             updateStartDateText()
             checkRepeatRule()
+
+            mEventEndDateTime = mEventStartDateTime.plusSeconds(diff.toInt())
+
+        } else {
+            mEventEndDateTime = mEventEndDateTime.withDate(year, month + 1, day)
+
         }
     }
 
     private fun timeSet(hours: Int, minutes: Int, isStart: Boolean) {
         try {
             if (isStart) {
+                val diff = mEventEndDateTime.seconds() - mEventStartDateTime.seconds()
+
                 mEventStartDateTime =
                     mEventStartDateTime.withHourOfDay(hours).withMinuteOfHour(minutes)
                 updateStartTimeText()
+
+                mEventEndDateTime = mEventStartDateTime.plusSeconds(diff.toInt())
+
+            } else {
+                mEventEndDateTime = mEventEndDateTime.withHourOfDay(hours).withMinuteOfHour(minutes)
+
             }
         } catch (e: Exception) {
             timeSet(hours + 1, minutes, isStart)
@@ -1095,4 +1204,9 @@ class AppointmentFormActivity : SimpleActivity() {
         }
     }
 
+
+    private fun updateIconColors() {
+        val textColor = config.textColor
+
+    }
 }
