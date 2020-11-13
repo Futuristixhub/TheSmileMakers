@@ -9,6 +9,6 @@ class AppointmentRepository(
     private val db: AppDatabase
 ) : SafeApiRequest() {
 
-    suspend fun getAppointmentData() = apiRequest { api.getAppointmentData() }
+    suspend fun getAppointmentData() = apiRequest { api.getAppointmentData("") }
 
 }

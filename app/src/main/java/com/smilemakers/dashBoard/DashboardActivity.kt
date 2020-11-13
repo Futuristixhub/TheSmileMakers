@@ -15,6 +15,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
@@ -23,24 +24,27 @@ import com.smilemakers.R
 import com.smilemakers.dashBoard.appointmentFragment.AppointmentFragment
 import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
 import com.smilemakers.dashBoard.dashBoardFragment.DashboardFragment
+import com.smilemakers.dashBoard.dashBoardFragment.DashboardFragmentVM
 import com.smilemakers.dashBoard.doctorFragment.DoctorFragment
 import com.smilemakers.dashBoard.patientFragment.PatientFragment
 import com.smilemakers.dashBoard.profile.ProfileFragment
 import com.smilemakers.databinding.ActivityDashboardBinding
 import com.smilemakers.login.LoginActivity
-import com.smilemakers.utils.DAY_CODE
-import com.smilemakers.utils.Formatter
-import com.smilemakers.utils.color
-import com.smilemakers.utils.saveData
+import com.smilemakers.utils.*
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.activity_login.*
 import org.joda.time.DateTime
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
 
-class DashboardActivity : SimpleActivity() {
+class DashboardActivity : SimpleActivity(),KodeinAware{
 
+    override val kodein by kodein()
     var binding: ActivityDashboardBinding? = null
-    val dashboardVM = DashboardVM(this)
     var fragment: Fragment? = null
+    val dashboardVM = DashboardVM()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,8 +93,8 @@ class DashboardActivity : SimpleActivity() {
             title = it.title
             when (it.itemId) {
                 R.id.btm_nav_action_dashboard -> callFragment(DashboardFragment.newInstance(this@DashboardActivity))
-                R.id.btm_nav_action_paitent -> callFragment(PatientFragment.newInstance(this@DashboardActivity))
-                R.id.btm_nav_action_doctor -> callFragment(DoctorFragment.newInstance(this@DashboardActivity))
+                R.id.btm_nav_action_paitent -> callFragment(PatientFragment.newInstance())
+                R.id.btm_nav_action_doctor -> callFragment(DoctorFragment.newInstance())
                 R.id.btm_nav_action_appointment -> {
                     val dayCode = intent.getStringExtra(DAY_CODE) ?: ""
                     val bundle = Bundle()
@@ -161,7 +165,7 @@ class DashboardActivity : SimpleActivity() {
     }
 
     private fun setUpBinding() {
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.activity_dashboard, null, false)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
         binding?.vm = dashboardVM
     }
 
@@ -207,6 +211,5 @@ class DashboardActivity : SimpleActivity() {
         }
 
     }
-
 
 }

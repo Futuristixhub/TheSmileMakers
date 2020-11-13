@@ -18,6 +18,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:id="@+id/root_layout"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/space_20">
 
@@ -69,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/space_10"
                         android:elevation="@dimen/space_8"
-                        android:text="2024"
+                        android:text="@={vm.dashboardData.total_patient}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_22"
                         android:textStyle="bold" />
@@ -123,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/space_10"
                         android:elevation="@dimen/space_8"
-                        android:text="7"
+                        android:text="@{vm.dashboardData.total_admin}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_22"
                         android:textStyle="bold" />
@@ -170,7 +171,7 @@
                         android:src="@drawable/ic_admin" />
 
                     <TextView
-                        android:id="@+id/txt_total_appointments_lbl"
+                        android:id="@+id/txt_total_doctor_lbl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_8"
@@ -181,12 +182,12 @@
                         android:textSize="@dimen/text_24" />
 
                     <TextView
-                        android:id="@+id/txt_total_appointments_number"
+                        android:id="@+id/txt_total_doctor_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/space_10"
                         android:elevation="@dimen/space_8"
-                        android:text="14"
+                        android:text="@{vm.dashboardData.total_doctor}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_22"
                         android:textStyle="bold" />
@@ -281,6 +282,15 @@
                         android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

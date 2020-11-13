@@ -11,18 +11,25 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.smilemakers.R
 import com.smilemakers.dashBoard.DashboardActivity
 import com.smilemakers.dashBoard.profile.ProfileVM
 import com.smilemakers.dashBoard.profile.ProfileViewModelFactory
 import com.smilemakers.databinding.FragmentDashboardBinding
 import com.smilemakers.databinding.FragmentDoctorBinding
+import com.smilemakers.utils.Coroutines
+import com.smilemakers.utils.hide
+import com.smilemakers.utils.show
+import kotlinx.android.synthetic.main.fragment_doctor.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import java.util.Collections.addAll
 
-class DoctorFragment : Fragment() , KodeinAware {
+class DoctorFragment : Fragment(), KodeinAware {
 
     override val kodein by kodein()
 
@@ -33,8 +40,7 @@ class DoctorFragment : Fragment() , KodeinAware {
         var fragment: DoctorFragment? = null
         lateinit var mActivity: DashboardActivity
 
-        fun newInstance(mActivity: DashboardActivity): DoctorFragment? {
-            this.mActivity = mActivity
+        fun newInstance(): DoctorFragment? {
             if (fragment == null)
                 fragment = DoctorFragment()
             val bundle = Bundle()
@@ -50,7 +56,7 @@ class DoctorFragment : Fragment() , KodeinAware {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_doctor, container, false)
-        val  viewModel =
+        val viewModel =
             ViewModelProviders.of(this, factory).get(DoctorFragmentVM::class.java)
         binding?.vm = viewModel
         viewModel.createList(binding?.recPatientList!!)
@@ -76,4 +82,6 @@ class DoctorFragment : Fragment() , KodeinAware {
         }
         return binding?.root
     }
+
+
 }

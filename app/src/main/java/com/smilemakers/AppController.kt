@@ -7,6 +7,8 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
+import com.smilemakers.dashBoard.DashBoardRepository
+import com.smilemakers.dashBoard.DashBoardViewModelFactory
 import com.smilemakers.dashBoard.appointmentFragment.AppointMentViemodelFactory
 import com.smilemakers.dashBoard.appointmentFragment.AppointmentRepository
 import com.smilemakers.dashBoard.doctorFragment.DoctorRepository
@@ -41,6 +43,7 @@ public class AppController : Application(), KodeinAware {
         bind() from singleton { AppDatabase(instance()) }
 
         bind() from singleton { UserRepository(instance(), instance()) }
+        bind() from singleton { DashBoardRepository(instance(), instance()) }
         bind() from singleton { ProfileRepository(instance(), instance()) }
         bind() from singleton { ForgorPasswordRepository(instance(), instance()) }
         bind() from singleton { PatientRepository(instance(), instance()) }
@@ -48,6 +51,7 @@ public class AppController : Application(), KodeinAware {
         bind() from singleton { AppointmentRepository(instance(), instance()) }
 
         bind() from provider { AuthViewModelFactory(instance()) }
+        bind() from provider { DashBoardViewModelFactory(instance()) }
         bind() from provider { ProfileViewModelFactory(instance()) }
         bind() from provider { ForgotPasswordViewModelFactory(instance()) }
         bind() from provider { PatientViewModelFactory(instance()) }

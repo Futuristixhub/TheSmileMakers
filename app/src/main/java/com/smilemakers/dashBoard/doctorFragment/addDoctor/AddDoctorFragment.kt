@@ -7,12 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.smilemakers.R
-import com.smilemakers.dashBoard.DashboardActivity
-import com.smilemakers.dashBoard.patientFragment.addPatient.AddPatientFragment
-import com.smilemakers.dashBoard.patientFragment.addPatient.AddPatientFragmentVM
 import com.smilemakers.databinding.FragmentAddDoctorBinding
-import com.smilemakers.databinding.FragmentAddPatientBinding
-import com.smilemakers.databinding.FragmentDoctorBinding
 
 class AddDoctorFragment : Fragment() {
 

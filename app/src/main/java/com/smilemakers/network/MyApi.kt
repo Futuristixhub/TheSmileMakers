@@ -5,6 +5,7 @@ import com.smilemakers.dashBoard.doctorFragment.DoctorData
 import com.smilemakers.dashBoard.patientFragment.PatientData
 import com.smilemakers.dashBoard.profile.ProfileData
 import com.smilemakers.forgotPassword.ForgotPasswordData
+import com.smilemakers.network.response.DashBoardResponse
 import com.smilemakers.network.response.LoginResponse
 import okhttp3.OkHttpClient
 import retrofit2.Response
@@ -18,26 +19,53 @@ import retrofit2.http.POST
 interface MyApi {
 
     @FormUrlEncoded
-    @POST("login")
+    @POST("login.php")
     suspend fun userLogin(
-        @Field("email") email: String,
-        @Field("password") password: String
+        @Field("mobile") mobile: String,
+        @Field("password") password: String,
+        @Field("user_type") user_type: String
     ): Response<LoginResponse>
 
+    @FormUrlEncoded
+    @POST("dashboard_count.php")
+    suspend fun dashboardCount(
+        @Field("userid") userid: String
+    ): Response<DashBoardResponse>
+
+    @FormUrlEncoded
+    @POST("add_patient.php")
+    suspend fun addPatient(
+        @Field("fname") fname: String,
+        @Field("lname") lname: String,
+        @Field("gender") gender: String,
+        @Field("dob") dob: String,
+        @Field("age") age: String,
+        @Field("refnum") refnum: String,
+        @Field("refname") refname: String,
+        @Field("mno") mno: String,
+        @Field("retarea") retarea: String,
+        @Field("address") address: String,
+        @Field("area") area: String,
+        @Field("city") city: String,
+        @Field("state") state: String,
+        @Field("country") country: String,
+        @Field("postcode") postcode: String
+    ): Response<DashBoardResponse>
+
     @GET("profile")
-    suspend fun getProfileData() : Response<List<ProfileData>>
+    suspend fun getProfileData(@Field("userid") userid: String): Response<List<ProfileData>>
 
-    @GET("patient")
-    suspend fun getPatientData() : Response<List<PatientData>>
+    @GET("patient_list.php")
+    suspend fun getPatientData(@Field("userid") userid: String): Response<List<PatientData>>
 
-    @GET("doctor")
-    suspend fun getDoctorData() : Response<List<DoctorData>>
+    @GET("doctor_list.php")
+    suspend fun getDoctorData(@Field("userid") userid: String): Response<List<DoctorData>>
 
-    @GET("appointment")
-    suspend fun getAppointmentData() : Response<List<AppointmentData>>
+    @GET("appointment_list.php")
+    suspend fun getAppointmentData(@Field("userid") userid: String): Response<List<AppointmentData>>
 
     @GET("forgotpassword")
-    suspend fun getForgotPasswordData() : Response<List<ForgotPasswordData>>
+    suspend fun getForgotPasswordData(): Response<List<ForgotPasswordData>>
 
     companion object {
         operator fun invoke(
@@ -50,7 +78,7 @@ interface MyApi {
 
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://api.simplifiedcoding.in/course-apis/mvvm/")
+                .baseUrl("http://thesmilemakers.in/thesmilemakers/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyApi::class.java)

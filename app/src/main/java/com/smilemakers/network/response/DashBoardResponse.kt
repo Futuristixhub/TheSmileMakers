@@ -1,10 +1,10 @@
 package com.smilemakers.network.response
 
+import com.smilemakers.db.entities.DashBoard
 import com.smilemakers.db.entities.User
 
-
-class LoginResponse(
+class DashBoardResponse(
     val status: Boolean?,
     val message: String?,
-    val data: User?
+    val data: DashBoard?
 )

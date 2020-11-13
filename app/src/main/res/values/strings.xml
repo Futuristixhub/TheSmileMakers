@@ -179,8 +179,10 @@
     <string name="empty_pincode">Please Enter Pin Code</string>
     <string name="empty_country">Please Enter Country</string>
     <string name="empty_education">Please Enter Education</string>
-    <string name="valid_email">Please Enter Valid Email</string>
+    <string name="valid_email">InValid Email</string>
     <string name="is_logged_in">logged In Status</string>
+    <string name="user_type">User Type</string>
+    <string name="user_id">userid</string>
 
     <string-array name="registration_area">
         <item>Bapunagar</item>
@@ -191,6 +193,12 @@
         <item>Cosmetic Dentistry</item>
         <item>Implant Dentistry</item>
         <item>Restorative Dentistry</item>
+    </string-array>
+
+    <string-array name="user_type">
+        <item>Patient</item>
+        <item>Doctor</item>
+        <item>Admin</item>
     </string-array>
 
     <string-array name="doctors_name">

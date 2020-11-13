@@ -149,7 +149,7 @@ class AppointmentFormActivity : SimpleActivity() {
     }
 
     private fun patientSearch() {
-        val products = arrayOf<String>("Mansi", "Apoorv", "Virat", "Vishal", "Madhuri")
+        val products = arrayOf<String>("Mansi", "Apoorv", "Viraj", "Vishal", "Madhuri")
         adapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1, products

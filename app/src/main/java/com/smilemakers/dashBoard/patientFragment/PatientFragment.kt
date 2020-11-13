@@ -35,8 +35,7 @@ class PatientFragment : Fragment(), KodeinAware {
         var fragment: PatientFragment? = null
         lateinit var mActivity: DashboardActivity
 
-        fun newInstance(mActivity: DashboardActivity): PatientFragment? {
-            this.mActivity = mActivity
+        fun newInstance(): PatientFragment? {
             if (fragment == null)
                 fragment = PatientFragment()
             val bundle = Bundle()

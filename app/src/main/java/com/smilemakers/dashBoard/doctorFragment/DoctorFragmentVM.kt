@@ -17,6 +17,7 @@ import com.smilemakers.dashBoard.profile.ProfileRepository
 import com.smilemakers.utils.DAY_CODE
 import com.smilemakers.utils.NEW_EVENT_START_TS
 import com.smilemakers.utils.getNewEventTimestampFromCode
+import com.smilemakers.utils.lazyDeferred
 
 class DoctorFragmentVM(val repository: DoctorRepository) :
     ViewModel() {
@@ -25,6 +26,10 @@ class DoctorFragmentVM(val repository: DoctorRepository) :
 
     init {
         newPatientList()
+    }
+
+    val doctors by lazyDeferred {
+        repository.getDoctorData()
     }
 
     fun createList(recView: RecyclerView) {

@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.patientFragment.addPatient.AddPatientFragmentVM" />
+            type="com.smilemakers.dashBoard.patientFragment.PatientFragmentVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -74,6 +74,7 @@
                     android:orientation="horizontal"
                     android:paddingStart="@dimen/space_8"
                     android:paddingBottom="@dimen/space_8"
+                    android:onCheckedChanged="@{vm.onRadioCheckedChanged}"
                     android:weightSum="3">
 
                     <RadioButton
@@ -112,15 +113,18 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5" />
 
-            <EditText
+            <TextView
+                android:onClick="@{vm.onDobClick}"
                 android:id="@+id/ed_patient_dob"
-                style="@style/EditTextStyle"
+                android:layout_width="@dimen/space_0"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_10"
+                android:background="@drawable/color_primary_rounded_border"
                 android:layout_marginStart="@dimen/space_0"
               android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_8"
                 android:hint="DOB*"
                 android:text="@={vm.dob}"
-                android:inputType="date"
                 app:layout_constraintEnd_toStartOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ll_gender" />
@@ -131,10 +135,7 @@
                 android:layout_marginStart="@dimen/space_8"
               android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_0"
-                android:clickable="false"
-                android:cursorVisible="false"
                 android:text="@={vm.age}"
-                android:focusable="false"
                 android:hint="Age*"
                 android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"

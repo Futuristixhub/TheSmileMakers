@@ -9,8 +9,12 @@ import java.lang.StringBuilder
 abstract class SafeApiRequest {
 
     suspend fun <T : Any> apiRequest(call: suspend () -> Response<T>): T {
-        val response = call.invoke()
-
+        val response: Response<T>
+        try {
+            response = call.invoke()
+        } catch (t: Throwable) {
+            throw ApiExceptions(t.toString())
+        }
         if (response.isSuccessful) {
             return response.body()!!
         } else {

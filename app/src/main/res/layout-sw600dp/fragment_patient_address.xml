@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.patientFragment.patientAddress.PatientAddressFragmentVM" />
+            type="com.smilemakers.dashBoard.patientFragment.PatientFragmentVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -31,6 +31,8 @@
                 android:background="@drawable/color_primary_rounded_border"
                 android:prompt="@string/regis_area"
                 android:spinnerMode="dialog"
+                android:entries="@{ vm.items }"
+                android:selectedItemPosition="@={ vm.itemPosition }"
                 android:textSize="@dimen/text_16"
                 app:layout_constraintTop_toTopOf="parent" />
 

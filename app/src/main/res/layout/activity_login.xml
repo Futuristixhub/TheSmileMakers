@@ -24,7 +24,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".login.LoginActivity">
+                tools:context=".login.LoginActivity"
+                >
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -63,6 +64,24 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ed_login_mobile_number" />
+
+                <Spinner
+                    android:id="@+id/sp_user_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_50"
+                    android:layout_marginTop="@dimen/space_24"
+                    android:background="@drawable/color_primary_rounded_border"
+                    android:prompt="@string/user_type"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:layout_marginEnd="@dimen/space_16"
+                    android:spinnerMode="dialog"
+                    android:textSize="@dimen/text_14"
+                    android:visibility="gone"
+                    android:entries="@{ vm.items }"
+                    android:selectedItemPosition="@={ vm.itemPosition }"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
 
                 <TextView
                     android:id="@+id/textView"

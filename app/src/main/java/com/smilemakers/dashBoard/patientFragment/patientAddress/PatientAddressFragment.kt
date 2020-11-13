@@ -13,18 +13,26 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 
 import com.smilemakers.R
 import com.smilemakers.dashBoard.DashboardActivity
+import com.smilemakers.dashBoard.patientFragment.PatientFragmentVM
+import com.smilemakers.dashBoard.patientFragment.PatientViewModelFactory
 import com.smilemakers.databinding.FragmentPatientAddressBinding
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
 /**
  * A simple [Fragment] subclass.
  */
-class PatientAddressFragment : Fragment() , AdapterView.OnItemSelectedListener {
+class PatientAddressFragment : Fragment() , KodeinAware {
+
+    override val kodein by kodein()
     lateinit var spinner: Spinner
     companion object{
         var fragment: PatientAddressFragment? = null
@@ -41,25 +49,16 @@ class PatientAddressFragment : Fragment() , AdapterView.OnItemSelectedListener {
     }
 
     var binding: FragmentPatientAddressBinding? = null
-    var addressVM = PatientAddressFragmentVM()
+    private val factory: PatientViewModelFactory by instance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_patient_address,container, false)
-        binding?.vm = addressVM
-
-        spinner = binding?.root!!.findViewById(R.id.sp_regis_area)
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.registration_area,
-            R.layout.simple_spinner_item
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = this
-
+        val viewModel =
+            ViewModelProviders.of(this, factory).get(PatientFragmentVM::class.java)
+        binding?.vm = viewModel
 
         return binding?.root
     }
@@ -78,12 +77,4 @@ class PatientAddressFragment : Fragment() , AdapterView.OnItemSelectedListener {
         }
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val text: String = parent?.getItemAtPosition(position).toString()
-        //textView.text = text
-    }
 }

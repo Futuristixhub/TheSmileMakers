@@ -9,6 +9,6 @@ class ProfileRepository(
     private val db: AppDatabase
 ) : SafeApiRequest() {
 
-    suspend fun getProfileData() = apiRequest { api.getProfileData() }
+    suspend fun getProfileData() = apiRequest { api.getProfileData("") }
 
 }

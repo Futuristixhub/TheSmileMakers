@@ -2,24 +2,26 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="vm"
             type="com.smilemakers.login.LoginVM" />
     </data>
 
     <LinearLayout
+        android:id="@+id/root_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/root_layout">
+        android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/transparentWhite"
-            app:cardCornerRadius="@dimen/space_8"
+            android:layout_gravity="center_vertical"
             android:layout_margin="@dimen/space_60"
-            android:layout_gravity="center_vertical">
+            app:cardBackgroundColor="@color/transparentWhite"
+            app:cardCornerRadius="@dimen/space_8">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -38,48 +40,66 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    style="@style/EditTextStyle"
                     android:id="@+id/ed_login_mobile_number"
-                    android:layout_marginTop="@dimen/space_50"
-                    android:inputType="phone"
-                    android:text="@={vm.mobileNumber}"
-                    tools:text="preyansh"
+                    style="@style/EditTextStyle"
                     android:layout_marginStart="@dimen/space_50"
+                    android:layout_marginTop="@dimen/space_50"
                     android:layout_marginEnd="@dimen/space_50"
-                    android:maxLength="12"
-                    android:hint="@string/lbl_phone"
-                    android:padding="@dimen/space_15"
-                    android:textSize="@dimen/text_22"
                     android:drawableEnd="@drawable/ic_phone"
+                    android:hint="@string/lbl_phone"
+                    android:inputType="phone"
+                    android:maxLength="12"
+                    android:padding="@dimen/space_15"
+                    android:text="@={vm.mobileNumber}"
+                    android:textSize="@dimen/text_22"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageView"
+                    tools:text="preyansh" />
 
                 <EditText
-                    style="@style/EditTextStyle"
                     android:id="@+id/ed_login_password"
-                    android:layout_marginTop="@dimen/space_24"
-                    android:text="@={vm.password}"
-                    android:inputType="textPassword"
-                    tools:text="preyansh"
-                    android:hint="@string/lbl_password"
-                    android:textSize="@dimen/text_22"
+                    style="@style/EditTextStyle"
                     android:layout_marginStart="@dimen/space_50"
+                    android:layout_marginTop="@dimen/space_24"
                     android:layout_marginEnd="@dimen/space_50"
                     android:drawableEnd="@drawable/ic_password"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:hint="@string/lbl_password"
+                    android:inputType="textPassword"
                     android:padding="@dimen/space_15"
+                    android:text="@={vm.password}"
+                    android:textSize="@dimen/text_22"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ed_login_mobile_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/ed_login_mobile_number"
+                    tools:text="preyansh" />
+
+                <Spinner
+                    android:id="@+id/sp_user_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_50"
+                    android:layout_marginStart="@dimen/space_50"
+                    android:layout_marginTop="@dimen/space_24"
+                    android:layout_marginEnd="@dimen/space_50"
+                    android:background="@drawable/color_primary_rounded_border"
+                    android:entries="@{ vm.items }"
+                    android:prompt="@string/user_type"
+                    android:selectedItemPosition="@={ vm.itemPosition }"
+                    android:spinnerMode="dialog"
+                    android:textSize="@dimen/text_14"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_forgot_password"
                     android:layout_marginTop="@dimen/space_5"
-                    android:textColor="@color/colorAccent"
                     android:onClick="@{vm::onForgotPasswordClick}"
+                    android:text="@string/lbl_forgot_password"
+                    android:textColor="@color/colorAccent"
                     android:textSize="@dimen/text_20"
                     app:layout_constraintEnd_toEndOf="@id/ed_login_password"
                     app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
@@ -88,22 +108,22 @@
                     android:id="@+id/button"
                     android:layout_width="@dimen/btn_width"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_25"
-                    android:padding="@dimen/space_20"
                     android:layout_marginStart="@dimen/space_50"
+                    android:layout_marginTop="@dimen/space_25"
                     android:layout_marginEnd="@dimen/space_50"
                     android:layout_marginBottom="@dimen/space_50"
-                    android:text="@string/btn_login"
-                    android:textSize="@dimen/text_24"
-                    android:onClick="@{vm::onLoginClick}"
-                    android:textAllCaps="false"
                     android:background="@drawable/login_button_drawable"
+                    android:onClick="@{vm::onLoginClick}"
+                    android:padding="@dimen/space_20"
+                    android:text="@string/btn_login"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
+                    android:textSize="@dimen/text_24"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                 <ProgressBar
                     android:id="@+id/progress_bar"
