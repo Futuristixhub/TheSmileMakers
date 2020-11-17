@@ -7,18 +7,21 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.simplemobiletools.commons.extensions.updateActionBarTitle
 import com.smilemakers.R
 import com.smilemakers.dashBoard.doctorFragment.addDoctor.AddDoctorFragment
+import com.smilemakers.utils.getData
+import com.smilemakers.utils.saveData
 
-class AddPatientActivity : AppCompatActivity(){
+class AddPatientActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_doctor)
 
-     //   supportActionBar?.setDisplayHomeAsUpEnabled(true)
-     //   updateActionBarTitle(getString(R.string.add_patient))
+        saveData(this, getString(R.string.image),"")
+
         val bar: ActionBar? = supportActionBar
         if (bar != null) {
             val tv = TextView(applicationContext)
@@ -41,7 +44,7 @@ class AddPatientActivity : AppCompatActivity(){
         }
 
         val transaction = supportFragmentManager.beginTransaction()
-        //    transaction.addToBackStack(null)
+        //transaction.addToBackStack(null)
         transaction.add(R.id.fl_container, AddPatientFragment.newInstance()!!)
         transaction.commit()
     }

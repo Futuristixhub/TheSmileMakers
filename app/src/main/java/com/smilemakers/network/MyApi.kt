@@ -7,6 +7,7 @@ import com.smilemakers.dashBoard.profile.ProfileData
 import com.smilemakers.forgotPassword.ForgotPasswordData
 import com.smilemakers.network.response.DashBoardResponse
 import com.smilemakers.network.response.LoginResponse
+import com.smilemakers.network.response.PatientResponse
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -43,14 +44,16 @@ interface MyApi {
         @Field("refnum") refnum: String,
         @Field("refname") refname: String,
         @Field("mno") mno: String,
+        @Field("altmno") altmno: String,
         @Field("retarea") retarea: String,
         @Field("address") address: String,
         @Field("area") area: String,
         @Field("city") city: String,
         @Field("state") state: String,
         @Field("country") country: String,
-        @Field("postcode") postcode: String
-    ): Response<DashBoardResponse>
+        @Field("postcode") postcode: String,
+        @Field("image") image: String
+    ): Response<PatientResponse>
 
     @GET("profile")
     suspend fun getProfileData(@Field("userid") userid: String): Response<List<ProfileData>>

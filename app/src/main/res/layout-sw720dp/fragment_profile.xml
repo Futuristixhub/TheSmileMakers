@@ -196,6 +196,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/space_10"
                                 android:text="@string/edit"
+                                android:visibility="gone"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="@dimen/text_20" />
                         </LinearLayout>

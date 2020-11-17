@@ -20,39 +20,69 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/space_15"
-            >
+            android:padding="@dimen/space_15">
+
+            <RelativeLayout
+                android:id="@+id/rl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/img_height"
+                android:background="@drawable/color_primary_rounded_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/space_10"
+                    android:src="@drawable/logo"
+                    />
+
+                <ImageButton
+                    android:id="@+id/ig_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="2dp"
+                    android:background="@color/white"
+                    android:padding="@dimen/space_10"
+                    android:src="@drawable/ic_edit_24"
+                    android:tint="@android:color/black" />
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/ed_patient_first_name"
                 style="@style/EditTextStyle"
-                android:layout_margin="@dimen/space_0"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_15"
+                android:layout_marginEnd="@dimen/space_5"
                 android:hint="First Name*"
-                android:text="@={vm.fname}"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@={vm.fname}"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/rl" />
 
             <EditText
                 android:id="@+id/ed_patient_last_name"
                 style="@style/EditTextStyle"
-                android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_15"
+                android:layout_marginStart="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Last Name*"
-                android:text="@={vm.lname}"
                 android:inputType="textPersonName"
+                android:text="@={vm.lname}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ed_patient_first_name" />
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/rl" />
 
             <LinearLayout
                 android:id="@+id/ll_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_15"
                 android:background="@drawable/color_primary_rounded_border"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/ed_patient_last_name">
@@ -71,10 +101,10 @@
                     android:id="@+id/rg_gender"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:onCheckedChanged="@{vm.onRadioCheckedChanged}"
                     android:orientation="horizontal"
                     android:paddingStart="@dimen/space_8"
                     android:paddingBottom="@dimen/space_8"
-                    android:onCheckedChanged="@{vm.onRadioCheckedChanged}"
                     android:weightSum="3">
 
                     <RadioButton
@@ -114,16 +144,16 @@
                 app:layout_constraintGuide_percent="0.5" />
 
             <TextView
-                android:onClick="@{vm.onDobClick}"
                 android:id="@+id/ed_patient_dob"
                 android:layout_width="@dimen/space_0"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/space_10"
-                android:background="@drawable/color_primary_rounded_border"
                 android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_15"
-                android:layout_marginEnd="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_15"
+                android:layout_marginEnd="@dimen/space_5"
+                android:background="@drawable/color_primary_rounded_border"
                 android:hint="DOB*"
+                android:onClick="@{vm.onDobClick}"
+                android:padding="@dimen/space_10"
                 android:text="@={vm.dob}"
                 app:layout_constraintEnd_toStartOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
@@ -132,12 +162,12 @@
             <EditText
                 android:id="@+id/ed_patient_age"
                 style="@style/EditTextStyle"
-                android:layout_marginStart="@dimen/space_8"
-              android:layout_marginTop="@dimen/space_15"
+                android:layout_marginStart="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_0"
-                android:text="@={vm.age}"
                 android:hint="Age*"
                 android:inputType="number"
+                android:text="@={vm.age}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@id/ll_gender" />
@@ -146,33 +176,33 @@
                 android:id="@+id/ed_patient_referral_id"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_15"
-                android:layout_marginEnd="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_15"
+                android:layout_marginEnd="@dimen/space_5"
                 android:hint="Referral Id"
-                android:text="@={vm.refId}"
                 android:inputType="number"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@={vm.refId}"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_dob" />
 
             <EditText
                 android:id="@+id/ed_patient_referral_name"
                 style="@style/EditTextStyle"
-                android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_15"
+                android:layout_marginStart="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Referral Name"
-                android:text="@={vm.refName}"
                 android:inputType="textPersonName"
+                android:text="@={vm.refName}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_id" />
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_dob" />
 
             <EditText
                 android:id="@+id/ed_patient_mobile"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="Mobile Number*"
                 android:inputType="phone"
@@ -180,6 +210,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_name" />
+
+            <EditText
+                android:id="@+id/ed_patient_mobile2"
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_15"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="Alternate Mobile Number*"
+                android:inputType="phone"
+                android:text="@={vm.altmNumber}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
 
 
             <Button
@@ -196,7 +239,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

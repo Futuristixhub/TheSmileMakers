@@ -5,6 +5,7 @@ import com.smilemakers.network.MyApi
 import com.smilemakers.network.SafeApiRequest
 import com.smilemakers.network.response.DashBoardResponse
 import com.smilemakers.network.response.LoginResponse
+import com.smilemakers.network.response.PatientResponse
 
 class PatientRepository(
     private val api: MyApi,
@@ -22,14 +23,16 @@ class PatientRepository(
         refid: String,
         refname: String,
         mNo: String,
+        altmNo: String,
         location: String,
         adr1: String,
         adr2: String,
         city: String,
         state: String,
         country: String,
-        pincode: String
-    ): DashBoardResponse {
+        pincode: String,
+        image:String
+    ): PatientResponse {
         return apiRequest {
             api.addPatient(
                 fname,
@@ -40,13 +43,15 @@ class PatientRepository(
                 refid,
                 refname,
                 mNo,
+                altmNo,
                 location,
                 adr1,
                 adr2,
                 city,
                 state,
                 country,
-                pincode
+                pincode,
+                image
             )
         }
     }

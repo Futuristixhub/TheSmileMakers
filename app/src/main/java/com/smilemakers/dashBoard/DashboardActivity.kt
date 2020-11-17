@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -50,16 +51,13 @@ class DashboardActivity : SimpleActivity(),KodeinAware{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        /*  supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-          supportActionBar?.setCustomView(R.layout.custom_action_bar);*/
-
         val bar: ActionBar? = supportActionBar
         if (bar != null) {
             val tv = TextView(applicationContext)
             val lp: ActionBar.LayoutParams = ActionBar.LayoutParams(
-                ActionBar.LayoutParams.MATCH_PARENT,  // Width of TextView
+                ActionBar.LayoutParams.MATCH_PARENT,  //Width of TextView
                 ActionBar.LayoutParams.WRAP_CONTENT
-            ) // Height of TextView
+            ) //Height of TextView
             tv.layoutParams = lp
             tv.setText(getString(R.string.title_dashboard))
             tv.setTextColor(Color.WHITE)
@@ -71,7 +69,9 @@ class DashboardActivity : SimpleActivity(),KodeinAware{
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, myFloatValue)
             bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
             bar.setCustomView(tv)
+
         }
+
         setUpBinding()
 
         btm_navigation.itemBackgroundResource = R.drawable.bottom_nav_background_state

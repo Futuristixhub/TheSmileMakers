@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.smilemakers.R
@@ -30,6 +31,7 @@ class EditProfileActivity : AppCompatActivity() , KodeinAware {
         val  viewModel =
             ViewModelProviders.of(this, factory).get(ProfileVM::class.java)
         binding?.vm = viewModel
+
 
         val bar: ActionBar? = supportActionBar
         if (bar != null) {

@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/space_10"
+            android:id="@+id/root_layout"
             tools:context=".dashBoard.patientFragment.patientAddress.PatientAddressFragment">
 
             <Spinner
@@ -32,8 +33,6 @@
                 android:prompt="@string/regis_area"
                 android:spinnerMode="dialog"
                 android:textSize="@dimen/text_14"
-                android:entries="@{ vm.items }"
-                android:selectedItemPosition="@={ vm.itemPosition }"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
@@ -42,8 +41,6 @@
                 android:layout_marginStart="@dimen/space_0"
                 android:layout_marginTop="@dimen/space_10"
                 android:layout_marginEnd="@dimen/space_0"
-                android:cursorVisible="false"
-                android:focusable="false"
                 android:inputType="text"
                 android:text="@={vm.adr1}"
                 android:hint="Address Line 1"
@@ -158,6 +155,16 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_country" />
             </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/space_15"
+            android:id="@+id/root_layout"
             tools:context=".dashBoard.patientFragment.patientAddress.PatientAddressFragment">
 
             <Spinner
@@ -31,8 +32,6 @@
                 android:background="@drawable/color_primary_rounded_border"
                 android:prompt="@string/regis_area"
                 android:spinnerMode="dialog"
-                android:entries="@{ vm.items }"
-                android:selectedItemPosition="@={ vm.itemPosition }"
                 android:textSize="@dimen/text_16"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,9 +41,7 @@
                 android:layout_marginStart="@dimen/space_0"
               android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_0"
-                android:cursorVisible="false"
                 android:inputType="text"
-                android:focusable="false"
                 android:text="@={vm.adr1}"
                 android:hint="Address Line 1"
                 android:onClick="@{vm::onAddressFieldClick}"
@@ -158,6 +155,15 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/ed_address_country" />
             </LinearLayout>
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

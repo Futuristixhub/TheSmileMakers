@@ -123,5 +123,6 @@
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
 </layout>

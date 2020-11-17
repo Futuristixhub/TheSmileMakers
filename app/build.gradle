@@ -90,4 +90,8 @@ dependencies {
     //timeline
     implementation 'com.github.vipulasri:timelineview:1.1.5'
 
+    //cropimage
+    implementation 'com.github.yalantis:ucrop:2.2.2'
+    //permission
+    implementation "com.karumi:dexter:5.0.0"
 }

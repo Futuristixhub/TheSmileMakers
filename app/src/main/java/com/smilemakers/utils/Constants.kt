@@ -20,6 +20,19 @@ const val REGULAR_EVENT_TYPE_ID = 1L
 const val TIME_ZONE = "time_zone"
 const val CURRENT_TIME_ZONE = "current_time_zone"
 
+const val REQUEST_IMAGE_CAPTURE = 0
+const val REQUEST_GALLERY_IMAGE = 1
+const val REQUEST_IMAGE = 2
+
+const val INTENT_IMAGE_PICKER_OPTION = "image_picker_option"
+const val INTENT_ASPECT_RATIO_X = "aspect_ratio_x"
+const val INTENT_ASPECT_RATIO_Y = "aspect_ratio_Y"
+const val INTENT_LOCK_ASPECT_RATIO = "lock_aspect_ratio"
+const val INTENT_IMAGE_COMPRESSION_QUALITY = "compression_quality"
+const val INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT = "set_bitmap_max_width_height"
+const val INTENT_BITMAP_MAX_WIDTH = "max_width"
+const val INTENT_BITMAP_MAX_HEIGHT = "max_height"
+
 const val MONTHLY_VIEW = 1
 const val YEARLY_VIEW = 2
 const val EVENTS_LIST_VIEW = 3

@@ -9,7 +9,6 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="actionBarSize">@dimen/space_70</item>
         <item name="android:actionBarSize">@dimen/space_70</item>
-
     </style>
 
     <style name="DayView">

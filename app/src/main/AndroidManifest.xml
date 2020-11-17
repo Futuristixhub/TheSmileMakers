@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".AppController"
@@ -18,8 +21,8 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
 
-
-        <activity android:name=".dashBoard.DashboardActivity" />
+        <activity android:name=".dashBoard.DashboardActivity"
+            />
         <activity
             android:name=".forgotPassword.ForgotPasswordActivity"
             android:theme="@style/LoginPageStyle" />
@@ -48,7 +51,21 @@
         <activity android:name=".dashBoard.appointmentFragment.calendar.AppointmentDetailActivity" />
         <activity android:name=".dashBoard.profile.EditProfileActivity" />
 
-
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"
+         />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <activity android:name=".utils.ImagePickerActivity"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/GOOGLE_API_KEY" />

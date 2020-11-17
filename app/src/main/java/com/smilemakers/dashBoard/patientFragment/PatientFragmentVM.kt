@@ -2,9 +2,11 @@ package com.smilemakers.dashBoard.patientFragment
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,13 +15,9 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.smilemakers.R
-import com.smilemakers.dashBoard.DashBoardListener
-import com.smilemakers.dashBoard.DashboardActivity
-import com.smilemakers.dashBoard.doctorFragment.addDoctor.AddDoctorActivity
 import com.smilemakers.dashBoard.patientFragment.addPatient.AddPatientActivity
 import com.smilemakers.dashBoard.patientFragment.addPatient.AddPatientFragment
 import com.smilemakers.dashBoard.patientFragment.patientAddress.PatientAddressFragment
-import com.smilemakers.login.AuthListener
 import com.smilemakers.utils.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,7 +28,6 @@ class PatientFragmentVM(val repository: PatientRepository) : ViewModel() {
     val patientList = ArrayList<PatientPOJO>()
     var authListener: PatientListener? = null
     var location: String? = null
-
 
     init {
         newPatientList()
@@ -144,13 +141,15 @@ class PatientFragmentVM(val repository: PatientRepository) : ViewModel() {
 
     val fname = MutableLiveData<String>()
     val lname = MutableLiveData<String>()
-    val dob = MutableLiveData<String>()
+    val dob = ObservableField<String>("")
     val age = MutableLiveData<String>()
     val refId = MutableLiveData<String>()
     val refName = MutableLiveData<String>()
     val mNumber = MutableLiveData<String>()
+    val altmNumber = MutableLiveData<String>()
     val itemPosition = MutableLiveData<Int>()
     var gender: String? = null
+    var image: String? = null
 
     fun onRadioCheckedChanged(radioGroup: RadioGroup?, id: Int) {
         if (id == R.id.rb_female) {
@@ -178,7 +177,7 @@ class PatientFragmentVM(val repository: PatientRepository) : ViewModel() {
         var picker: DatePickerDialog = DatePickerDialog(
             view.context,
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                dob.value = dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year
+                dob.set("" + year + "-" + (monthOfYear + 1) + "-" + dayOfMonth.toString())
             },
             year,
             month,
@@ -189,17 +188,36 @@ class PatientFragmentVM(val repository: PatientRepository) : ViewModel() {
 
     fun onNextClick(view: View) {
         view.context.hideKeyboard(view)
-        //if (isValidl(view)) {
-        val transaction =
-            (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-        //  transaction.addToBackStack(null)
-        transaction.replace(R.id.fl_container, PatientAddressFragment.newInstance()!!)
-        transaction.commit()
-        // }
+        if (isValidl(view)) {
+
+            val bundle = Bundle()
+            bundle.putString("fname", fname.value)
+            bundle.putString("lname", lname.value)
+            bundle.putString("gender", gender)
+            bundle.putString("dob", dob.get())
+            bundle.putString("age", age.value)
+            bundle.putString("refid", refId.value)
+            bundle.putString("refname", refName.value)
+            bundle.putString("mno", mNumber.value)
+            bundle.putString("altmno", altmNumber.value)
+            bundle.putString("image", image)
+            val fragobj = PatientAddressFragment.newInstance()
+            fragobj!!.setArguments(bundle)
+
+            val transaction =
+                (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
+            //  transaction.addToBackStack(null)
+            transaction.replace(R.id.fl_container, fragobj)
+            transaction.commit()
+        }
     }
 
     fun isValidl(view: View): Boolean {
 
+        if (image.isNullOrEmpty()) {
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_image))
+            return false
+        }
         if (fname.value == null || fname.value?.isEmpty()!!) {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_fname))
             return false
@@ -208,7 +226,11 @@ class PatientFragmentVM(val repository: PatientRepository) : ViewModel() {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_lname))
             return false
         }
-        if (dob.value == null || dob.value?.isEmpty()!!) {
+        if (gender.isNullOrEmpty()) {
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_gender))
+            return false
+        }
+        if (dob.get() == null || dob.get()?.isEmpty()!!) {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_dob))
             return false
         }
@@ -232,6 +254,14 @@ class PatientFragmentVM(val repository: PatientRepository) : ViewModel() {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.valid_mob_no))
             return false
         }
+        if (altmNumber.value == null || altmNumber.value?.isEmpty()!!) {
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_mob_no))
+            return false
+        }
+        if (altmNumber.value?.length!! < 10) {
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.valid_mob_no))
+            return false
+        }
 
         return true
     }
@@ -250,37 +280,32 @@ class PatientFragmentVM(val repository: PatientRepository) : ViewModel() {
 
     fun onSaveClick(view: View) {
         view.context.hideKeyboard(view)
-        if (selectItem.equals("Nikol")) {
-            location = "4"
-        } else {
-            location = "5"
-        }
 
-        //  if (isValid(view)) {
-        authListener!!.onStarted()
-        Coroutines.main {
-            try {
-                val authResponse =
-                    repository.addPatient(
-                        fname.value!!,
-                        lname.value!!, gender!!,
-                        dob.value!!, age.value!!, refId.value!!,
-                        refName.value!!, mNumber.value!!, location!!,
-                        adr1.value!!, adr2.value!!, city.value!!,
-                        state.value!!, country.value!!, pinCode.value!!
-                    )
-                authResponse.data?.let {
-                    authListener?.onSuccess()
-                    return@main
+        if (isValid(view)) {
+            authListener!!.onStarted()
+            Coroutines.main {
+                try {
+                    val authResponse =
+                        repository.addPatient(
+                            fname.value!!,
+                            lname.value!!, gender!!,
+                            dob.get()!!, age.value!!, refId.value!!,
+                            refName.value!!, mNumber.value!!, altmNumber.value!!, location!!,
+                            adr1.value!!, adr2.value!!, city.value!!,
+                            state.value!!, country.value!!, pinCode.value!!, image!!
+                        )
+                    authResponse.data?.let {
+                        authListener?.onSuccess(authResponse.message!!)
+                        return@main
+                    }
+                    authListener?.onFailure(authResponse.message!!)
+                } catch (e: ApiExceptions) {
+                    authListener?.onFailure(e.message!!)
+                } catch (e: NoInternetException) {
+                    authListener?.onFailure(e.message!!)
                 }
-                authListener?.onFailure(authResponse.message!!)
-            } catch (e: ApiExceptions) {
-                authListener?.onFailure(e.message!!)
-            } catch (e: NoInternetException) {
-                authListener?.onFailure(e.message!!)
             }
         }
-        // }
     }
 
     fun onPreviousClick(view: View) {

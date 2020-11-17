@@ -15,4 +15,5 @@
     <color name="default_text_color">#000000</color>
     <color name="grey">#E9EAEE</color>
     <color name="goodgrey">#535353</color>
+    <color name="dark_gray">#9A9393</color>
 </resources>

@@ -73,4 +73,5 @@
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">18sp</dimen>
     <dimen name="design_bottom_navigation_height" tools:override="true">60dp</dimen>
     <dimen name="btn_width">180dp</dimen>
+    <dimen name="img_height">250dp</dimen>
 </resources>
