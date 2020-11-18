@@ -1,7 +1,5 @@
 package com.smilemakers.utils
 
-import android.app.Activity
-import android.content.ContentValues
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -10,15 +8,13 @@ import android.text.TextPaint
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.DisplayMetrics
-import android.util.Log
 import android.util.SparseIntArray
-import android.view.Display
 import android.view.View
 import com.simplemobiletools.commons.extensions.*
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.calendar.DayMonthly
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
-import com.smilemakers.dashBoard.appointmentFragment.calendar.MonthViewEvent
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.DayMonthly
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.MonthViewEvent
 import org.joda.time.DateTime
 import org.joda.time.Days
 

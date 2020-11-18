@@ -5,13 +5,13 @@
     <data>
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.patientFragment.PatientFragmentVM" />
+            type="com.smilemakers.ui.dashBoard.patientFragment.PatientFragmentVM" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/grey"
-        tools:context=".dashBoard.paitentFragment.PaitentFragment">
+        tools:context=".ui.dashBoard.paitentFragment.PaitentFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_patient_list"
@@ -22,6 +22,16 @@
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/patient_list_single_item"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton2"

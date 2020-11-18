@@ -7,8 +7,8 @@ import androidx.collection.LongSparseArray
 import com.simplemobiletools.commons.extensions.getChoppedList
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
-import com.smilemakers.dashBoard.appointmentFragment.calendar.EventType
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.EventType
 
 class EventsHelper(val context: Context) {
     private val config = context.config

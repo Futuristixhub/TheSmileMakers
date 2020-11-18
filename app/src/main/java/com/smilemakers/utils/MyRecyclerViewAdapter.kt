@@ -14,7 +14,7 @@ import com.simplemobiletools.commons.interfaces.MyActionModeCallback
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.SimpleActivity
 import kotlinx.android.synthetic.main.event_item_day_view_simple.view.*
 import java.util.ArrayList
 import java.util.HashSet

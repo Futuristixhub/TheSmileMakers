@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.login.LoginVM" />
+            type="com.smilemakers.ui.login.LoginVM" />
     </data>
 
     <LinearLayout
@@ -26,7 +26,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".login.LoginActivity">
+                tools:context=".ui.login.LoginActivity">
 
                 <ImageView
                     android:id="@+id/imageView"

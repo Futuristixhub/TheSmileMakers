@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.appointmentFragment.AppointmentFragmentVM" />
+            type="com.smilemakers.ui.dashBoard.appointmentFragment.AppointmentFragmentVM" />
     </data>
 
     <LinearLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@color/grey"
         android:orientation="vertical"
-        tools:context=".dashBoard.appointmentFragment.calendar.AppointmentDetailActivity">
+        tools:context=".ui.dashBoard.appointmentFragment.calendar.AppointmentDetailActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"

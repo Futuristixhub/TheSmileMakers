@@ -11,10 +11,10 @@ import android.view.View
 import android.widget.RemoteViews
 import com.simplemobiletools.commons.extensions.*
 import com.smilemakers.R
-import com.smilemakers.SplashActivity
-import com.smilemakers.dashBoard.appointmentFragment.calendar.DayMonthly
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
-import com.smilemakers.dashBoard.appointmentFragment.calendar.MonthlyCalendar
+import com.smilemakers.ui.SplashActivity
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.DayMonthly
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.MonthlyCalendar
 import com.smilemakers.utils.*
 import org.joda.time.DateTime
 

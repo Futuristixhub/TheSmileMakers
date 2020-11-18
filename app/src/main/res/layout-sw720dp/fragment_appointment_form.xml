@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.appointmentFragment.AppointmentFragmentVM" />
+            type="com.smilemakers.ui.dashBoard.appointmentFragment.AppointmentFragmentVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/background_drawable_grey_ligh"
         android:scrollbars="none"
-        tools:context=".dashBoard.appointmentFragment.AppointmentFragment">
+        tools:context=".ui.dashBoard.appointmentFragment.AppointmentFragment">
 
         <LinearLayout
             android:id="@+id/root_layout"

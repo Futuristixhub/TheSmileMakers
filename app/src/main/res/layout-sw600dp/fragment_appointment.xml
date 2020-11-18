@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.appointmentFragment.AppointmentFragmentVM" />
+            type="com.smilemakers.ui.dashBoard.appointmentFragment.AppointmentFragmentVM" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_drawable_grey_ligh"
-        tools:context=".dashBoard.appointmentFragment.AppointmentFragment">
+        tools:context=".ui.dashBoard.appointmentFragment.AppointmentFragment">
 
 
             <com.simplemobiletools.commons.views.MyViewPager

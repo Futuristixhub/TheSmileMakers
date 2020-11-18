@@ -10,7 +10,7 @@ import android.net.Uri
 import android.widget.RemoteViews
 import com.simplemobiletools.commons.extensions.*
 import com.smilemakers.R
-import com.smilemakers.SplashActivity
+import com.smilemakers.ui.SplashActivity
 import com.smilemakers.utils.*
 import org.joda.time.DateTime
 

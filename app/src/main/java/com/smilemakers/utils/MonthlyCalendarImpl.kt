@@ -2,9 +2,9 @@ package com.smilemakers.utils
 
 import android.content.Context
 import android.util.Log
-import com.smilemakers.dashBoard.appointmentFragment.calendar.DayMonthly
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
-import com.smilemakers.dashBoard.appointmentFragment.calendar.MonthlyCalendar
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.DayMonthly
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.MonthlyCalendar
 import org.joda.time.DateTime
 import java.util.*
 import kotlin.collections.ArrayList

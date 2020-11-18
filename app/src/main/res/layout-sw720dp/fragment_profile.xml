@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.profile.ProfileVM" />
+            type="com.smilemakers.ui.dashBoard.profile.ProfileVM" />
     </data>
 
     <RelativeLayout

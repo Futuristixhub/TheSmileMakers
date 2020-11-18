@@ -5,9 +5,9 @@ import android.widget.Toast
 import com.simplemobiletools.commons.extensions.areDigitsOnly
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
-import com.smilemakers.dashBoard.appointmentFragment.calendar.EventType
-import com.smilemakers.dashBoard.appointmentFragment.calendar.Reminder
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.EventType
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.Reminder
 import org.joda.time.DateTimeZone
 import java.io.File
 

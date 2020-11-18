@@ -3,8 +3,8 @@ package com.smilemakers.utils
 
 import com.simplemobiletools.commons.extensions.areDigitsOnly
 import com.simplemobiletools.commons.helpers.*
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
-import com.smilemakers.dashBoard.appointmentFragment.calendar.EventRepetition
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.EventRepetition
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
 

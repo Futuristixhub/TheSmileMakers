@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.profile.ProfileVM" />
+            type="com.smilemakers.ui.dashBoard.profile.ProfileVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:background="@drawable/background_drawable_grey_ligh"
-        tools:context=".dashBoard.doctorFragment.addDoctor.AddDoctorFragment">
+        tools:context=".ui.dashBoard.doctorFragment.addDoctor.AddDoctorFragment">
 
 
 

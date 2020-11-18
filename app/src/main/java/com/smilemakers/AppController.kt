@@ -7,23 +7,23 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
-import com.smilemakers.dashBoard.DashBoardRepository
-import com.smilemakers.dashBoard.DashBoardViewModelFactory
-import com.smilemakers.dashBoard.appointmentFragment.AppointMentViemodelFactory
-import com.smilemakers.dashBoard.appointmentFragment.AppointmentRepository
-import com.smilemakers.dashBoard.doctorFragment.DoctorRepository
-import com.smilemakers.dashBoard.doctorFragment.DoctorVieModelFactory
-import com.smilemakers.dashBoard.patientFragment.PatientRepository
-import com.smilemakers.dashBoard.patientFragment.PatientViewModelFactory
-import com.smilemakers.dashBoard.profile.ProfileRepository
-import com.smilemakers.dashBoard.profile.ProfileViewModelFactory
-import com.smilemakers.db.AppDatabase
-import com.smilemakers.forgotPassword.ForgorPasswordRepository
-import com.smilemakers.forgotPassword.ForgotPasswordViewModelFactory
-import com.smilemakers.login.AuthViewModelFactory
-import com.smilemakers.login.UserRepository
-import com.smilemakers.network.MyApi
-import com.smilemakers.network.NetworkConnectionInterceptor
+import com.smilemakers.ui.dashBoard.DashBoardRepository
+import com.smilemakers.ui.dashBoard.DashBoardViewModelFactory
+import com.smilemakers.ui.dashBoard.appointmentFragment.AppointMentViemodelFactory
+import com.smilemakers.ui.dashBoard.appointmentFragment.AppointmentRepository
+import com.smilemakers.ui.dashBoard.doctorFragment.DoctorRepository
+import com.smilemakers.ui.dashBoard.doctorFragment.DoctorVieModelFactory
+import com.smilemakers.ui.dashBoard.patientFragment.PatientRepository
+import com.smilemakers.ui.dashBoard.patientFragment.PatientViewModelFactory
+import com.smilemakers.ui.dashBoard.profile.ProfileRepository
+import com.smilemakers.ui.dashBoard.profile.ProfileViewModelFactory
+import com.smilemakers.data.db.AppDatabase
+import com.smilemakers.ui.forgotPassword.ForgorPasswordRepository
+import com.smilemakers.ui.forgotPassword.ForgotPasswordViewModelFactory
+import com.smilemakers.ui.login.AuthViewModelFactory
+import com.smilemakers.ui.login.UserRepository
+import com.smilemakers.data.network.MyApi
+import com.smilemakers.data.network.NetworkConnectionInterceptor
 import com.smilemakers.utils.LruBitmapCache
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -54,8 +54,8 @@ public class AppController : Application(), KodeinAware {
         bind() from provider { DashBoardViewModelFactory(instance()) }
         bind() from provider { ProfileViewModelFactory(instance()) }
         bind() from provider { ForgotPasswordViewModelFactory(instance()) }
-        bind() from provider { PatientViewModelFactory(instance()) }
-        bind() from provider { DoctorVieModelFactory(instance()) }
+        bind() from provider { PatientViewModelFactory(instance(),instance()) }
+        bind() from provider { DoctorVieModelFactory(instance(),instance()) }
         bind() from provider { AppointMentViemodelFactory(instance()) }
 
     }

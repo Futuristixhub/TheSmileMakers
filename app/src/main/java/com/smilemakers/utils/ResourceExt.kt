@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
 import org.joda.time.DateTime
 
 fun Int.color(activit: Context): Int = ContextCompat.getColor(activit, this)

@@ -12,10 +12,10 @@ import com.simplemobiletools.commons.extensions.setTextSize
 import com.smilemakers.R
 import com.smilemakers.R.id.event_item_holder
 import com.smilemakers.R.id.event_section_title
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.ListEvent
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.ListItem
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.ListSection
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.ListEvent
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.ListItem
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.ListSection
 import com.smilemakers.utils.*
 import org.joda.time.DateTime
 

@@ -5,16 +5,16 @@
     <data>
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.doctorFragment.DoctorFragmentVM" />
+            type="com.smilemakers.ui.dashBoard.doctorFragment.DoctorFragmentVM" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/grey"
-        tools:context=".dashBoard.doctorFragment.DoctorFragment">
+        tools:context=".ui.dashBoard.doctorFragment.DoctorFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rec_patient_list"
+            android:id="@+id/rec_doctor_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="@dimen/space_8"

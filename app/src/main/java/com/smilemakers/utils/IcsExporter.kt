@@ -5,9 +5,9 @@ import com.simplemobiletools.commons.extensions.writeLn
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import com.smilemakers.R
-import com.smilemakers.dashBoard.appointmentFragment.calendar.CalDAVCalendar
-import com.smilemakers.dashBoard.appointmentFragment.addAppointment.Event
-import com.smilemakers.dashBoard.appointmentFragment.calendar.SimpleActivity
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.CalDAVCalendar
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
+import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.SimpleActivity
 import java.io.BufferedWriter
 import java.io.File
 

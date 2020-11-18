@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.patientFragment.PatientFragmentVM" />
+            type="com.smilemakers.ui.dashBoard.patientFragment.PatientFragmentVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:background="@drawable/background_drawable_grey_ligh"
-        tools:context=".dashBoard.patientFragment.patientAddress.PatientAddressFragment">
+        tools:context=".ui.dashBoard.patientFragment.patientAddress.PatientAddressFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:padding="@dimen/space_25"
             android:id="@+id/root_layout"
-            tools:context=".dashBoard.patientFragment.patientAddress.PatientAddressFragment">
+            tools:context=".ui.dashBoard.patientFragment.patientAddress.PatientAddressFragment">
 <!--
             android:entries="@{ vm.items }"
             android:selectedItemPosition="@={ vm.itemPosition }"-->

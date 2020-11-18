@@ -3,7 +3,7 @@
     <data>
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.doctorFragment.DoctorPOJO" />
+            type="com.smilemakers.ui.dashBoard.doctorFragment.Doctor" />
     </data>
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -36,7 +36,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_gravity="center_vertical">
 
                     <TextView
@@ -49,7 +49,18 @@
                         android:textColor="@color/colorAccent"
                         app:layout_constraintStart_toEndOf="@+id/circleImageView"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="@{vm.name}" />
+                        android:text="@{vm.fname}" />
+  <TextView
+                        android:id="@+id/txt_patient_name2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:textSize="@dimen/text_24"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="@{vm.lname}" />
 
 
                 </LinearLayout>
@@ -127,7 +138,7 @@
                         android:textColor="@color/textDark"
                         app:layout_constraintStart_toEndOf="@+id/circleImageView"
                         app:layout_constraintTop_toBottomOf="@+id/textView10"
-                        android:text="@{vm.mobile}" />
+                        android:text="@{vm.mno}" />
                     <TextView
                         android:id="@+id/txt_birth_date"
                         android:layout_width="wrap_content"
@@ -144,7 +155,7 @@
                         android:textSize="@dimen/text_20"
                         android:layout_marginStart="@dimen/space_8"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.clinic}" />
+                        android:text="@{vm.retarea}" />
 
 
                     <TextView
@@ -154,7 +165,7 @@
                         android:textSize="@dimen/text_20"
                         android:layout_marginStart="@dimen/space_8"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.typeOfTreatment}" />
+                        android:text="@{vm.typetement}" />
 
                 </LinearLayout>
             </LinearLayout>

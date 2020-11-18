@@ -7,14 +7,14 @@
 
         <variable
             name="vm"
-            type="com.smilemakers.dashBoard.dashBoardFragment.DashboardFragmentVM" />
+            type="com.smilemakers.ui.dashBoard.dashBoardFragment.DashboardFragmentVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_drawable_grey_ligh"
-        tools:context=".dashBoard.dashBoardFragment.DashboardFragment">
+        tools:context=".ui.dashBoard.dashBoardFragment.DashboardFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

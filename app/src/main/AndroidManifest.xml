@@ -21,22 +21,22 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".dashBoard.DashboardActivity"
+        <activity android:name="com.smilemakers.ui.dashBoard.DashboardActivity"
             />
         <activity
-            android:name=".forgotPassword.ForgotPasswordActivity"
+            android:name="com.smilemakers.ui.forgotPassword.ForgotPasswordActivity"
             android:theme="@style/LoginPageStyle" />
         <activity
-            android:name=".forgotPassword.ResetPasswordActivity"
+            android:name="com.smilemakers.ui.forgotPassword.ResetPasswordActivity"
             android:theme="@style/LoginPageStyle" />
         <activity
-            android:name=".login.LoginActivity"
+            android:name="com.smilemakers.ui.login.LoginActivity"
             android:theme="@style/LoginPageStyle"
             android:windowSoftInputMode="adjustResize">
 
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,12 +44,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".dashBoard.appointmentFragment.addAppointment.AppointmentFormActivity" />
-        <activity android:name=".dashBoard.doctorFragment.addDoctor.AddDoctorActivity" />
-        <activity android:name=".dashBoard.patientFragment.addPatient.AddPatientActivity" />
-        <activity android:name=".dashBoard.appointmentFragment.calendar.AppointmentDetailActivity" />
-        <activity android:name=".dashBoard.profile.EditProfileActivity" />
+        <activity android:name="com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.AppointmentFormActivity" />
+        <activity android:name="com.smilemakers.ui.dashBoard.doctorFragment.addDoctor.AddDoctorActivity" />
+        <activity android:name="com.smilemakers.ui.dashBoard.patientFragment.addPatient.AddPatientActivity" />
+        <activity android:name="com.smilemakers.ui.dashBoard.appointmentFragment.calendar.AppointmentDetailActivity" />
+        <activity android:name="com.smilemakers.ui.dashBoard.profile.EditProfileActivity" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
