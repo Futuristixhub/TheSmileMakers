@@ -2,6 +2,7 @@ package com.smilemakers.utils
 
 import android.content.Context
 import android.util.Log
+import com.smilemakers.ui.dashBoard.appointmentFragment.Appointment
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.DayMonthly
 import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.MonthlyCalendar
@@ -20,7 +21,9 @@ class MonthlyCalendarImpl(val callback: MonthlyCalendar, val context: Context) {
 
     fun updateMonthlyCalendar(targetDate: DateTime) {
         mTargetDate = targetDate
+
         val startTS = mTargetDate.minusDays(7).seconds()
+        Log.d("tag","this....."+targetDate+"......"+startTS)
         val endTS = mTargetDate.plusDays(43).seconds()
         context.eventsHelper.getEvents(startTS, endTS) {
             gotEvents(it)

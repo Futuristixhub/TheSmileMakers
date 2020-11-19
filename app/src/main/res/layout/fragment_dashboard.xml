@@ -231,7 +231,7 @@
                         android:elevation="@dimen/space_8"
                         android:text="Bapunagar"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18"
+                        android:textSize="@dimen/text_16"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -274,7 +274,7 @@
                         android:elevation="@dimen/space_8"
                         android:text="Nikol"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18"
+                        android:textSize="@dimen/text_16"
                         android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

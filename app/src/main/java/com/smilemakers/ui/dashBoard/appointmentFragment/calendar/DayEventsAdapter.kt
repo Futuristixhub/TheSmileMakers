@@ -107,7 +107,7 @@ class DayEventsAdapter(
                 }
             }
             for (i in eventlstnew.indices) {
-                if (eventlstnew[i].location == context.getString(R.string.bapunagar)) {
+                if (eventlstnew[i].location == context.getString(R.string.bapunagar).toLowerCase()) {
                     if (event_item_title1.text.isEmpty()) {
                         event_item_title1.text = eventlstnew[i].title
                         event_item_title1.hint = eventlstnew[i].id.toString()
@@ -115,7 +115,7 @@ class DayEventsAdapter(
                         event_item_title2.text = eventlstnew[i].title
                         event_item_title2.hint = eventlstnew[i].id.toString()
                     }
-                } else if (eventlstnew[i].location == context.getString(R.string.nikol)) {
+                } else if (eventlstnew[i].location == context.getString(R.string.nikol).toLowerCase()) {
                     if (event_item_title3.text.isEmpty()) {
                         event_item_title3.text = eventlstnew[i].title
                         event_item_title3.hint = eventlstnew[i].id.toString()

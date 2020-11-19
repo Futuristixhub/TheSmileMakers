@@ -243,13 +243,14 @@ class CalDAVHelper(val context: Context) {
                     val event =
                         Event(
                             null,
+                            "",
                             startTS,
                             endTS,
                             title,
                             location,
                             description,
                             "",
-                            "",
+                            "","","",
                             reminder1?.minutes ?: REMINDER_OFF,
                             reminder2?.minutes ?: REMINDER_OFF,
                             reminder3?.minutes ?: REMINDER_OFF,

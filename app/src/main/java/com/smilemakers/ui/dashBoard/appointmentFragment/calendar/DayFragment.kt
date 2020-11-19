@@ -75,7 +75,7 @@ class DayFragment : Fragment() {
         }
         //.20
         val day = Formatter.getDayTitle(context!!, mDayCode)
-        mHolder.top_value.apply {
+        mHolder.top_value.apply {//date
             text = day
             contentDescription = text
             setOnClickListener {

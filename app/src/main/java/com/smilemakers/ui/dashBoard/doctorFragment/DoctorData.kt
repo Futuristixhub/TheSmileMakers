@@ -1,6 +1,7 @@
 package com.smilemakers.ui.dashBoard.doctorFragment
 
-class DoctorData (
+class DoctorData(
     val status: Boolean?,
-    val data: Datacls2
+    val data: Datacls2,
+    val message: String
 )

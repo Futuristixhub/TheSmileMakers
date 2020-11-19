@@ -1,11 +1,9 @@
 package com.smilemakers.ui.dashBoard.appointmentFragment
 
-class AppointmentData (
-    val id: Int,
-    val image: String,
-    val name: Int,
-    val timestamp: String,
-    val status: Int,
-    val url: String,
-    val like_count: String
+import com.smilemakers.ui.dashBoard.patientFragment.Datacls
+
+data class AppointmentData (
+    val status: Boolean?,
+    val data: Datacls3,
+    val message: String
 )

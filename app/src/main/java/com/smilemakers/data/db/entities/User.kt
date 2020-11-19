@@ -7,7 +7,8 @@ const val CURRENT_USER_ID = 0
 
 @Entity
 data class User(
-    var pid: String? = null,
+    var user_id: String? = null,
+    var user_type: String? = null,
     var image: String? = null,
     var fname: String? = null,
     var lname: String? = null,

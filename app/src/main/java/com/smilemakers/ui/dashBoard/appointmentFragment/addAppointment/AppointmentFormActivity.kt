@@ -140,6 +140,7 @@ class AppointmentFormActivity : SimpleActivity() {
             }
         }
 
+
     }
 
     private fun patientSearch() {
@@ -238,8 +239,8 @@ class AppointmentFormActivity : SimpleActivity() {
         )
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sp_doctors.adapter = adapter1
-        if (!mEvent.doctor_name.isEmpty()) {
-            val spinnerPosition = adapter1.getPosition(mEvent.doctor_name)
+        if (!mEvent.title.isEmpty()) {
+            val spinnerPosition = adapter1.getPosition(mEvent.title)
             sp_doctors.setSelection(spinnerPosition)
         }
         sp_doctors.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -302,6 +303,7 @@ class AppointmentFormActivity : SimpleActivity() {
         outState.apply {
             putSerializable(EVENT, mEvent)
             putLong(START_TS, mEventStartDateTime.seconds())
+            Log.d("tagggggtime","...1...."+mEventStartDateTime+"......."+mEventEndDateTime.seconds())
             putLong(END_TS, mEventEndDateTime.seconds())
             putString(TIME_ZONE, mEvent.timeZone)
 
@@ -333,6 +335,7 @@ class AppointmentFormActivity : SimpleActivity() {
         savedInstanceState.apply {
             mEvent = getSerializable(EVENT) as Event
             mEventStartDateTime = Formatter.getDateTimeFromTS(getLong(START_TS))
+            Log.d("tagggggtime","..2....."+mEventStartDateTime)
             mEventEndDateTime = Formatter.getDateTimeFromTS(getLong(END_TS))
             mEvent.timeZone = getString(TIME_ZONE) ?: TimeZone.getDefault().id
 
@@ -966,10 +969,11 @@ class AppointmentFormActivity : SimpleActivity() {
 
         mEvent.apply {
             startTS = newStartTS
+            Log.d("tagggggtime","..3....."+startTS+"....."+mEventStartDateTime+"....."+mEventEndDateTime.seconds())
             endTS = newEndTS
             title = ptitle
             location = location_name
-            doctor_name = doctorname
+            title = doctorname
             treatment_type = treatmenttype
             reminder1Minutes = reminder1.minutes
             reminder2Minutes = reminder2.minutes
@@ -1069,6 +1073,8 @@ class AppointmentFormActivity : SimpleActivity() {
 
     private fun setupStartDate() {
         hideKeyboard()
+        Log.d("tagggggtime","...1...."+mEventStartDateTime+"......."+mEventEndDateTime.seconds())
+
         config.backgroundColor.getContrastColor()
         val datepicker = DatePickerDialog(
             this,
@@ -1125,7 +1131,8 @@ class AppointmentFormActivity : SimpleActivity() {
             val calendar = Calendar.getInstance()
             datetime[Calendar.HOUR_OF_DAY] = hourOfDay
             datetime[Calendar.MINUTE] = minute
-            if (datetime.timeInMillis >= calendar.timeInMillis) {
+            timeSet(hourOfDay, minute, true)
+            /*if (datetime.timeInMillis >= calendar.timeInMillis) {
                 val hour = hourOfDay % 12
                 timeSet(hourOfDay, minute, true)
             } else {
@@ -1134,7 +1141,7 @@ class AppointmentFormActivity : SimpleActivity() {
                     getString(R.string.invalid_time),
                     Toast.LENGTH_LONG
                 ).show()
-            }
+            }*/
         }
 
     private val endDateSetListener =

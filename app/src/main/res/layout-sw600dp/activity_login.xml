@@ -74,12 +74,9 @@
                     android:layout_marginEnd="@dimen/space_16"
                     android:layout_marginStart="@dimen/space_16"
                     android:background="@drawable/color_primary_rounded_border"
-                    android:entries="@{ vm.items }"
                     android:prompt="@string/user_type"
-                    android:selectedItemPosition="@={ vm.itemPosition }"
                     android:spinnerMode="dialog"
                     android:textSize="@dimen/text_14"
-                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
@@ -94,8 +91,8 @@
                     android:textColor="@color/colorAccent"
                     android:onClick="@{vm::onForgotPasswordClick}"
                     android:textSize="@dimen/text_18"
-                    app:layout_constraintEnd_toEndOf="@id/ed_login_password"
-                    app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
+                    app:layout_constraintEnd_toEndOf="@id/sp_user_type"
+                    app:layout_constraintTop_toBottomOf="@id/sp_user_type" />
 
                 <Button
                     android:id="@+id/button"

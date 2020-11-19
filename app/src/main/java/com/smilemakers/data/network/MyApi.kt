@@ -69,7 +69,7 @@ interface MyApi {
 
     @FormUrlEncoded
     @POST("appointment_list.php")
-    suspend fun getAppointmentData(@Field("userid") userid: String): Response<List<AppointmentData>>
+    suspend fun getAppointmentData(@Field("userid") userid: String, @Field("user_type") user_type: String): Response<AppointmentData>
 
     @GET("forgotpassword")
     suspend fun getForgotPasswordData(): Response<List<ForgotPasswordData>>

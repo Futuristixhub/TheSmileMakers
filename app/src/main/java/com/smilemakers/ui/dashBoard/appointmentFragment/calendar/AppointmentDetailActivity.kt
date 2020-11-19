@@ -107,7 +107,7 @@ class AppointmentDetailActivity : AppCompatActivity(), KodeinAware {
                 tv_apt_time.text = Formatter.getTime(this, mEventStartDateTime)
                 tv_location.text = mEvent.location
                 tv_trmt_type.text = mEvent.treatment_type
-                tv_dr_name.text = mEvent.doctor_name
+                tv_dr_name.text = mEvent.title
             }
 
             if (intent.getBooleanExtra(IS_DUPLICATE_INTENT, false)) {

@@ -10,12 +10,13 @@ import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.DashboardActivity
+import com.smilemakers.ui.dashBoard.appointmentFragment.Appointment
 import com.smilemakers.utils.*
 import kotlinx.android.synthetic.main.fragment_month.view.*
 import kotlinx.android.synthetic.main.top_navigation.view.*
 import org.joda.time.DateTime
 
-class MonthFragment : Fragment(),
+class MonthFragment(val events: ArrayList<Appointment>?) : Fragment(),
     MonthlyCalendar {
     private var mSundayFirst = false
     private var mShowWeekNumbers = false
@@ -40,6 +41,7 @@ class MonthFragment : Fragment(),
         mPackageName = activity!!.packageName
         mHolder = view.month_calendar_holder
         mDayCode = arguments!!.getString(DAY_CODE)!!
+
         mConfig = context!!.config
         storeStateVariables()
 

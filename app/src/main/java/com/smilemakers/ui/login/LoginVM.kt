@@ -14,13 +14,7 @@ class LoginVM(private val repository: UserRepository) : ViewModel() {
     val mobileNumber = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     var authListener: AuthListener? = null
-    val itemPosition = MutableLiveData<Int>()
-    val items = arrayListOf("Doctor", "Patient", "Admin")
-
-    // selected item
-    private val selectItem get() = itemPosition.value?.let {
-            items.get(it)
-        }
+    var user_type: String? = null
 
     fun getloggedInUser() = repository.getUser()
     suspend fun saveLoggedInUser(user: User) = repository.saveUser(user)
@@ -36,7 +30,7 @@ class LoginVM(private val repository: UserRepository) : ViewModel() {
               authListener!!.onStarted()
               Coroutines.main {
                   try {
-                      val authResponse = repository.userLogin(mobileNumber.value!!, password.value!!,"patient")
+                      val authResponse = repository.userLogin(mobileNumber.value!!, password.value!!,user_type!!)
                       authResponse.data?.let {
                           authListener?.onSuccess(it)
                           repository.saveUser(it)

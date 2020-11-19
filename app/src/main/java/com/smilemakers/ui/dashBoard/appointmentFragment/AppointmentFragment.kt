@@ -3,6 +3,7 @@ package com.smilemakers.ui.dashBoard.appointmentFragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -12,21 +13,29 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.views.MyViewPager
 import com.smilemakers.R
+import com.smilemakers.databinding.FragmentAppointmentBinding
 import com.smilemakers.ui.dashBoard.DashboardActivity
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.MyMonthPagerAdapter
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.NavigationListener
-import com.smilemakers.databinding.FragmentAppointmentBinding
 import com.smilemakers.utils.*
+import com.smilemakers.utils.Formatter
 import kotlinx.android.synthetic.main.fragment_appointment.view.*
 import org.joda.time.DateTime
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import java.text.DateFormat
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -47,6 +56,8 @@ class AppointmentFragment : Fragment(),
     private var todayDayCode = ""
     private var currentDayCode = ""
     private var isGoToTodayVisible = false
+    var events: ArrayList<Appointment>? = null
+
 
     companion object {
         lateinit var mActivity: DashboardActivity
@@ -65,7 +76,6 @@ class AppointmentFragment : Fragment(),
 
     var binding: FragmentAppointmentBinding? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //   currentDayCode = arguments?.getString(DAY_CODE) ?: ""
@@ -79,9 +89,73 @@ class AppointmentFragment : Fragment(),
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointment, container, false)
-        val viewModel =
+        viewModel =
             ViewModelProviders.of(this, factory).get(AppointmentFragmentVM::class.java)
         binding?.vm = viewModel
+
+        binding?.progressBar?.show()
+        viewModel.getAppointments()
+        viewModel.appointment.observe(viewLifecycleOwner, Observer {
+            binding?.progressBar?.hide()
+            events = it as ArrayList<Appointment>?
+            val eventsDB = context!!.eventsDB
+
+            Coroutines.io({ eventsDB.deleteAllEvents() })
+
+            for (e in events!!.iterator()) {
+
+                val input = e.appointment_time.split("-")[0]
+                val df: DateFormat = SimpleDateFormat("hh:mm aa")
+                val outputformat: DateFormat = SimpleDateFormat("HH:mm:ss")
+                var date: Date? = null
+                var start: String? = null
+                try {
+                    date = df.parse(input.trim())
+                    start = outputformat.format(date)
+                    println(start)
+                } catch (pe: ParseException) {
+                    pe.printStackTrace()
+                }
+
+                var dt: DateTime = DateTime.parse(e.appointment_date + "T" + start)
+                var date2: Date? = null
+                val input1 = e.appointment_time.split("-")[1]
+                var end: String? = null
+                try {
+                    date2 = df.parse(input1.trim())
+                    end = outputformat.format(date2)
+                    println(end)
+                } catch (pe: ParseException) {
+                    pe.printStackTrace()
+                }
+
+                var dt2: DateTime = DateTime.parse(e.appointment_date + "T" + end)
+
+                if (!e.f_name.isEmpty()) {
+                    Log.d("hhhhh", "/////....." + e.f_name)
+                    Coroutines.io(
+                        {
+                            eventsDB.insertOrUpdate(
+                                Event(
+                                    null,
+                                    e.appointment_id,
+                                    dt.seconds(),
+                                    dt2.seconds(),
+                                    e.f_name,
+                                    e.l_name,
+                                    e.appointment_type,
+                                    e.doctor_id,
+                                    e.typesoftreatment,
+                                    e.prescription,
+                                    e.age
+                                )
+                            )
+                        })
+                }
+            }
+
+            setupFragment()
+        })
 
         binding?.root!!.calendar_fab.beVisibleIf(requireContext().config.storedView != YEARLY_VIEW)
         binding?.root!!.calendar_fab.setOnClickListener {
@@ -100,7 +174,7 @@ class AppointmentFragment : Fragment(),
         //  binding?.root!!.background = ColorDrawable(context!!.config.backgroundColor)
         viewPager = binding?.root!!.fragment_months_viewpager
         viewPager!!.id = (System.currentTimeMillis() % 100000).toInt()
-        setupFragment()
+
 
         return binding?.root
     }
@@ -132,7 +206,7 @@ class AppointmentFragment : Fragment(),
             MyMonthPagerAdapter(
                 activity!!.supportFragmentManager,
                 codes,
-                this
+                this, events
             )
         defaultMonthlyPage = codes.size / 2
 

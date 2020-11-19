@@ -7,6 +7,7 @@ import androidx.collection.LongSparseArray
 import com.simplemobiletools.commons.extensions.getChoppedList
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.smilemakers.R
+import com.smilemakers.ui.dashBoard.appointmentFragment.Appointment
 import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.EventType
 
@@ -235,19 +236,22 @@ class EventsHelper(val context: Context) {
         var events = if (applyTypeFilter) {
             val displayEventTypes = context.config.displayEventTypes
             if (displayEventTypes.isEmpty()) {
+                Log.d("tag","this.. in..."+eventId+"......"+fromTS)
                 callback(ArrayList())
                 return
             } else {
+                Log.d("tag","this... to.."+eventId+"......"+fromTS)
                 eventsDB.getOneTimeEventsFromToWithTypes(toTS, fromTS, context.config.getDisplayEventTypessAsList()).toMutableList() as ArrayList<Event>
             }
         } else {
+            Log.d("tag","this... hh.."+eventId+"......"+fromTS)
             if (eventId == -1L) {
                 eventsDB.getOneTimeEventsFromTo(toTS, fromTS).toMutableList() as ArrayList<Event>
             } else {
                 eventsDB.getOneTimeEventFromToWithId(eventId, toTS, fromTS).toMutableList() as ArrayList<Event>
             }
         }
-
+        Log.d("tag","this... hh.."+eventId+"......"+fromTS+"....."+events.size)
         events.addAll(getRepeatableEventsFor(fromTS, toTS, eventId, applyTypeFilter))
 
         events = events
@@ -265,7 +269,7 @@ class EventsHelper(val context: Context) {
         events.forEach {
             it.updateIsPastEvent()
             it.color = eventTypeColors.get(it.startTS) ?: primaryColor//background color set
-            Log.d("tag",".....h....."+it.eventType+"........."+it.startTS)
+            Log.d("tag",".....h....."+it.title+"........."+it.startTS)
         }
 
         callback(events)

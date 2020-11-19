@@ -16,13 +16,16 @@ import java.io.Serializable
 @Entity(tableName = "events", indices = [(Index(value = ["id"], unique = true))])
 data class Event(
         @PrimaryKey(autoGenerate = true) var id: Long?,
+        @ColumnInfo(name = "ap_id") var ap_id: String?="",
         @ColumnInfo(name = "start_ts") var startTS: Long = 0L,
         @ColumnInfo(name = "end_ts") var endTS: Long = 0L,
         @ColumnInfo(name = "title") var title: String = "",
         @ColumnInfo(name = "description") var description: String = "",
         @ColumnInfo(name = "location") var location: String = "",
-        @ColumnInfo(name = "doctor_name") var doctor_name: String = "",
+        @ColumnInfo(name = "doctor_id") var doctor_id: String = "",
         @ColumnInfo(name = "treatment_type") var treatment_type: String = "",
+        @ColumnInfo(name = "prescription") var prescription: String? = "" ,
+        @ColumnInfo(name = "age") var age: String = "",
         @ColumnInfo(name = "reminder_1_minutes") var reminder1Minutes: Int = -1,
         @ColumnInfo(name = "reminder_2_minutes") var reminder2Minutes: Int = -1,
         @ColumnInfo(name = "reminder_3_minutes") var reminder3Minutes: Int = -1,

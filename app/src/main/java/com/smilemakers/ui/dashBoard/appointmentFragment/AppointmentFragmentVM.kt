@@ -1,5 +1,6 @@
 package com.smilemakers.ui.dashBoard.appointmentFragment
 
+import android.app.Application
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.icu.text.SimpleDateFormat
@@ -9,13 +10,21 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.smilemakers.R
+import com.smilemakers.ui.dashBoard.doctorFragment.Doctor
+import com.smilemakers.utils.Coroutines
+import com.smilemakers.utils.getData
 import com.smilemakers.utils.showErrorSnackBar
+import kotlinx.coroutines.Job
 import java.util.*
 
-class AppointmentFragmentVM(val repository: AppointmentRepository) : ViewModel() {
+class AppointmentFragmentVM(val repository: AppointmentRepository, application: Application) :
+    ViewModel() {
+
+    var context = application.applicationContext
 
     val appointmentDate = ObservableField<String>("")
     val appointmentTime = ObservableField<String>("")
@@ -46,6 +55,25 @@ class AppointmentFragmentVM(val repository: AppointmentRepository) : ViewModel()
             (view.context as AppCompatActivity).finish()
         }
     }
+
+    private lateinit var job: Job
+    private val _appointments = MutableLiveData<List<Appointment>>()
+
+    fun getAppointments() {
+        job = Coroutines.ioThenMain(
+            {
+                repository.getAppointmentData(
+                    context!!.getData(context!!, context.getString(R.string.user_id)),
+                    context!!.getData(context!!, context.getString(R.string.user_type))
+                )
+            },
+            { _appointments.value = it?.data?.appointment_list }
+        )
+    }
+
+    val appointment: LiveData<List<Appointment>>
+        get() = _appointments
+
 
     fun isValid(view: View): Boolean {
 

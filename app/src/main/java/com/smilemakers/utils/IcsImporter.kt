@@ -47,10 +47,16 @@ class IcsImporter(val activity: Context) {
     private var eventsFailed = 0
     private var eventsAlreadyExist = 0
 
-    fun importEvents(path: String, defaultEventTypeId: Long, calDAVCalendarId: Int, overrideFileEventTypes: Boolean): ImportResult {
+    fun importEvents(
+        path: String,
+        defaultEventTypeId: Long,
+        calDAVCalendarId: Int,
+        overrideFileEventTypes: Boolean
+    ): ImportResult {
         try {
             val eventTypes = eventsHelper.getEventTypesSync()
-            val existingEvents = activity.eventsDB.getEventsWithImportIds().toMutableList() as ArrayList<Event>
+            val existingEvents =
+                activity.eventsDB.getEventsWithImportIds().toMutableList() as ArrayList<Event>
             val eventsToInsert = ArrayList<Event>()
             var prevLine = ""
 
@@ -101,7 +107,8 @@ class IcsImporter(val activity: Context) {
                         curTitle = line.substring(SUMMARY.length)
                         curTitle = getTitle(curTitle).replace("\\n", "\n").replace("\\,", ",")
                     } else if (line.startsWith(DESCRIPTION) && !isNotificationDescription) {
-                        curDescription = line.substring(DESCRIPTION.length).replace("\\n", "\n").replace("\\,", ",")
+                        curDescription = line.substring(DESCRIPTION.length).replace("\\n", "\n")
+                            .replace("\\,", ",")
                         isDescription = true
                     } else if (line.startsWith(UID)) {
                         curImportId = line.substring(UID.length).trim()
@@ -116,10 +123,12 @@ class IcsImporter(val activity: Context) {
                         val action = line.substring(ACTION.length)
                         isProperReminderAction = action == DISPLAY || action == EMAIL
                         if (isProperReminderAction) {
-                            curReminderTriggerAction = if (action == DISPLAY) REMINDER_NOTIFICATION else REMINDER_EMAIL
+                            curReminderTriggerAction =
+                                if (action == DISPLAY) REMINDER_NOTIFICATION else REMINDER_EMAIL
                         }
                     } else if (line.startsWith(TRIGGER)) {
-                        curReminderTriggerMinutes = Parser().parseDurationSeconds(line.substring(TRIGGER.length)) / 60
+                        curReminderTriggerMinutes =
+                            Parser().parseDurationSeconds(line.substring(TRIGGER.length)) / 60
                     } else if (line.startsWith(CATEGORY_COLOR)) {
                         val color = line.substring(CATEGORY_COLOR.length)
                         if (color.trimStart('-').areDigitsOnly()) {
@@ -138,7 +147,8 @@ class IcsImporter(val activity: Context) {
 
                         curRepeatExceptions.add(Formatter.getDayCodeFromTS(getTimestamp(value)))
                     } else if (line.startsWith(LOCATION)) {
-                        curLocation = getLocation(line.substring(LOCATION.length).replace("\\,", ","))
+                        curLocation =
+                            getLocation(line.substring(LOCATION.length).replace("\\,", ","))
                     } else if (line.startsWith(RECURRENCE_ID)) {
                         val timestamp = getTimestamp(line.substring(RECURRENCE_ID.length))
                         curRecurrenceDayCode = Formatter.getDayCodeFromTS(timestamp)
@@ -160,7 +170,9 @@ class IcsImporter(val activity: Context) {
                         }
 
                         // repeating event exceptions can have the same import id as their parents, so pick the latest event to update
-                        val eventToUpdate = existingEvents.filter { curImportId.isNotEmpty() && curImportId == it.importId }.sortedByDescending { it.lastUpdated }.firstOrNull()
+                        val eventToUpdate =
+                            existingEvents.filter { curImportId.isNotEmpty() && curImportId == it.importId }
+                                .sortedByDescending { it.lastUpdated }.firstOrNull()
                         if (eventToUpdate != null && eventToUpdate.lastUpdated >= curLastModified) {
                             eventsAlreadyExist++
                             continue
@@ -178,20 +190,23 @@ class IcsImporter(val activity: Context) {
                                 curReminderActions.getOrElse(2) { REMINDER_NOTIFICATION })
                         )
 
-                        reminders = reminders.sortedBy { it.minutes }.sortedBy { it.minutes == REMINDER_OFF }.toMutableList() as ArrayList<Reminder>
+                        reminders = reminders.sortedBy { it.minutes }
+                            .sortedBy { it.minutes == REMINDER_OFF }
+                            .toMutableList() as ArrayList<Reminder>
 
                         val eventType = eventTypes.firstOrNull { it.id == curEventTypeId }
-                        val source = if (calDAVCalendarId == 0 || eventType?.isSyncedEventType() == false) SOURCE_IMPORTED_ICS else "$CALDAV-$calDAVCalendarId"
+                        val source =
+                            if (calDAVCalendarId == 0 || eventType?.isSyncedEventType() == false) SOURCE_IMPORTED_ICS else "$CALDAV-$calDAVCalendarId"
                         val event =
                             Event(
-                                null,
+                                null, "",
                                 curStart,
                                 curEnd,
                                 curTitle,
                                 curDescription,
                                 curLocation,
                                 "",
-                                "",
+                                "", "", "",
                                 reminders[0].minutes,
                                 reminders[1].minutes,
                                 reminders[2].minutes,
@@ -230,8 +245,12 @@ class IcsImporter(val activity: Context) {
                                     eventsHelper.insertEvent(event, true, false)
                                 } else {
                                     // if an event contains the RECURRENCE-ID field, it is an exception to a recurring event, so update its parent too
-                                    val parentEvent = activity.eventsDB.getEventWithImportId(event.importId)
-                                    if (parentEvent != null && !parentEvent.repetitionExceptions.contains(curRecurrenceDayCode)) {
+                                    val parentEvent =
+                                        activity.eventsDB.getEventWithImportId(event.importId)
+                                    if (parentEvent != null && !parentEvent.repetitionExceptions.contains(
+                                            curRecurrenceDayCode
+                                        )
+                                    ) {
                                         parentEvent.addRepetitionException(curRecurrenceDayCode)
                                         eventsHelper.insertEvent(parentEvent, true, false)
 
@@ -308,7 +327,8 @@ class IcsImporter(val activity: Context) {
 
         val eventId = eventsHelper.getEventTypeIdWithTitle(eventTypeTitle)
         curEventTypeId = if (eventId == -1L) {
-            val newTypeColor = if (curCategoryColor == -2) activity.resources.getColor(R.color.colorPrimary) else curCategoryColor
+            val newTypeColor =
+                if (curCategoryColor == -2) activity.resources.getColor(R.color.colorPrimary) else curCategoryColor
             val eventType =
                 EventType(
                     null,
