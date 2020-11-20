@@ -86,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="Mobile Number :"
+                        android:text="@string/mobile_number"
                         android:textColor="@color/textDark"
                         android:textSize="@dimen/text_18"
                         android:textStyle="bold"
@@ -98,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="Age :"
+                        android:text="@string/age"
                         android:textColor="@color/textDark"
                         android:textSize="@dimen/text_18"
                         android:textStyle="bold"
@@ -110,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="Clinic :"
+                        android:text="@string/clinic"
                         android:textColor="@color/textDark"
                         android:textSize="@dimen/text_18"
                         android:textStyle="bold" />
@@ -127,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.mno}"
+                        android:text="@{` : `+vm.mno}"
                         android:textColor="@color/textDark"
                         android:textSize="@dimen/text_18"
                         app:layout_constraintStart_toEndOf="@+id/circleImageView"
@@ -139,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_8"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.age}"
+                        android:text="@{` : `+vm.age}"
                         android:textSize="@dimen/text_18" />
 
                     <TextView
@@ -148,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_8"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.retarea}"
+                        android:text="@{` : `+vm.retarea}"
                         android:textSize="@dimen/text_18" />
 
 

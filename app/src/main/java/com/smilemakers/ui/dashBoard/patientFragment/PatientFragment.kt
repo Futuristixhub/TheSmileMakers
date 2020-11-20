@@ -21,8 +21,10 @@ import com.smilemakers.databinding.FragmentPaitentBinding
 import com.smilemakers.utils.Coroutines
 import com.smilemakers.utils.hide
 import com.smilemakers.utils.show
+import com.smilemakers.utils.showErrorSnackBar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.fragment_paitent.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -31,7 +33,7 @@ import org.kodein.di.generic.instance
 /**
  * A simple [Fragment] subclass.
  */
-class PatientFragment : Fragment(), KodeinAware {
+class PatientFragment : Fragment(), KodeinAware ,PatientListener{
 
     override val kodein by kodein()
 
@@ -61,7 +63,7 @@ class PatientFragment : Fragment(), KodeinAware {
          viewModel =
             ViewModelProviders.of(this, factory).get(PatientFragmentVM::class.java)
         binding?.vm = viewModel
-     //   viewModel.createList(binding?.recPatientList!!)
+        viewModel?.authListener = this
 
         val bar: ActionBar? = (activity as AppCompatActivity?)!!.supportActionBar
         if (bar != null) {
@@ -118,7 +120,18 @@ class PatientFragment : Fragment(), KodeinAware {
 
     private fun List<Patient>.toPatientItem() : List<PatientItem>{
         return this.map {
-            PatientItem(it)
+            PatientItem(it,context!!)
         }
+    }
+
+    override fun onStarted() {
+    }
+
+    override fun onSuccess(message: String) {
+    }
+
+    override fun onFailure(message: String) {
+        binding?.progressBar?.hide()
+        context!!.showErrorSnackBar(root_layout, message)
     }
 }

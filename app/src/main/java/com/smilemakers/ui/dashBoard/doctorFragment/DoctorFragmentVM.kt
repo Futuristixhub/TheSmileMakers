@@ -17,6 +17,7 @@ import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.doctorFragment.addDoctor.AddDoctorActivity
 import com.smilemakers.ui.dashBoard.doctorFragment.addDoctor.AddDoctorFragment
 import com.smilemakers.ui.dashBoard.doctorFragment.detail.DetailFragment
+import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
 import com.smilemakers.utils.*
 import kotlinx.coroutines.Job
 import java.util.*
@@ -25,6 +26,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
     ViewModel() {
 
     var context = application.applicationContext
+    var authListener: PatientListener? = null
 
     private lateinit var job: Job
     private val _doctors = MutableLiveData<List<Doctor>>()
@@ -32,7 +34,13 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
     fun getDoctors() {
         job = Coroutines.ioThenMain(
             { repository.getDoctorData(context!!.getData(context!!, context.getString(R.string.user_id))) },
-            { _doctors.value = it?.data?.doctor_list }
+            {
+                if (it?.status == false) {
+                    authListener?.onFailure(it.message)
+                } else {
+                    _doctors.value = it?.data?.doctor_list
+                }
+            }
         )
     }
     val doctors: LiveData<List<Doctor>>

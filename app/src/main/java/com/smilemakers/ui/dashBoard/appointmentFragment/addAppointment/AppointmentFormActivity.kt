@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -12,22 +13,42 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import com.github.dhaval2404.colorpicker.MaterialColorPickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.smilemakers.R
+import com.smilemakers.databinding.FragmentAppointmentFormBinding
+import com.smilemakers.ui.dashBoard.appointmentFragment.AppointMentViemodelFactory
+import com.smilemakers.ui.dashBoard.appointmentFragment.AppointmentFragmentVM
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.*
+import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
 import com.smilemakers.utils.*
 import com.smilemakers.utils.Formatter
 import kotlinx.android.synthetic.main.fragment_appointment_form.*
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
+import java.text.DateFormat
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AppointmentFormActivity : SimpleActivity() {
+class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
+
+    override val kodein by kodein()
+
+    private lateinit var viewModel: AppointmentFragmentVM
+    private val factory: AppointMentViemodelFactory by instance()
+    var binding: FragmentAppointmentFormBinding? = null
 
     private var ptitle: String = ""
     private val LAT_LON_PATTERN =
@@ -74,17 +95,44 @@ class AppointmentFormActivity : SimpleActivity() {
     var dayCode = ""
     var treatmenttype = ""
     var doctorname = ""
+    var color = ""
     var str = ""
     var adapter: ArrayAdapter<String>? = null
     var ed_patient_name: AppCompatAutoCompleteTextView? = null
+    var progressBar: ProgressBar? = null
+    var ivColor: ImageView? = null
+    private var isSelected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_appointment_form)
 
+        binding = DataBindingUtil.setContentView(this, R.layout.fragment_appointment_form)
+        viewModel =
+            ViewModelProviders.of(this, factory).get(AppointmentFragmentVM::class.java)
+        binding?.vm = viewModel
+        viewModel?.authListener = this
+
         ed_patient_name = findViewById(R.id.ed_appointment_patient_name)
         if (checkAppSideloading()) {
             return
+        }
+
+        progressBar = findViewById(R.id.progress_bar)
+        ivColor = findViewById(R.id.iv_color)
+
+        ivColor?.setOnClickListener {
+            MaterialColorPickerDialog
+                .Builder(this)                    // Pass Activity Instance
+                .setColorRes(
+                    resources.getIntArray(R.array.themeColors).toList()
+                ) // Pass Predefined Hex Color
+                .setColorListener { color, colorHex ->
+                    // Handle Color Selection
+                    ivColor?.setColorFilter(Color.parseColor(colorHex))
+                    this.color = colorHex
+                }
+                .show()
         }
 
         patientSearch()
@@ -303,7 +351,10 @@ class AppointmentFormActivity : SimpleActivity() {
         outState.apply {
             putSerializable(EVENT, mEvent)
             putLong(START_TS, mEventStartDateTime.seconds())
-            Log.d("tagggggtime","...1...."+mEventStartDateTime+"......."+mEventEndDateTime.seconds())
+            Log.d(
+                "tagggggtime",
+                "...1...." + mEventStartDateTime + "......." + mEventEndDateTime.seconds()
+            )
             putLong(END_TS, mEventEndDateTime.seconds())
             putString(TIME_ZONE, mEvent.timeZone)
 
@@ -335,7 +386,7 @@ class AppointmentFormActivity : SimpleActivity() {
         savedInstanceState.apply {
             mEvent = getSerializable(EVENT) as Event
             mEventStartDateTime = Formatter.getDateTimeFromTS(getLong(START_TS))
-            Log.d("tagggggtime","..2....."+mEventStartDateTime)
+            Log.d("tagggggtime", "..2....." + mEventStartDateTime)
             mEventEndDateTime = Formatter.getDateTimeFromTS(getLong(END_TS))
             mEvent.timeZone = getString(TIME_ZONE) ?: TimeZone.getDefault().id
 
@@ -629,11 +680,9 @@ class AppointmentFormActivity : SimpleActivity() {
     }
 
     private fun updateReminder2Text() {
-
     }
 
     private fun updateReminder3Text() {
-
     }
 
     private fun updateReminderTypeImages() {
@@ -761,7 +810,7 @@ class AppointmentFormActivity : SimpleActivity() {
     }
 
     private fun checkValidate() {
-       hideKeyboard()
+        hideKeyboard()
         if (DateTime.now().isAfter(mEventStartDateTime.millis)) {
             showErrorSnackBar(root_layout, getString(R.string.date_error))
         } else {
@@ -969,11 +1018,11 @@ class AppointmentFormActivity : SimpleActivity() {
 
         mEvent.apply {
             startTS = newStartTS
-            Log.d("tagggggtime","..3....."+startTS+"....."+mEventStartDateTime+"....."+mEventEndDateTime.seconds())
             endTS = newEndTS
+            Log.d("", "tagggggtime....." + "....." + mEventEndDateTime + (30 * 60 * 1000))
             title = ptitle
             location = location_name
-            title = doctorname
+            doctor_id = doctorname
             treatment_type = treatmenttype
             reminder1Minutes = reminder1.minutes
             reminder2Minutes = reminder2.minutes
@@ -997,7 +1046,59 @@ class AppointmentFormActivity : SimpleActivity() {
             mEvent.id = null
         }
 
+        val input = mEventEndDateTime.toLocalTime().toString()
+        val df: DateFormat = SimpleDateFormat("HH:mm:ss")
+        val outputformat: DateFormat = SimpleDateFormat("hh:mm aa")
+        var date: Date? = null
+        var start: String? = null
+        try {
+            date = df.parse(input.trim())
+            start = outputformat.format(date)
+        } catch (pe: ParseException) {
+            pe.printStackTrace()
+        }
+
+        val input2 = (mEventEndDateTime + (30 * 60 * 1000)).toLocalTime().toString()
+        val df2: DateFormat = SimpleDateFormat("HH:mm:ss")
+        val outputformat2: DateFormat = SimpleDateFormat("hh:mm aa")
+        var date2: Date? = null
+        var end: String? = null
+        try {
+            date2 = df2.parse(input2.trim())
+            end = outputformat2.format(date2)
+        } catch (pe: ParseException) {
+            pe.printStackTrace()
+        }
+
+        //patient_id, ftname, retarea, apptdate, timee, typesoftreatment, doctor, color
+
+        /* viewModel.onSaveClick(
+             pid,
+             ptitle,
+             location_name,
+             mEventStartDateTime.toLocalDate().toString(),
+             start + "-" + end,
+             treatmenttype,
+             doctorname,
+             color
+         )*/
+
         storeEvent(wasRepeatable)
+    }
+
+    override fun onStarted() {
+        progressBar!!.show()
+    }
+
+    override fun onSuccess(message: String) {
+        progressBar!!.hide()
+        showErrorSnackBar(root_layout, message)
+        toast(message)
+    }
+
+    override fun onFailure(message: String) {
+        progressBar!!.hide()
+        showErrorSnackBar(root_layout, message)
     }
 
     private fun storeEvent(wasRepeatable: Boolean) {
@@ -1073,7 +1174,6 @@ class AppointmentFormActivity : SimpleActivity() {
 
     private fun setupStartDate() {
         hideKeyboard()
-        Log.d("tagggggtime","...1...."+mEventStartDateTime+"......."+mEventEndDateTime.seconds())
 
         config.backgroundColor.getContrastColor()
         val datepicker = DatePickerDialog(

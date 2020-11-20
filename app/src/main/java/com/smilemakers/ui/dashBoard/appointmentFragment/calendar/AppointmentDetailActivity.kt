@@ -1,6 +1,7 @@
 package com.smilemakers.ui.dashBoard.appointmentFragment.calendar
 
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.MenuItem
@@ -9,6 +10,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.appointmentFragment.AppointMentViemodelFactory

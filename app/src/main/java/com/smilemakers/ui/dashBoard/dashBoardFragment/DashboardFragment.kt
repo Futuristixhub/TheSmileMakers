@@ -70,8 +70,10 @@ class DashboardFragment : Fragment(), KodeinAware, DashBoardListener {
         binding?.progressBar!!.hide()
 
         binding?.txtTotalPatientsNumber!!.text = dashBoard.total_patient
-        binding?.txtTotalAdminsNumber!!.text = dashBoard.total_admin
+     //   binding?.txtTotalAdminsNumber!!.text = dashBoard.total_admin
         binding?.txtTotalDoctorNumber!!.text = dashBoard.total_doctor
+        binding?.tvBCount!!.text = dashBoard.total_doctor
+        binding?.tvNCount!!.text = dashBoard.total_doctor
     }
 
     override fun onFailure(message: String) {

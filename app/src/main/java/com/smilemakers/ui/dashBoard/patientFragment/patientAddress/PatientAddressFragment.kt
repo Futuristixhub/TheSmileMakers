@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
+import com.simplemobiletools.commons.extensions.toast
 import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.patientFragment.PatientFragmentVM
 import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
@@ -34,18 +35,19 @@ import org.kodein.di.generic.instance
 /**
  * A simple [Fragment] subclass.
  */
-class PatientAddressFragment : Fragment() , KodeinAware,PatientListener, AdapterView.OnItemSelectedListener {
+class PatientAddressFragment : Fragment(), KodeinAware, PatientListener,
+    AdapterView.OnItemSelectedListener {
 
     override val kodein by kodein()
     lateinit var spinner: Spinner
-    var viewModel:PatientFragmentVM?=null
+    var viewModel: PatientFragmentVM? = null
 
-    companion object{
+    companion object {
         var fragment: PatientAddressFragment? = null
-     //   var mActivity: DashboardActivity? = null
+        //   var mActivity: DashboardActivity? = null
 
-        fun newInstance() : PatientAddressFragment? {
-         //   this.mActivity = mActivity
+        fun newInstance(): PatientAddressFragment? {
+            //   this.mActivity = mActivity
             if (fragment == null)
                 fragment = PatientAddressFragment()
             val bundle = Bundle()
@@ -69,7 +71,7 @@ class PatientAddressFragment : Fragment() , KodeinAware,PatientListener, Adapter
             container,
             false
         )
-         viewModel =
+        viewModel =
             ViewModelProviders.of(this, factory).get(PatientFragmentVM::class.java)
         binding?.vm = viewModel
         viewModel?.authListener = this
@@ -120,12 +122,12 @@ class PatientAddressFragment : Fragment() , KodeinAware,PatientListener, Adapter
         progress_bar.hide()
 
         context!!.showErrorSnackBar(root_layout, message)
+        context!!.toast(message)
         (context as AppCompatActivity).finish()
     }
 
     override fun onFailure(message: String) {
         progress_bar.hide()
-
         context!!.showErrorSnackBar(root_layout, message)
     }
 

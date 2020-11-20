@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="themeColors">
+        <item>#0D709A</item>
+        <item>#1C9EBC</item>
+        <item>#D71C4C</item>
+        <item>#F69227</item>
+        <item>#F7CE2B</item>
+        <item>#72CC20</item>
+        <item>#283ABB</item>
+        <item>#6C757D</item>
+        <item>#FD7E14</item>
+        <item>#007BFF</item>
+    </array>
+</resources>

@@ -4,10 +4,11 @@ package com.smilemakers.ui.dashBoard.patientFragment.addPatient
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore.Images
 import android.provider.Settings
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,22 +16,26 @@ import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-
 import com.smilemakers.R
+import com.smilemakers.databinding.FragmentAddPatientBinding
 import com.smilemakers.ui.dashBoard.patientFragment.PatientFragmentVM
 import com.smilemakers.ui.dashBoard.patientFragment.PatientViewModelFactory
-import com.smilemakers.databinding.FragmentAddPatientBinding
 import com.smilemakers.utils.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import java.io.File
 import java.io.IOException
 
 /**
@@ -39,6 +44,7 @@ import java.io.IOException
 class AddPatientFragment : Fragment(), KodeinAware {
 
     override val kodein by kodein()
+    var uploadImage: RequestBody? = null
 
     companion object {
         //   lateinit var mActivity: DashboardActivity
@@ -179,6 +185,7 @@ class AddPatientFragment : Fragment(), KodeinAware {
                             context!!.getString(R.string.image),
                             uri.toString()
                         )
+
                         loadImageWithUri(img!!, uri.toString())
                     }
                 } catch (e: IOException) {
@@ -189,7 +196,9 @@ class AddPatientFragment : Fragment(), KodeinAware {
     }
 
     fun loadImageWithUri(imageView: ImageView, imageUri: String) {
+
         Glide.with(imageView.context).load(Uri.parse(imageUri)).into(imageView)
+
         viewModel!!.image = imageUri
         imageView.setColorFilter(
             ContextCompat.getColor(

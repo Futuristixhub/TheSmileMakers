@@ -1,12 +1,15 @@
 package com.smilemakers.ui.dashBoard.profile
 
 import android.content.Intent
+import android.net.Uri
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModel
 import com.smilemakers.R
 import com.smilemakers.utils.hideKeyboard
 import com.smilemakers.utils.showErrorSnackBar
+
 
 class ProfileVM(val repository: ProfileRepository) : ViewModel() {
 
@@ -44,6 +47,30 @@ class ProfileVM(val repository: ProfileRepository) : ViewModel() {
 
     fun onEditClick(view: View) {
         view.context.startActivity(Intent(view.context, EditProfileActivity::class.java))
+    }
+
+    fun onCallClick(view: View) {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:" + mob_no)
+        view.context.startActivity(intent)
+    }
+
+    fun onEmailClick(view: View) {
+        val emailIntent = Intent(
+            Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", email, null
+            )
+        )
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject")
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Body")
+        view.context.startActivity(Intent.createChooser(emailIntent, "Send email..."))
+    }
+
+    fun onMapClick(view: View) {
+        val mapUri = Uri.parse("geo:0,0?q=" + Uri.encode(location))
+        val mapIntent = Intent(Intent.ACTION_VIEW, mapUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        view.context.startActivity(mapIntent)
     }
 
     fun onChangePwdClick(view: View) {
@@ -108,7 +135,7 @@ class ProfileVM(val repository: ProfileRepository) : ViewModel() {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_cfpwd))
             return false
         }
-        if(!edt_npwd.equals(edt_cfpwd)){
+        if (!edt_npwd.equals(edt_cfpwd)) {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.pwd_match_error))
             return false
         }

@@ -6,6 +6,8 @@ import com.smilemakers.data.network.MyApi
 import com.smilemakers.data.network.SafeApiRequest
 import com.smilemakers.data.network.response.PatientResponse
 import com.smilemakers.utils.Coroutines
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class PatientRepository(
     private val api: MyApi,
@@ -45,23 +47,24 @@ class PatientRepository(
     suspend fun getPatientData(userid: String?) = apiRequest { api.getPatientData(userid!!) }
 
     suspend fun addPatient(
-        fname: String,
-        lname: String,
-        gender: String,
-        dob: String,
-        age: String,
-        refid: String,
-        refname: String,
-        mNo: String,
-        altmNo: String,
-        location: String,
-        adr1: String,
-        adr2: String,
-        city: String,
-        state: String,
-        country: String,
-        pincode: String,
-        image: String
+        fname: RequestBody,
+        lname: RequestBody,
+        gender: RequestBody,
+        dob: RequestBody,
+        age: RequestBody,
+        refid: RequestBody,
+        refname: RequestBody,
+        mNo: RequestBody,
+        altmNo: RequestBody,
+        location: RequestBody,
+        adr1: RequestBody,
+        adr2: RequestBody,
+        city: RequestBody,
+        state: RequestBody,
+        country: RequestBody,
+        pincode: RequestBody,
+        image: MultipartBody.Part,
+        requestBody: RequestBody
     ): PatientResponse {
         return apiRequest {
             api.addPatient(
@@ -81,7 +84,7 @@ class PatientRepository(
                 state,
                 country,
                 pincode,
-                image
+                image,requestBody
             )
         }
     }

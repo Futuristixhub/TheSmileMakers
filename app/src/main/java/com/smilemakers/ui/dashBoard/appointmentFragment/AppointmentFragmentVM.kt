@@ -5,19 +5,19 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.os.Build
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.smilemakers.R
-import com.smilemakers.ui.dashBoard.doctorFragment.Doctor
-import com.smilemakers.utils.Coroutines
-import com.smilemakers.utils.getData
-import com.smilemakers.utils.showErrorSnackBar
+import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
+import com.smilemakers.utils.*
 import kotlinx.coroutines.Job
 import java.util.*
 
@@ -26,14 +26,22 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
 
     var context = application.applicationContext
 
+    var authListener: PatientListener? = null
+
     val appointmentDate = ObservableField<String>("")
     val appointmentTime = ObservableField<String>("")
 
+    @RequiresApi(Build.VERSION_CODES.N)
     val calendar = Calendar.getInstance()
+    @RequiresApi(Build.VERSION_CODES.N)
     val mYear = calendar.get(Calendar.YEAR)
+    @RequiresApi(Build.VERSION_CODES.N)
     val mMonth = calendar.get(Calendar.MONTH)
+    @RequiresApi(Build.VERSION_CODES.N)
     val mDate = calendar.get(Calendar.DAY_OF_MONTH)
+    @RequiresApi(Build.VERSION_CODES.N)
     val mHour = calendar.get(Calendar.HOUR_OF_DAY)
+    @RequiresApi(Build.VERSION_CODES.N)
     val mMinute = calendar.get(Calendar.MINUTE)
 
     val pname: String? = null
@@ -74,6 +82,46 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
     val appointment: LiveData<List<Appointment>>
         get() = _appointments
 
+    fun onSaveClick(
+        pid: String,
+        ptitle: String,
+        location_name: String,
+        date: String,
+        time: String,
+        treatmenttype: String,
+        doctorname: String,
+        color: String
+    ) {
+        authListener!!.onStarted()
+        Coroutines.main {
+            try {
+
+                val authResponse =
+                    repository.addAppointment(
+                        pid,
+                        ptitle,
+                        location_name,
+                        date,
+                        time,
+                        treatmenttype,
+                        doctorname,
+                        color
+                    )
+                authResponse.data?.let {
+                    if (authResponse.status == false) {
+                        authListener?.onFailure(authResponse.message!!)
+                    } else {
+                        authListener?.onSuccess(authResponse.message!!)
+                    }
+                }
+                authListener?.onFailure(authResponse.message!!)
+            } catch (e: ApiExceptions) {
+                authListener?.onFailure(e.message!!)
+            } catch (e: NoInternetException) {
+                authListener?.onFailure(e.message!!)
+            }
+        }
+    }
 
     fun isValid(view: View): Boolean {
 
@@ -90,6 +138,7 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
             view.context,
             R.style.DatePickerDialog,
             object : DatePickerDialog.OnDateSetListener {
+                @RequiresApi(Build.VERSION_CODES.N)
                 override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
                     val date = "$dayOfMonth-$month-$year"
                     val inputPatter = view!!.context.getString(R.string.date_format)

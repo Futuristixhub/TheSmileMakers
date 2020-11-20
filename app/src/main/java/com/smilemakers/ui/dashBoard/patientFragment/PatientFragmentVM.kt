@@ -3,7 +3,10 @@ package com.smilemakers.ui.dashBoard.patientFragment
 import android.app.Application
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.loader.content.CursorLoader
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
@@ -22,6 +26,10 @@ import com.smilemakers.ui.dashBoard.patientFragment.addPatient.AddPatientFragmen
 import com.smilemakers.ui.dashBoard.patientFragment.patientAddress.PatientAddressFragment
 import com.smilemakers.utils.*
 import kotlinx.coroutines.Job
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.util.*
 
 
@@ -37,10 +45,24 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
 
     fun getPatients() {
         job = Coroutines.ioThenMain(
-            { repository.getPatientData(context!!.getData(context!!, context.getString(R.string.user_id))) },
-            { _patients.value = it?.data?.patient_list }
+            {
+                repository.getPatientData(
+                    context!!.getData(
+                        context!!,
+                        context.getString(R.string.user_id)
+                    )
+                )
+            },
+            {
+                if (it?.status == false) {
+                    authListener?.onFailure(it.message)
+                } else {
+                    _patients.value = it?.data?.patient_list
+                }
+            }
         )
     }
+
     val patients: LiveData<List<Patient>>
         get() = _patients
 
@@ -128,7 +150,7 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
 
             val transaction =
                 (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-              transaction.addToBackStack(null)
+            transaction.addToBackStack(null)
             transaction.replace(R.id.fl_container, fragobj)
             transaction.commit()
         }
@@ -207,18 +229,38 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
             authListener!!.onStarted()
             Coroutines.main {
                 try {
+                    val file = File(Uri.parse(image).path)
+                    var requestBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
+                    var filePart =
+                        MultipartBody.Part.createFormData("image", file.name, requestBody)
+
                     val authResponse =
                         repository.addPatient(
-                            fname.value!!,
-                            lname.value!!, gender!!,
-                            dob.get()!!, age.value!!, refId.value!!,
-                            refName.value!!, mNumber.value!!, altmNumber.value!!, location!!,
-                            adr1.value!!, adr2.value!!, city.value!!,
-                            state.value!!, country.value!!, pinCode.value!!, image!!
+                            RequestBody.create(MediaType.parse("text/plain"), fname.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), lname.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), gender!!),
+                            RequestBody.create(MediaType.parse("text/plain"), dob.get()!!),
+                            RequestBody.create(MediaType.parse("text/plain"), age.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), refId.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), refName.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), mNumber.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), altmNumber.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), location!!),
+                            RequestBody.create(MediaType.parse("text/plain"), adr1.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), adr2.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), city.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), state.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), country.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), pinCode.value!!),
+                            filePart, requestBody
                         )
                     authResponse.data?.let {
-                        authListener?.onSuccess(authResponse.message!!)
-                        return@main
+                        if (authResponse.status == false) {
+                            authListener?.onFailure(authResponse.message!!)
+                        } else {
+                            authListener?.onSuccess(authResponse.message!!)
+                            return@main
+                        }
                     }
                     authListener?.onFailure(authResponse.message!!)
                 } catch (e: ApiExceptions) {
@@ -228,6 +270,17 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
                 }
             }
         }
+    }
+
+    private fun getRealPathFromURI(contentUri: Uri): String? {
+        val proj = arrayOf<String>(MediaStore.Images.Media.DATA)
+        val loader = CursorLoader(context!!, contentUri, proj, null, null, null)
+        val cursor: Cursor = loader.loadInBackground()!!
+        val column_index: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        val result: String = cursor.getString(column_index)
+        cursor.close()
+        return result
     }
 
     fun onPreviousClick(view: View) {

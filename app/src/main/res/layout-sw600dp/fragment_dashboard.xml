@@ -24,7 +24,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_patient"
-                android:layout_width="@dimen/space_0"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_15"
                 android:layout_marginTop="@dimen/space_15"
@@ -82,6 +82,7 @@
                 android:layout_width="@dimen/space_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_15"
+                android:visibility="gone"
                 android:layout_marginEnd="@dimen/space_15"
                 app:cardBackgroundColor="@color/colorAccentLight"
                 app:cardCornerRadius="@dimen/space_8"
@@ -234,6 +235,17 @@
                         android:textSize="@dimen/text_20"
                         android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/tv_b_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_10"
+                        android:elevation="@dimen/space_8"
+                        android:text="@{vm.dashboardData.total_doctor}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_18"
+                        android:textStyle="bold" />
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -276,6 +288,18 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_20"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_n_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_10"
+                        android:elevation="@dimen/space_8"
+                        android:text="@{vm.dashboardData.total_doctor}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_18"
+                        android:textStyle="bold" />
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <ProgressBar

@@ -16,14 +16,16 @@ import androidx.lifecycle.ViewModelProviders
 import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.DashboardActivity
 import com.smilemakers.databinding.FragmentDoctorBinding
+import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
 import com.smilemakers.utils.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.fragment_doctor.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
-class DoctorFragment : Fragment(), KodeinAware {
+class DoctorFragment : Fragment(), KodeinAware ,PatientListener{
 
     override val kodein by kodein()
 
@@ -53,7 +55,7 @@ class DoctorFragment : Fragment(), KodeinAware {
          viewModel =
             ViewModelProviders.of(this, factory).get(DoctorFragmentVM::class.java)
         binding?.vm = viewModel
-      //  viewModel.createList(binding?.recDoctorList!!)
+        viewModel?.authListener = this
 
         val bar: ActionBar? = (activity as AppCompatActivity?)!!.supportActionBar
         if (bar != null) {
@@ -107,8 +109,21 @@ class DoctorFragment : Fragment(), KodeinAware {
 
     private fun List<Doctor>.toDoctorItem() : List<DoctorItem>{
         return this.map {
-            DoctorItem(it)
+            DoctorItem(it,context!!)
         }
+    }
+
+    override fun onStarted() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSuccess(message: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onFailure(message: String) {
+        binding?.progressBar?.hide()
+        context!!.showErrorSnackBar(root_layout, message)
     }
 
 }

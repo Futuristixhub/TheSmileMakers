@@ -32,9 +32,13 @@ class LoginVM(private val repository: UserRepository) : ViewModel() {
                   try {
                       val authResponse = repository.userLogin(mobileNumber.value!!, password.value!!,user_type!!)
                       authResponse.data?.let {
-                          authListener?.onSuccess(it)
-                          repository.saveUser(it)
-                          return@main
+                          if (authResponse.status == false) {
+                              authListener?.onFailure(authResponse.message!!)
+                          } else {
+                              authListener?.onSuccess(it)
+                              repository.saveUser(it)
+                              return@main
+                          }
                       }
                       authListener?.onFailure(authResponse.message!!)
                   } catch (e: ApiExceptions) {

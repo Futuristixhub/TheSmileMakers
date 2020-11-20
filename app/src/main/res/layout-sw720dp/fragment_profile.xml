@@ -218,7 +218,8 @@
                                     android:layout_height="@dimen/space_45"
                                     android:background="@drawable/circular_grey_bordersolid"
                                     android:padding="@dimen/space_10"
-                                    android:src="@drawable/ic_mobile_no" />
+                                    android:src="@drawable/ic_mobile_no"
+                                    android:onClick="@{vm::onCallClick}"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -241,7 +242,8 @@
                                     android:layout_height="@dimen/space_45"
                                     android:background="@drawable/circular_grey_bordersolid"
                                     android:padding="@dimen/space_10"
-                                    android:src="@drawable/ic_email" />
+                                    android:src="@drawable/ic_email"
+                                    android:onClick="@{vm::onEmailClick}"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -264,6 +266,7 @@
                                     android:layout_height="@dimen/space_45"
                                     android:background="@drawable/circular_grey_bordersolid"
                                     android:padding="@dimen/space_10"
+                                    android:onClick="@{vm::onMapClick}"
                                     android:src="@drawable/ic_location" />
 
                                 <TextView

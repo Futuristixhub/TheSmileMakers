@@ -20,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/space_8"
-            android:padding="@dimen/space_10"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/space_10">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,8 +39,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txt_patient_name"
@@ -53,6 +53,7 @@
                         android:textStyle="bold"
                         app:layout_constraintStart_toEndOf="@+id/circleImageView"
                         app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/txt_patient_lname"
                         android:layout_width="wrap_content"
@@ -83,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="Mobile Number :"
+                        android:text="@string/mobile_number"
                         android:textColor="@color/textDark"
                         android:textSize="@dimen/text_16"
                         android:textStyle="bold"
@@ -95,7 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="Age :"
+                        android:text="@string/age"
                         android:textColor="@color/textDark"
                         android:textSize="@dimen/text_16"
                         android:textStyle="bold"
@@ -107,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="Clinic :"
+                        android:text="@string/clinic"
                         android:textColor="@color/textDark"
                         android:textSize="@dimen/text_16"
                         android:textStyle="bold" />
@@ -124,7 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_8"
-                        android:text="@{vm.mno}"
+                        android:text="@{` : `+vm.mno}"
                         android:textColor="@color/textDark"
                         android:textSize="@dimen/text_16"
                         app:layout_constraintStart_toEndOf="@+id/circleImageView"
@@ -136,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_8"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.age}"
+                        android:text="@{` : `+vm.age}"
                         android:textSize="@dimen/text_16" />
 
                     <TextView
@@ -145,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_8"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.retarea}"
+                        android:text="@{` : `+vm.retarea}"
                         android:textSize="@dimen/text_16" />
 
 

@@ -216,6 +216,7 @@
                                     android:layout_height="@dimen/space_35"
                                     android:background="@drawable/circular_grey_bordersolid"
                                     android:padding="@dimen/space_10"
+                                    android:onClick="@{vm::onCallClick}"
                                     android:src="@drawable/ic_mobile_no" />
 
                                 <TextView
@@ -239,6 +240,7 @@
                                     android:layout_height="@dimen/space_35"
                                     android:background="@drawable/circular_grey_bordersolid"
                                     android:padding="@dimen/space_10"
+                                    android:onClick="@{vm::onEmailClick}"
                                     android:src="@drawable/ic_email" />
 
                                 <TextView
@@ -262,6 +264,7 @@
                                     android:layout_height="@dimen/space_35"
                                     android:background="@drawable/circular_grey_bordersolid"
                                     android:padding="@dimen/space_10"
+                                    android:onClick="@{vm::onMapClick}"
                                     android:src="@drawable/ic_location" />
 
                                 <TextView

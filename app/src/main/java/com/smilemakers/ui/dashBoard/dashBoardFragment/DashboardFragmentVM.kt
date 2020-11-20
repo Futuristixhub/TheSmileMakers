@@ -43,9 +43,13 @@ class DashboardFragmentVM(private val repository: DashBoardRepository) : ViewMod
             try {
                 val authResponse = repository.dashBoardCount(uid!!)
                 authResponse.data?.let {
-                    dashBoardListener?.onSuccess(it)
-                    dashboardData.value = it
-                    return@main
+                    if (authResponse.status == false) {
+                        dashBoardListener?.onFailure(authResponse.message!!)
+                    } else {
+                        dashBoardListener?.onSuccess(it)
+                        dashboardData.value = it
+                        return@main
+                    }
                 }
                 dashBoardListener?.onFailure(authResponse.message!!)
             } catch (e: ApiExceptions) {
