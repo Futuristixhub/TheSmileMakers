@@ -47,6 +47,7 @@ class PatientRepository(
     suspend fun getPatientData(userid: String?) = apiRequest { api.getPatientData(userid!!) }
 
     suspend fun addPatient(
+        userid: RequestBody,
         fname: RequestBody,
         lname: RequestBody,
         gender: RequestBody,
@@ -68,6 +69,7 @@ class PatientRepository(
     ): PatientResponse {
         return apiRequest {
             api.addPatient(
+                userid,
                 fname,
                 lname,
                 gender,

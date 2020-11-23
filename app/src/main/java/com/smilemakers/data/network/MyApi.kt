@@ -8,6 +8,7 @@ import com.smilemakers.ui.forgotPassword.ForgotPasswordData
 import com.smilemakers.data.network.response.DashBoardResponse
 import com.smilemakers.data.network.response.LoginResponse
 import com.smilemakers.data.network.response.PatientResponse
+import com.smilemakers.ui.dashBoard.appointmentFragment.PdrtrData
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -35,6 +36,7 @@ interface MyApi {
     @Multipart
     @POST("add_patient.php")
     suspend fun addPatient(
+        @Part("userid") userid: RequestBody,
         @Part("fname") fname: RequestBody,
         @Part("lname") lname: RequestBody,
         @Part("gender") gender: RequestBody,
@@ -56,6 +58,42 @@ interface MyApi {
     ): Response<PatientResponse>
 
     @FormUrlEncoded
+    @POST("patient_list.php")
+    suspend fun getPatientData(@Field("userid") userid: String): Response<PatientData>
+
+    @Multipart
+    @POST("add_doctor.php")
+    suspend fun addDoctor(
+        @Part("fname") fname: RequestBody,
+        @Part("lname") lname: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part("dob") dob: RequestBody,
+        @Part("age") age: RequestBody,
+        @Part("email") refnum: RequestBody,
+        @Part("education") refname: RequestBody,
+        @Part("mno") mno: RequestBody,
+        @Part("altmno") altmno: RequestBody,
+        @Part("retarea") retarea: RequestBody,
+        @Part("typesoftreatment") trtmenttype: RequestBody,
+        @Part("addr") address: RequestBody,
+        @Part("area") area: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("state") state: RequestBody,
+        @Part("country") country: RequestBody,
+        @Part("postcode") postcode: RequestBody,
+        @Part file: MultipartBody.Part,
+        @Part("img") name: RequestBody
+    ): Response<PatientResponse>
+
+    @FormUrlEncoded
+    @POST("doctor_list.php")
+    suspend fun getDoctorData(@Field("userid") userid: String): Response<DoctorData>
+
+    @FormUrlEncoded
+    @POST("patient_doctor_treatment.php")
+    suspend fun getPatientDoctorTreatment(@Field("userid") userid: String): Response<PdrtrData>
+
+    @FormUrlEncoded
     @POST("add_appointment.php")
     suspend fun addAppointment(
         @Field("patient_id") patient_id: String,
@@ -68,19 +106,6 @@ interface MyApi {
         @Field("color") color: String
     ): Response<PatientResponse>
 
-
-    @FormUrlEncoded
-    @POST("profile")
-    suspend fun getProfileData(@Field("userid") userid: String): Response<List<ProfileData>>
-
-    @FormUrlEncoded
-    @POST("patient_list.php")
-    suspend fun getPatientData(@Field("userid") userid: String): Response<PatientData>
-
-    @FormUrlEncoded
-    @POST("doctor_list.php")
-    suspend fun getDoctorData(@Field("userid") userid: String): Response<DoctorData>
-
     @FormUrlEncoded
     @POST("appointment_list.php")
     suspend fun getAppointmentData(
@@ -88,8 +113,19 @@ interface MyApi {
         @Field("user_type") user_type: String
     ): Response<AppointmentData>
 
+    @FormUrlEncoded
+    @POST("update_prescription.php")
+    suspend fun getPatientDoctorTreatment(
+        @Field("userid") userid: String,
+        @Field("prescription") prescription: String
+    ): Response<PatientData>
+
+    @FormUrlEncoded
+    @POST("profile")
+    suspend fun getProfileData(@Field("userid") userid: String): Response<ProfileData>
+
     @GET("forgotpassword")
-    suspend fun getForgotPasswordData(): Response<List<ForgotPasswordData>>
+    suspend fun getForgotPasswordData(): Response<ForgotPasswordData>
 
     companion object {
         operator fun invoke(

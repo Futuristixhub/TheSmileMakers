@@ -236,6 +236,7 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
 
                     val authResponse =
                         repository.addPatient(
+                            RequestBody.create(MediaType.parse("text/plain"), context!!.getData(context!!, context.getString(R.string.user_id))),
                             RequestBody.create(MediaType.parse("text/plain"), fname.value!!),
                             RequestBody.create(MediaType.parse("text/plain"), lname.value!!),
                             RequestBody.create(MediaType.parse("text/plain"), gender!!),

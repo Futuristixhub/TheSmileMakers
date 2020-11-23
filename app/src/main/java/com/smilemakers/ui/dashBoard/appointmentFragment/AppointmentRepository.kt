@@ -13,6 +13,8 @@ class AppointmentRepository(
 
     suspend fun getAppointmentData(userid: String?,userType:String?) = apiRequest { api.getAppointmentData(userid!!,userType!!) }
 
+    suspend fun getData(userid: String?) = apiRequest { api.getPatientDoctorTreatment(userid!!) }
+
     suspend fun addAppointment(
         patient_id: String,
         ftname: String,

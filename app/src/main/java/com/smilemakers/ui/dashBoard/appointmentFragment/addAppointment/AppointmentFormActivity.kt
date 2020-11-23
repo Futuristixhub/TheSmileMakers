@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -13,19 +12,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.github.dhaval2404.colorpicker.MaterialColorPickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.smilemakers.R
 import com.smilemakers.databinding.FragmentAppointmentFormBinding
-import com.smilemakers.ui.dashBoard.appointmentFragment.AppointMentViemodelFactory
-import com.smilemakers.ui.dashBoard.appointmentFragment.AppointmentFragmentVM
+import com.smilemakers.ui.dashBoard.appointmentFragment.*
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.*
 import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
 import com.smilemakers.utils.*
@@ -40,6 +38,7 @@ import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
@@ -95,11 +94,11 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
     var dayCode = ""
     var treatmenttype = ""
     var doctorname = ""
+    var patient_id = ""
     var color = ""
     var str = ""
     var adapter: ArrayAdapter<String>? = null
     var ed_patient_name: AppCompatAutoCompleteTextView? = null
-    var progressBar: ProgressBar? = null
     var ivColor: ImageView? = null
     private var isSelected = false
 
@@ -111,6 +110,7 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
         viewModel =
             ViewModelProviders.of(this, factory).get(AppointmentFragmentVM::class.java)
         binding?.vm = viewModel
+        binding?.lifecycleOwner = this
         viewModel?.authListener = this
 
         ed_patient_name = findViewById(R.id.ed_appointment_patient_name)
@@ -118,7 +118,6 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
             return
         }
 
-        progressBar = findViewById(R.id.progress_bar)
         ivColor = findViewById(R.id.iv_color)
 
         ivColor?.setOnClickListener {
@@ -134,8 +133,6 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
                 }
                 .show()
         }
-
-        patientSearch()
 
         val bar: ActionBar? = supportActionBar
         if (bar != null) {
@@ -191,17 +188,6 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
 
     }
 
-    private fun patientSearch() {
-        val products = arrayOf<String>("Mansi", "Apoorv", "Viraj", "Vishal", "Madhuri")
-        adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1, products
-        )
-
-        ed_patient_name!!.setAdapter(adapter)
-
-    }
-
     private fun gotEvent(savedInstanceState: Bundle?, localEventType: EventType?, event: Event?) {
         if (localEventType == null || localEventType.caldavCalendarId != 0) {
             config.lastUsedLocalEventTypeId = REGULAR_EVENT_TYPE_ID
@@ -253,60 +239,74 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
 
         button2.setOnClickListener { checkValidate() }
 
-        val adapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.treatment_type,
-            R.layout.simple_spinner_item
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        sp_treatment.adapter = adapter
-        if (!mEvent.treatment_type.isEmpty()) {
-            val spinnerPosition = adapter.getPosition(mEvent.treatment_type)
-            sp_treatment.setSelection(spinnerPosition)
-        }
-        sp_treatment.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+        binding?.progressBar?.show()
+        viewModel.getData()
+        viewModel.pdata.observe(this, Observer {
+            binding?.progressBar?.hide()
+
+            val adapter = PatientsAdapter(this, it)
+            ed_patient_name!!.setAdapter(adapter)
+            ed_patient_name!!.threshold = 3
+            ed_patient_name!!.setOnItemClickListener() { parent, _, position, id ->
+                val selectedPoi = parent.adapter.getItem(position) as Patients?
+                ed_patient_name!!.setText(selectedPoi?.fname + " " + selectedPoi?.lname)
+                patient_id = selectedPoi?.patient_id!!
+            }
+
+        })
+        viewModel.ddata.observe(this, Observer {
+            binding?.progressBar?.hide()
+
+            val adapter = DoctorAdpater(this, it)
+            sp_doctors.adapter = adapter
+
+            // if (!mEvent.title.isEmpty()) {
+            // val spinnerPosition = adapter1.getPosition(mEvent.title)
+            // sp_doctors.setSelection(spinnerPosition)
+            // }
+            sp_doctors.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val data: Doctors = parent!!.selectedItem as Doctors
+                    doctorname = data.fname + " " + data.lname
+                }
+
+            }
+        })
+        viewModel.tdata.observe(this, Observer {
+            binding?.progressBar?.hide()
+
+            val adapter = TreatmentAdpater(this, it)
+            sp_treatment.adapter = adapter
+
+            // if (!mEvent.treatment_type.isEmpty()) {
+            //   val spinnerPosition = adapter.getPosition(mEvent.treatment_type)
+            //    sp_treatment.setSelection(spinnerPosition)
+            //  }
+            sp_treatment.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val data: Treatments = parent!!.selectedItem as Treatments
+                    treatmenttype = data.treatment_name
+                }
 
             }
 
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                treatmenttype = parent?.getItemAtPosition(position).toString()
-            }
-
-        }
-
-        val adapter1 = ArrayAdapter.createFromResource(
-            this,
-            R.array.doctors_name,
-            R.layout.simple_spinner_item
-        )
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        sp_doctors.adapter = adapter1
-        if (!mEvent.title.isEmpty()) {
-            val spinnerPosition = adapter1.getPosition(mEvent.title)
-            sp_doctors.setSelection(spinnerPosition)
-        }
-        sp_doctors.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                doctorname = parent?.getItemAtPosition(position).toString()
-
-            }
-
-        }
+        })
 
         ed_appointment_date.setOnClickListener { setupStartDate() }
         ed_appointment_time.setOnClickListener { setupStartTime() }
@@ -1072,8 +1072,8 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
 
         //patient_id, ftname, retarea, apptdate, timee, typesoftreatment, doctor, color
 
-        /* viewModel.onSaveClick(
-             pid,
+         viewModel.onSaveClick(
+             patient_id,
              ptitle,
              location_name,
              mEventStartDateTime.toLocalDate().toString(),
@@ -1081,23 +1081,23 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
              treatmenttype,
              doctorname,
              color
-         )*/
+         )
 
         storeEvent(wasRepeatable)
     }
 
     override fun onStarted() {
-        progressBar!!.show()
+        binding?.progressBar!!.show()
     }
 
     override fun onSuccess(message: String) {
-        progressBar!!.hide()
+        binding?.progressBar!!.hide()
         showErrorSnackBar(root_layout, message)
         toast(message)
     }
 
     override fun onFailure(message: String) {
-        progressBar!!.hide()
+        binding?.progressBar!!.hide()
         showErrorSnackBar(root_layout, message)
     }
 

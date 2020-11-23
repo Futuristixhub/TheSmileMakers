@@ -20,42 +20,71 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/space_25"
             android:background="@drawable/background_drawable_grey_ligh"
-            >
+            android:padding="@dimen/space_25">
+
+            <RelativeLayout
+                android:id="@+id/rl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/img_height"
+                android:background="@drawable/color_primary_rounded_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/space_5"
+                    android:src="@drawable/logo" />
+
+                <ImageButton
+                    android:id="@+id/ig_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="2dp"
+                    android:background="@color/white"
+                    android:padding="@dimen/space_5"
+                    android:src="@drawable/ic_edit_24"
+                    android:tint="@android:color/black" />
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/ed_patient_first_name"
                 style="@style/EditTextStyle"
-                android:layout_margin="@dimen/space_0"
+                android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_25"
+                android:layout_marginEnd="@dimen/space_8"
                 android:hint="@string/first_name"
-                android:textSize="@dimen/text_22"
-                android:text="@={vm.fname}"
                 android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@={vm.fname}"
+                android:textSize="@dimen/text_22"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/rl" />
 
             <EditText
                 android:id="@+id/ed_patient_last_name"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_25"
+                android:layout_marginTop="@dimen/space_25"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="@string/last_name"
-                android:textSize="@dimen/text_22"
-                android:text="@={vm.lname}"
                 android:inputType="textPersonName"
+                android:text="@={vm.lname}"
+                android:textSize="@dimen/text_22"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ed_patient_first_name" />
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/rl" />
 
             <LinearLayout
                 android:id="@+id/ll_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_25"
+                android:layout_marginTop="@dimen/space_25"
                 android:background="@drawable/color_primary_rounded_border"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/ed_patient_last_name">
@@ -74,9 +103,9 @@
                     android:id="@+id/rg_gender"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:onCheckedChanged="@{vm.onRadioCheckedChanged}"
                     android:orientation="horizontal"
                     android:paddingStart="@dimen/space_8"
-                    android:onCheckedChanged="@{vm.onRadioCheckedChanged}"
                     android:paddingBottom="@dimen/space_8"
                     android:weightSum="3">
 
@@ -116,18 +145,18 @@
                 app:layout_constraintGuide_percent="0.5" />
 
             <TextView
-                android:onClick="@{vm.onDobClick}"
                 android:id="@+id/ed_patient_dob"
                 android:layout_width="@dimen/space_0"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_25"
-                android:background="@drawable/color_primary_rounded_border"
-                android:padding="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_25"
                 android:layout_marginEnd="@dimen/space_8"
+                android:background="@drawable/color_primary_rounded_border"
                 android:hint="@string/dob"
-                android:textSize="@dimen/text_22"
+                android:onClick="@{vm.onDobClick}"
+                android:padding="@dimen/space_10"
                 android:text="@={vm.dob}"
+                android:textSize="@dimen/text_22"
                 app:layout_constraintEnd_toStartOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ll_gender" />
@@ -136,12 +165,12 @@
                 android:id="@+id/ed_patient_age"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_8"
-              android:layout_marginTop="@dimen/space_25"
+                android:layout_marginTop="@dimen/space_25"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="@string/lbl_age"
+                android:inputType="number"
                 android:text="@={vm.age}"
                 android:textSize="@dimen/text_22"
-                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@id/ll_gender" />
@@ -150,12 +179,12 @@
                 android:id="@+id/ed_patient_referral_id"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_25"
+                android:layout_marginTop="@dimen/space_25"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="@string/education"
+                android:inputType="text"
                 android:text="@={vm.education}"
                 android:textSize="@dimen/text_22"
-                android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_dob" />
@@ -164,12 +193,12 @@
                 android:id="@+id/ed_patient_referral_name"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
+                android:layout_marginTop="@dimen/space_25"
                 android:layout_marginEnd="@dimen/space_0"
                 android:hint="@string/email_id"
-              android:layout_marginTop="@dimen/space_25"
-                android:textSize="@dimen/text_22"
-                android:text="@={vm.email}"
                 android:inputType="textEmailAddress"
+                android:text="@={vm.email}"
+                android:textSize="@dimen/text_22"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_patient_referral_id" />
@@ -178,14 +207,27 @@
                 android:id="@+id/ed_patient_mobile"
                 style="@style/EditTextStyle"
                 android:layout_marginStart="@dimen/space_0"
-              android:layout_marginTop="@dimen/space_25"
-                android:layout_marginEnd="@dimen/space_0"
-                android:text="@={vm.mNumber}"
+                android:layout_marginTop="@dimen/space_25"
+                android:layout_marginEnd="@dimen/space_8"
                 android:hint="@string/lbl_mobilno"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="@dimen/text_22"
                 android:inputType="number"
+                android:text="@={vm.mNumber}"
+                android:textSize="@dimen/text_22"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_name" />
+
+            <EditText
+                style="@style/EditTextStyle"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_25"
+                android:layout_marginEnd="@dimen/space_0"
+                android:hint="@string/alternate_mobile_number"
+                android:inputType="number"
+                android:text="@={vm.maltNumber}"
+                android:textSize="@dimen/text_22"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@id/ed_patient_referral_name" />
 
 

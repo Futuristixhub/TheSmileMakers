@@ -18,6 +18,7 @@
         tools:context=".ui.dashBoard.doctorFragment.detail.DetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/space_25">
@@ -51,9 +52,7 @@
                 android:layout_marginStart="@dimen/space_0"
                 android:layout_marginTop="@dimen/space_12"
                 android:layout_marginEnd="@dimen/space_0"
-                android:cursorVisible="false"
                 android:inputType="text"
-                android:focusable="false"
                 android:textSize="@dimen/text_22"
                 android:text="@={vm.adr1}"
                 android:hint="@string/address_line_1"
@@ -173,6 +172,15 @@
                     android:textSize="@dimen/text_24"
                     android:textStyle="bold" />
             </LinearLayout>
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

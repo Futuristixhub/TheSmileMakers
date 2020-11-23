@@ -33,14 +33,19 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
 
     @RequiresApi(Build.VERSION_CODES.N)
     val calendar = Calendar.getInstance()
+
     @RequiresApi(Build.VERSION_CODES.N)
     val mYear = calendar.get(Calendar.YEAR)
+
     @RequiresApi(Build.VERSION_CODES.N)
     val mMonth = calendar.get(Calendar.MONTH)
+
     @RequiresApi(Build.VERSION_CODES.N)
     val mDate = calendar.get(Calendar.DAY_OF_MONTH)
+
     @RequiresApi(Build.VERSION_CODES.N)
     val mHour = calendar.get(Calendar.HOUR_OF_DAY)
+
     @RequiresApi(Build.VERSION_CODES.N)
     val mMinute = calendar.get(Calendar.MINUTE)
 
@@ -53,10 +58,6 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
     val presc = MutableLiveData<String>()
 
     val time: String? = null
-    val title1: String? = null
-    val title2: String? = null
-    val title3: String? = null
-    val title4: String? = null
 
     fun onSubmitClick(view: View) {
         if (isValid(view)) {
@@ -66,7 +67,6 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
 
     private lateinit var job: Job
     private val _appointments = MutableLiveData<List<Appointment>>()
-
     fun getAppointments() {
         job = Coroutines.ioThenMain(
             {
@@ -81,6 +81,33 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
 
     val appointment: LiveData<List<Appointment>>
         get() = _appointments
+
+    private lateinit var job1: Job
+    private val _Pdata = MutableLiveData<List<Patients>>()
+    private val _Ddata = MutableLiveData<List<Doctors>>()
+    private val _Tdata = MutableLiveData<List<Treatments>>()
+
+    fun getData() {
+        job1 = Coroutines.ioThenMain(
+            {
+                repository.getData(
+                    context!!.getData(context!!, context.getString(R.string.user_id))
+                )
+            },
+            {
+                _Pdata.value = it?.data?.patients
+                _Ddata.value = it?.data?.doctors
+                _Tdata.value = it?.data?.treatments
+            }
+        )
+    }
+
+    val pdata: LiveData<List<Patients>>
+        get() = _Pdata
+    val ddata: LiveData<List<Doctors>>
+        get() = _Ddata
+    val tdata: LiveData<List<Treatments>>
+        get() = _Tdata
 
     fun onSaveClick(
         pid: String,

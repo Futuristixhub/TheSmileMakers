@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.smilemakers.R
+import com.smilemakers.utils.saveData
 
 class AddDoctorActivity:AppCompatActivity(){
 
@@ -35,6 +36,8 @@ class AddDoctorActivity:AppCompatActivity(){
             bar.setDisplayHomeAsUpEnabled(true)
             bar.setCustomView(tv)
         }
+
+      saveData(this,getString(R.string.image),"")
 
         val transaction = supportFragmentManager.beginTransaction()
     //    transaction.addToBackStack(null)

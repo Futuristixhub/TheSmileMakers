@@ -3,10 +3,15 @@ package com.smilemakers.ui.dashBoard.doctorFragment
 import android.app.Application
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ObservableField
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,8 +23,14 @@ import com.smilemakers.ui.dashBoard.doctorFragment.addDoctor.AddDoctorActivity
 import com.smilemakers.ui.dashBoard.doctorFragment.addDoctor.AddDoctorFragment
 import com.smilemakers.ui.dashBoard.doctorFragment.detail.DetailFragment
 import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
+import com.smilemakers.ui.dashBoard.patientFragment.addPatient.AddPatientFragment
+import com.smilemakers.ui.dashBoard.patientFragment.patientAddress.PatientAddressFragment
 import com.smilemakers.utils.*
 import kotlinx.coroutines.Job
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.util.*
 
 class DoctorFragmentVM(val repository: DoctorRepository, application: Application) :
@@ -30,10 +41,18 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
 
     private lateinit var job: Job
     private val _doctors = MutableLiveData<List<Doctor>>()
+    var image: String? = null
 
     fun getDoctors() {
         job = Coroutines.ioThenMain(
-            { repository.getDoctorData(context!!.getData(context!!, context.getString(R.string.user_id))) },
+            {
+                repository.getDoctorData(
+                    context!!.getData(
+                        context!!,
+                        context.getString(R.string.user_id)
+                    )
+                )
+            },
             {
                 if (it?.status == false) {
                     authListener?.onFailure(it.message)
@@ -43,6 +62,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
             }
         )
     }
+
     val doctors: LiveData<List<Doctor>>
         get() = _doctors
 
@@ -66,18 +86,34 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
     val education = MutableLiveData<String>()
     val email = MutableLiveData<String>()
     val mNumber = MutableLiveData<String>()
+    val maltNumber = MutableLiveData<String>()
     var gender: String? = null
     var emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
     fun onNextClick(view: View) {
         view.context.hideKeyboard(view)
-        //  if (isValid(view)) {
-        val transaction =
-            (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-        //  transaction.addToBackStack(null)
-        transaction.replace(R.id.fl_container, DetailFragment.newInstance()!!)
-        transaction.commit()
-        //}
+        if (isValid(view)) {
+
+            val bundle = Bundle()
+            bundle.putString("fname", fname.value)
+            bundle.putString("lname", lname.value)
+            bundle.putString("gender", gender)
+            bundle.putString("dob", dob.get())
+            bundle.putString("age", age.value)
+            bundle.putString("email", email.value)
+            bundle.putString("education", education.value)
+            bundle.putString("mno", mNumber.value)
+            bundle.putString("altmno", maltNumber.value)
+            bundle.putString("image", image)
+            val fragobj = DetailFragment.newInstance()
+            fragobj!!.setArguments(bundle)
+
+            val transaction =
+                (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
+            transaction.addToBackStack(null)
+            transaction.replace(R.id.fl_container, fragobj)
+            transaction.commit()
+        }
     }
 
     fun onDobClick(view: View) {
@@ -109,6 +145,10 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
 
     fun isValid(view: View): Boolean {
 
+        if (image.isNullOrEmpty()) {
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_image))
+            return false
+        }
         if (fname.value == null || fname.value?.isEmpty()!!) {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_fname))
             return false
@@ -141,11 +181,16 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
             view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_mob_no))
             return false
         }
-        if(!email.value!!.matches(emailPattern.toRegex())){
-            view.context.showErrorSnackBar(view, view.context.getString(R.string.valid_email))
+        if (maltNumber.value == null || maltNumber.value?.isEmpty()!!) {
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_altmob_no))
+            return false
         }
-        if (mNumber.value?.length!! < 10) {
-            view.context.showErrorSnackBar(view, view.context.getString(R.string.valid_mob_no))
+        if (!email.value!!.matches(emailPattern.toRegex())) {
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.valid_email))
+            return false
+        }
+        if (maltNumber.value?.length!! < 10) {
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.valid_altmob_no))
             return false
         }
 
@@ -158,6 +203,8 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
     val state = MutableLiveData<String>()
     val pinCode = MutableLiveData<String>()
     val country = MutableLiveData<String>()
+    var location: String? = null
+    var trtmet_type: String? = null
 
     init {
         // Places.initialize(mActivity, "AIzaSyBMAD8TRAXSAhr3u9pJ3AGIuKs-vm2qMHw")
@@ -166,23 +213,69 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
 
     fun onSaveClick(view: View) {
         view.context.hideKeyboard(view)
-        //  if (isValid2(view)) {
+        //if (isValid2(view)) {
+            authListener!!.onStarted()
+            Coroutines.main {
+                try {
+                    val file = File(Uri.parse(image).path)
+                    var requestBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
+                    var filePart =
+                        MultipartBody.Part.createFormData("image", file.name, requestBody)
 
-        //}
+                    val authResponse =
+                        repository.addDoctor(
+                            RequestBody.create(MediaType.parse("text/plain"), fname.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), lname.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), gender!!),
+                            RequestBody.create(MediaType.parse("text/plain"), dob.get()!!),
+                            RequestBody.create(MediaType.parse("text/plain"), age.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), email.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), education.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), mNumber.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), maltNumber.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), location!!),
+                            RequestBody.create(MediaType.parse("text/plain"), trtmet_type!!),
+                            RequestBody.create(MediaType.parse("text/plain"), adr1.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), adr2.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), city.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), state.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), country.value!!),
+                            RequestBody.create(MediaType.parse("text/plain"), pinCode.value!!),
+                            filePart, requestBody
+                        )
+                    authResponse.data?.let {
+                        if (authResponse.status == false) {
+                            authListener?.onFailure(authResponse.message!!)
+                        } else {
+                            authListener?.onSuccess(authResponse.message!!)
+                            return@main
+                        }
+                    }
+                    authListener?.onFailure(authResponse.message!!)
+                } catch (e: ApiExceptions) {
+                    authListener?.onFailure(e.message!!)
+                } catch (e: NoInternetException) {
+                    authListener?.onFailure(e.message!!)
+                }
+            }
+       //}
     }
 
     fun onPreviousClick(view: View) {
         view.context.hideKeyboard(view)
-        val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
-        //  transaction.addToBackStack(null)
-        transaction.replace(R.id.fl_container, AddDoctorFragment.newInstance()!!)
+        val manager: FragmentManager =
+            (view.context as AppCompatActivity).getSupportFragmentManager()
+        val transaction: FragmentTransaction = manager.beginTransaction()
+        transaction.remove(AddDoctorFragment.newInstance()!!)
         transaction.commit()
+        manager.popBackStack()
     }
 
     fun onAddressFieldClick(view: View) {
         val fields = Arrays.asList(Place.Field.ID, Place.Field.NAME)
         val intent = Autocomplete.IntentBuilder(
-            AutocompleteActivityMode.OVERLAY, fields)
+            AutocompleteActivityMode.OVERLAY, fields
+        )
             .build(view.context)
         (view.context as AppCompatActivity).startActivityForResult(intent, 1223)
     }

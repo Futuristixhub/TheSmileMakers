@@ -58,7 +58,6 @@ class AppointmentFragment : Fragment(),
     private var isGoToTodayVisible = false
     var events: ArrayList<Appointment>? = null
 
-
     companion object {
         lateinit var mActivity: DashboardActivity
         var mFragment: AppointmentFragment? = null
