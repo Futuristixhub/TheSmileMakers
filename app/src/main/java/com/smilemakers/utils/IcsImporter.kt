@@ -206,7 +206,7 @@ class IcsImporter(val activity: Context) {
                                 curDescription,
                                 curLocation,
                                 "",
-                                "", "", "",
+                                "", "", "","",
                                 reminders[0].minutes,
                                 reminders[1].minutes,
                                 reminders[2].minutes,

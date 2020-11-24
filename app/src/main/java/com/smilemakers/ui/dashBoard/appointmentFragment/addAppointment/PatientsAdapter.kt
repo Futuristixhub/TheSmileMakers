@@ -8,16 +8,19 @@ import android.widget.BaseAdapter
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
+import androidx.core.view.OneShotPreDrawListener.add
 import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.appointmentFragment.Patients
 import java.util.*
+import kotlin.collections.ArrayList
 
-class PatientsAdapter(val context: Context, val list: List<Patients>) : BaseAdapter(), Filterable {
+
+class PatientsAdapter(val context: Context, var list: ArrayList<Patients>) : BaseAdapter(), Filterable {
 
     private val inflater: LayoutInflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-    var lst: List<Patients> = list
+    var lst: ArrayList<Patients> = list
 
     override fun getItem(p0: Int): Any {
         return list[p0]
@@ -68,7 +71,8 @@ class PatientsAdapter(val context: Context, val list: List<Patients>) : BaseAdap
                         constraint.toString().toLowerCase(Locale.ROOT).trim { it <= ' ' }
                     for (item in lst) {
                         if (item.fname.toLowerCase(Locale.ROOT).contains(filterPattern) ||
-                            item.lname.toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                            item.lname.toLowerCase(Locale.ROOT).contains(filterPattern)
+                        ) {
                             filteredList.add(item)
                         }
                     }
@@ -85,11 +89,10 @@ class PatientsAdapter(val context: Context, val list: List<Patients>) : BaseAdap
                 filterResults: FilterResults
             ) {
                 if (filterResults.values != null) {
-                    lst = filterResults.values as List<Patients>
+                    list = filterResults.values as ArrayList<Patients>
                     notifyDataSetChanged()
                 }
             }
-
 
         }
 

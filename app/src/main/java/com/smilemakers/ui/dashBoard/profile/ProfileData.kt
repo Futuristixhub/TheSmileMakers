@@ -1,11 +1,9 @@
 package com.smilemakers.ui.dashBoard.profile
 
+import com.smilemakers.data.db.entities.DashBoard
+
 class ProfileData(
-    val id: Int,
-    val image: String,
-    val name: Int,
-    val timestamp: String,
-    val status: Int,
-    val url: String,
-    val like_count: String
+    val status: Boolean?,
+    val message: String?,
+    val data: Profile?
 )

@@ -51,7 +51,7 @@
     <string name="please_fill_location"><![CDATA[<string name=\"please_fill_location\">Please fill in a location to be shown on a map</string>]]></string>
     <string name="insufficient_permissions">You are not allowed to write in the selected calendar</string>
     <string name="end_before_start">The Appointment cannot end earlier than it starts</string>
-    <string name="title_empty">Title cannot be empty</string>
+    <string name="title_empty">Please Select Patient Name From The List Only</string>
     <string name="store_locally_only">Store Locally Only</string>
     <string name="add_another_reminder">Add Another Remider</string>
     <string name="the_same_day">The Same Day</string>

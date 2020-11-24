@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.smilemakers">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,7 +20,10 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:debuggable="false"
+        android:testOnly="false"
+        tools:ignore="HardcodedDebugMode">
 
         <activity android:name="com.smilemakers.ui.dashBoard.DashboardActivity"
             />

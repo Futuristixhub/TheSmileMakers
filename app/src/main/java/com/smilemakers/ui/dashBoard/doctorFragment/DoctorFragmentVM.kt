@@ -19,6 +19,10 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.smilemakers.R
+import com.smilemakers.ui.dashBoard.appointmentFragment.Area
+import com.smilemakers.ui.dashBoard.appointmentFragment.Doctors
+import com.smilemakers.ui.dashBoard.appointmentFragment.Patients
+import com.smilemakers.ui.dashBoard.appointmentFragment.Treatments
 import com.smilemakers.ui.dashBoard.doctorFragment.addDoctor.AddDoctorActivity
 import com.smilemakers.ui.dashBoard.doctorFragment.addDoctor.AddDoctorFragment
 import com.smilemakers.ui.dashBoard.doctorFragment.detail.DetailFragment
@@ -65,6 +69,31 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
 
     val doctors: LiveData<List<Doctor>>
         get() = _doctors
+
+    private lateinit var job1: Job
+    private val _Tdata = MutableLiveData<List<Treatments>>()
+    private val _Adata = MutableLiveData<List<Area>>()
+
+    fun getData() {
+        job1 = Coroutines.ioThenMain(
+            {
+                repository.getData(
+                    context!!.getData(context!!, context.getString(R.string.user_id))
+                )
+            },
+            {
+                _Tdata.value = it?.data?.treatments
+                _Adata.value = it?.data?.area
+            }
+        )
+    }
+
+    val tdata: LiveData<List<Treatments>>
+        get() = _Tdata
+
+    val adata: LiveData<List<Area>>
+        get() = _Adata
+
 
     fun onAddDoctorClick(view: View) {
 //        val transaction = (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
@@ -213,7 +242,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
 
     fun onSaveClick(view: View) {
         view.context.hideKeyboard(view)
-        //if (isValid2(view)) {
+        if (isValid2(view)) {
             authListener!!.onStarted()
             Coroutines.main {
                 try {
@@ -243,14 +272,12 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
                             RequestBody.create(MediaType.parse("text/plain"), pinCode.value!!),
                             filePart, requestBody
                         )
-                    authResponse.data?.let {
                         if (authResponse.status == false) {
                             authListener?.onFailure(authResponse.message!!)
                         } else {
                             authListener?.onSuccess(authResponse.message!!)
                             return@main
                         }
-                    }
                     authListener?.onFailure(authResponse.message!!)
                 } catch (e: ApiExceptions) {
                     authListener?.onFailure(e.message!!)
@@ -258,7 +285,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
                     authListener?.onFailure(e.message!!)
                 }
             }
-       //}
+       }
     }
 
     fun onPreviousClick(view: View) {

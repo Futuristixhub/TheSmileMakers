@@ -55,14 +55,34 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
     val apt_loaction: String? = null
     val trmt_type: String? = null
     val dr_name: String? = null
+    var app_id: String? = null
     val presc = MutableLiveData<String>()
 
     val time: String? = null
 
     fun onSubmitClick(view: View) {
+        view.context.hideKeyboard(view)
         if (isValid(view)) {
-            (view.context as AppCompatActivity).finish()
+            authListener!!.onStarted()
+            Coroutines.main {
+                try {
+                    val authResponse =
+                        repository.addPrescription(presc.value!!, app_id!!)
+                        if (authResponse.status == false) {
+                            authListener?.onFailure(authResponse.message!!)
+                        } else {
+                            authListener?.onSuccess(authResponse.message!!)
+                            return@main
+                    }
+                    authListener?.onFailure(authResponse.message!!)
+                } catch (e: ApiExceptions) {
+                    authListener?.onFailure(e.message!!)
+                } catch (e: NoInternetException) {
+                    authListener?.onFailure(e.message!!)
+                }
+            }
         }
+
     }
 
     private lateinit var job: Job
@@ -83,7 +103,7 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
         get() = _appointments
 
     private lateinit var job1: Job
-    private val _Pdata = MutableLiveData<List<Patients>>()
+    private val _Pdata = MutableLiveData<ArrayList<Patients>>()
     private val _Ddata = MutableLiveData<List<Doctors>>()
     private val _Tdata = MutableLiveData<List<Treatments>>()
 
@@ -102,7 +122,7 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
         )
     }
 
-    val pdata: LiveData<List<Patients>>
+    val pdata: LiveData<ArrayList<Patients>>
         get() = _Pdata
     val ddata: LiveData<List<Doctors>>
         get() = _Ddata
@@ -134,12 +154,10 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
                         doctorname,
                         color
                     )
-                authResponse.data?.let {
-                    if (authResponse.status == false) {
-                        authListener?.onFailure(authResponse.message!!)
-                    } else {
-                        authListener?.onSuccess(authResponse.message!!)
-                    }
+                if (authResponse.status == false) {
+                    authListener?.onFailure(authResponse.message!!)
+                } else {
+                    authListener?.onSuccess(authResponse.message!!)
                 }
                 authListener?.onFailure(authResponse.message!!)
             } catch (e: ApiExceptions) {

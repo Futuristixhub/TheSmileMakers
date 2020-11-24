@@ -409,7 +409,7 @@ fun Context.getNotification(
         NotificationChannel(channelId, name, importance).apply {
             setBypassDnd(true)
             enableLights(true)
-            lightColor = event.color
+            lightColor = event.scolor
             enableVibration(config.vibrateOnReminder)
             setSound(Uri.parse(soundUri), audioAttributes)
             try {

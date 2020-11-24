@@ -197,7 +197,7 @@ class EventListWidgetAdapter(val context: Context) : RemoteViewsService.RemoteVi
                         it.title,
                         it.description,
                         it.getIsAllDay(),
-                        it.color,
+                        it.scolor,
                         it.location,
                         it.isPastEvent,
                         it.repeatInterval > 0

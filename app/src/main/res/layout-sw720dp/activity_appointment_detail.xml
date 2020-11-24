@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:background="@color/grey"
         android:orientation="vertical"
+        android:id="@+id/root_layout"
         tools:context=".ui.dashBoard.appointmentFragment.calendar.AppointmentDetailActivity">
 
         <RelativeLayout
@@ -255,6 +256,7 @@
                         android:textSize="@dimen/text_22" />
 
                     <EditText
+                        android:id="@+id/ed_presc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -271,6 +273,7 @@
         </androidx.cardview.widget.CardView>
 
         <Button
+            android:id="@+id/btn_submit"
             android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -282,7 +285,12 @@
             android:textColor="@color/white"
             android:textSize="@dimen/text_24"
             android:textStyle="bold" />
-
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 

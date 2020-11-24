@@ -72,8 +72,8 @@ class DashboardFragment : Fragment(), KodeinAware, DashBoardListener {
         binding?.txtTotalPatientsNumber!!.text = dashBoard.total_patient
      //   binding?.txtTotalAdminsNumber!!.text = dashBoard.total_admin
         binding?.txtTotalDoctorNumber!!.text = dashBoard.total_doctor
-        binding?.tvBCount!!.text = dashBoard.total_doctor
-        binding?.tvNCount!!.text = dashBoard.total_doctor
+        binding?.tvBCount!!.text = dashBoard.total_bapunagar
+        binding?.tvNCount!!.text = dashBoard.total_nikol
     }
 
     override fun onFailure(message: String) {

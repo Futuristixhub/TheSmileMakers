@@ -114,11 +114,11 @@ class DoctorFragment : Fragment(), KodeinAware ,PatientListener{
     }
 
     override fun onStarted() {
-        TODO("Not yet implemented")
+        binding?.progressBar?.show()
     }
 
     override fun onSuccess(message: String) {
-        TODO("Not yet implemented")
+        binding?.progressBar?.hide()
     }
 
     override fun onFailure(message: String) {

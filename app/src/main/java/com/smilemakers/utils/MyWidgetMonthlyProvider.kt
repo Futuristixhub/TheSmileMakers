@@ -125,7 +125,7 @@ class MyWidgetMonthlyProvider : AppWidgetProvider() {
                     .toMutableList() as ArrayList<Event>
 
             day.dayEvents.forEach {
-                var backgroundColor = it.color
+                var backgroundColor = it.scolor
                 var eventTextColor = backgroundColor.getContrastColor()
 
                 if (!day.isThisMonth || (dimPastEvents && it.isPastEvent)) {

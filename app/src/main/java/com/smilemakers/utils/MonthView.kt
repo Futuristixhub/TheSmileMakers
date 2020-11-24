@@ -102,7 +102,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
                         event.id!!,
                         "" + day.dayEvents.size,
                         event.startTS,
-                        event.color,//events count background color
+                        event.scolor,//events count background color
                         day.indexOnMonthView,
                         daysCnt,
                         day.indexOnMonthView,

@@ -14,6 +14,8 @@ class DoctorRepository(
 
     suspend fun getDoctorData(userid: String?)= apiRequest { api.getDoctorData(userid!!) }
 
+    suspend fun getData(userid: String?) = apiRequest { api.getPatientDoctorTreatment(userid!!) }
+
     suspend fun addDoctor(
         fname: RequestBody,
         lname: RequestBody,

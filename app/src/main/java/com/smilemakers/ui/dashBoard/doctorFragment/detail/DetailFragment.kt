@@ -13,6 +13,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.widget.Autocomplete
@@ -22,16 +23,22 @@ import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.doctorFragment.DoctorFragmentVM
 import com.smilemakers.ui.dashBoard.doctorFragment.DoctorVieModelFactory
 import com.smilemakers.databinding.FragmentDetailBinding
+import com.smilemakers.ui.dashBoard.appointmentFragment.Area
+import com.smilemakers.ui.dashBoard.appointmentFragment.Treatments
+import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.TreatmentAdpater
 import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
 import com.smilemakers.utils.hide
 import com.smilemakers.utils.show
 import com.smilemakers.utils.showErrorSnackBar
+import kotlinx.android.synthetic.main.fragment_appointment_form.*
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_detail.progress_bar
+import kotlinx.android.synthetic.main.fragment_detail.root_layout
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
-class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener , KodeinAware ,
+class DetailFragment : Fragment(), KodeinAware ,
     PatientListener{
 
     override val kodein by kodein()
@@ -78,32 +85,65 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener , KodeinAw
         viewModel?.image = arguments!!.getString("image")
 
         spinner = binding?.root!!.findViewById(R.id.sp_regis_area)
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.registration_area,
-            R.layout.simple_spinner_item
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = this
 
         spinner_tratment = binding?.root!!.findViewById(R.id.sp_type_treatmnt)
-        val adapter_treatment = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.treatment_type,
-            R.layout.simple_spinner_item
-        )
-        adapter_treatment.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner_tratment.adapter = adapter_treatment
-        spinner_tratment.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-               viewModel?.trtmet_type = parent?.getItemAtPosition(position).toString()
+
+        binding?.progressBar?.show()
+        viewModel?.getData()
+        viewModel?.tdata?.observe(viewLifecycleOwner, Observer {
+            binding?.progressBar?.hide()
+
+            val adapter = TreatmentAdpater(context!!, it)
+            spinner_tratment.adapter = adapter
+
+            // if (!mEvent.treatment_type.isEmpty()) {
+            //   val spinnerPosition = adapter.getPosition(mEvent.treatment_type)
+            //    sp_treatment.setSelection(spinnerPosition)
+            //  }
+            spinner_tratment.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val data: Treatments = parent!!.selectedItem as Treatments
+                    viewModel?.trtmet_type = data.treatment_name
+                }
+
             }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+        })
+        viewModel?.adata?.observe(viewLifecycleOwner, Observer {
+            binding?.progressBar?.hide()
+
+            val adapter = AreaAdapter(context!!, it)
+            spinner.adapter = adapter
+
+            // if (!mEvent.treatment_type.isEmpty()) {
+            //   val spinnerPosition = adapter.getPosition(mEvent.treatment_type)
+            //    sp_treatment.setSelection(spinnerPosition)
+            //  }
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val data: Area = parent!!.selectedItem as Area
+                    viewModel?.location = data.area_id
+                }
+
             }
-        }
+
+        })
 
         return binding?.root
     }
@@ -122,17 +162,6 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener , KodeinAw
         }
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val text: String = parent?.getItemAtPosition(position).toString()
-        if (text.equals("Nikol")) {
-            viewModel?.location = "4"
-        } else {
-            viewModel?.location = "5"
-        }
-    }
 
     override fun onStarted() {
         progress_bar.show()

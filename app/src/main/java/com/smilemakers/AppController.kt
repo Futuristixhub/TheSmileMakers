@@ -52,7 +52,7 @@ public class AppController : Application(), KodeinAware {
 
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { DashBoardViewModelFactory(instance()) }
-        bind() from provider { ProfileViewModelFactory(instance()) }
+        bind() from provider { ProfileViewModelFactory(instance(),instance()) }
         bind() from provider { ForgotPasswordViewModelFactory(instance()) }
         bind() from provider { PatientViewModelFactory(instance(),instance()) }
         bind() from provider { DoctorVieModelFactory(instance(),instance()) }

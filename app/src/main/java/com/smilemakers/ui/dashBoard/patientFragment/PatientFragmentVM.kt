@@ -21,6 +21,8 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.smilemakers.R
+import com.smilemakers.ui.dashBoard.appointmentFragment.Area
+import com.smilemakers.ui.dashBoard.appointmentFragment.Treatments
 import com.smilemakers.ui.dashBoard.patientFragment.addPatient.AddPatientActivity
 import com.smilemakers.ui.dashBoard.patientFragment.addPatient.AddPatientFragment
 import com.smilemakers.ui.dashBoard.patientFragment.patientAddress.PatientAddressFragment
@@ -112,6 +114,27 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
         get() = itemPosition.value?.let {
             items.get(it)
         }
+
+    private lateinit var job1: Job
+    private val _Adata = MutableLiveData<List<Area>>()
+
+    fun getData() {
+        job1 = Coroutines.ioThenMain(
+            {
+                repository.getData(
+                    context!!.getData(context!!, context.getString(R.string.user_id))
+                )
+            },
+            {
+                _Adata.value = it?.data?.area
+            }
+        )
+    }
+
+
+    val adata: LiveData<List<Area>>
+        get() = _Adata
+
 
     fun onDobClick(view: View) {
         val cldr: Calendar = Calendar.getInstance()
@@ -236,7 +259,10 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
 
                     val authResponse =
                         repository.addPatient(
-                            RequestBody.create(MediaType.parse("text/plain"), context!!.getData(context!!, context.getString(R.string.user_id))),
+                            RequestBody.create(
+                                MediaType.parse("text/plain"),
+                                context!!.getData(context!!, context.getString(R.string.user_id))
+                            ),
                             RequestBody.create(MediaType.parse("text/plain"), fname.value!!),
                             RequestBody.create(MediaType.parse("text/plain"), lname.value!!),
                             RequestBody.create(MediaType.parse("text/plain"), gender!!),
@@ -255,13 +281,11 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
                             RequestBody.create(MediaType.parse("text/plain"), pinCode.value!!),
                             filePart, requestBody
                         )
-                    authResponse.data?.let {
-                        if (authResponse.status == false) {
-                            authListener?.onFailure(authResponse.message!!)
-                        } else {
-                            authListener?.onSuccess(authResponse.message!!)
-                            return@main
-                        }
+                    if (authResponse.status == false) {
+                        authListener?.onFailure(authResponse.message!!)
+                    } else {
+                        authListener?.onSuccess(authResponse.message!!)
+                        return@main
                     }
                     authListener?.onFailure(authResponse.message!!)
                 } catch (e: ApiExceptions) {

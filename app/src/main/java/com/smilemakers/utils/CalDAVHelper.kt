@@ -251,7 +251,7 @@ class CalDAVHelper(val context: Context) {
                             description,
                             "",
                             "","","",
-                            reminder1?.minutes ?: REMINDER_OFF,
+                            "",reminder1?.minutes ?: REMINDER_OFF,
                             reminder2?.minutes ?: REMINDER_OFF,
                             reminder3?.minutes ?: REMINDER_OFF,
                             reminder1?.type
@@ -330,7 +330,7 @@ class CalDAVHelper(val context: Context) {
 
                         existingEvent.apply {
                             this.id = null
-                            color = 0
+                            scolor = 0
                             lastUpdated = 0L
                             repetitionExceptions = ArrayList()
                         }

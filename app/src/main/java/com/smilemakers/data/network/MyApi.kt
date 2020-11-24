@@ -115,14 +115,32 @@ interface MyApi {
 
     @FormUrlEncoded
     @POST("update_prescription.php")
-    suspend fun getPatientDoctorTreatment(
-        @Field("userid") userid: String,
+    suspend fun addPrescription(
+        @Field("app_id") userid: String,
         @Field("prescription") prescription: String
-    ): Response<PatientData>
+    ): Response<PatientResponse>
 
     @FormUrlEncoded
-    @POST("profile")
-    suspend fun getProfileData(@Field("userid") userid: String): Response<ProfileData>
+    @POST("view_profile.php")
+    suspend fun getProfileData(
+        @Field("userid") userid: String,
+        @Field("user_type") user_type: String
+    ): Response<ProfileData>
+
+    @Multipart
+    @POST("edit_profile.php")
+    suspend fun editProfile(
+        @Part("userid") userid: RequestBody,
+        @Part("user_type") user_type: RequestBody,
+        @Part("fname") fname: RequestBody,
+        @Part("lname") lname: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("mobile") mobile: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part file: MultipartBody.Part,
+        @Part("image") name: RequestBody
+    ): Response<PatientResponse>
+
 
     @GET("forgotpassword")
     suspend fun getForgotPasswordData(): Response<ForgotPasswordData>

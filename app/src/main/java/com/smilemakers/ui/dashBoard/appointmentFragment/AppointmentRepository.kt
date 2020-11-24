@@ -3,6 +3,7 @@ package com.smilemakers.ui.dashBoard.appointmentFragment
 import com.smilemakers.data.db.AppDatabase
 import com.smilemakers.data.network.MyApi
 import com.smilemakers.data.network.SafeApiRequest
+import com.smilemakers.data.network.response.LoginResponse
 import com.smilemakers.data.network.response.PatientResponse
 import okhttp3.MultipartBody
 
@@ -31,4 +32,9 @@ class AppointmentRepository(
             )
         }
     }
+
+    suspend fun addPrescription(prescription: String, app_id: String): PatientResponse {
+        return apiRequest { api.addPrescription(prescription,app_id) }
+    }
+
 }

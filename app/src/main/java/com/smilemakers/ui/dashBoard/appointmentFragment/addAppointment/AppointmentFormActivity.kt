@@ -6,6 +6,8 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
 import android.view.Menu
@@ -89,13 +91,14 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
     private lateinit var mEventStartDateTime: DateTime
     private lateinit var mEventEndDateTime: DateTime
     private lateinit var mEvent: Event
+    var wasRepeatable: Boolean = false
 
     var location_name = ""
     var dayCode = ""
     var treatmenttype = ""
     var doctorname = ""
     var patient_id = ""
-    var color = ""
+    var color = "#0D709A"
     var str = ""
     var adapter: ArrayAdapter<String>? = null
     var ed_patient_name: AppCompatAutoCompleteTextView? = null
@@ -110,7 +113,6 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
         viewModel =
             ViewModelProviders.of(this, factory).get(AppointmentFragmentVM::class.java)
         binding?.vm = viewModel
-        binding?.lifecycleOwner = this
         viewModel?.authListener = this
 
         ed_patient_name = findViewById(R.id.ed_appointment_patient_name)
@@ -246,13 +248,24 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
 
             val adapter = PatientsAdapter(this, it)
             ed_patient_name!!.setAdapter(adapter)
-            ed_patient_name!!.threshold = 3
+            ed_patient_name!!.threshold = 1
             ed_patient_name!!.setOnItemClickListener() { parent, _, position, id ->
                 val selectedPoi = parent.adapter.getItem(position) as Patients?
                 ed_patient_name!!.setText(selectedPoi?.fname + " " + selectedPoi?.lname)
                 patient_id = selectedPoi?.patient_id!!
             }
+            ed_patient_name!!.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
 
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    patient_id = ""
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+                }
+
+            })
         })
         viewModel.ddata.observe(this, Observer {
             binding?.progressBar?.hide()
@@ -815,7 +828,7 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
             showErrorSnackBar(root_layout, getString(R.string.date_error))
         } else {
             ptitle = ed_patient_name!!.text.toString()
-            if (ptitle.isEmpty()) {
+            if (patient_id.isNullOrEmpty()) {
                 showErrorSnackBar(root_layout, getString(R.string.title_empty))
                 runOnUiThread {
                     ed_appointment_patient_name.requestFocus()
@@ -938,7 +951,7 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
             return
         }
 
-        val wasRepeatable = mEvent.repeatInterval > 0
+        wasRepeatable = mEvent.repeatInterval > 0
         val oldSource = mEvent.source
         val newImportId = if (mEvent.id != null) mEvent.importId else UUID.randomUUID().toString()
             .replace("-", "") + System.currentTimeMillis().toString()
@@ -1070,40 +1083,44 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
             pe.printStackTrace()
         }
 
-        //patient_id, ftname, retarea, apptdate, timee, typesoftreatment, doctor, color
-
-         viewModel.onSaveClick(
-             patient_id,
-             ptitle,
-             location_name,
-             mEventStartDateTime.toLocalDate().toString(),
-             start + "-" + end,
-             treatmenttype,
-             doctorname,
-             color
-         )
-
-        storeEvent(wasRepeatable)
+        viewModel.onSaveClick(
+            patient_id,
+            ptitle,
+            location_name,
+            mEventStartDateTime.toLocalDate().toString(),
+            start + "-" + end,
+            treatmenttype,
+            doctorname,
+            color
+        )
+        //storeEvent(wasRepeatable)
     }
 
     override fun onStarted() {
-        binding?.progressBar!!.show()
+        runOnUiThread {
+            progress_bar.show()
+        }
     }
 
     override fun onSuccess(message: String) {
-        binding?.progressBar!!.hide()
+        runOnUiThread {
+            progress_bar.hide()
+        }
         showErrorSnackBar(root_layout, message)
         toast(message)
+        finish()
     }
 
     override fun onFailure(message: String) {
-        binding?.progressBar!!.hide()
+        runOnUiThread {
+            progress_bar.hide()
+        }
         showErrorSnackBar(root_layout, message)
     }
 
     private fun storeEvent(wasRepeatable: Boolean) {
         if (mEvent.id == null || mEvent.id == null) {
-            eventsHelper.insertEvent(mEvent, true, true) {
+            eventsHelper.insertEvent(mEvent, true, false) {
                 if (DateTime.now().isAfter(mEventStartDateTime.millis)) {
                     if (mEvent.repeatInterval == 0 && mEvent.getReminders()
                             .any { it.type == REMINDER_NOTIFICATION }
@@ -1112,7 +1129,7 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
                     }
                 }
 
-                finish()
+                //  finish()
             }
         } else {
             if (mRepeatInterval > 0 && wasRepeatable) {
@@ -1121,7 +1138,7 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
                 }
             } else {
                 eventsHelper.updateEvent(mEvent, true, true) {
-                    finish()
+                    // finish()
                 }
             }
         }
@@ -1132,7 +1149,7 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
             if (it) {
                 ensureBackgroundThread {
                     eventsHelper.updateEvent(mEvent, true, true) {
-                        finish()
+                        //  finish()
                     }
                 }
             } else {
@@ -1147,7 +1164,7 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
                     }
 
                     eventsHelper.insertEvent(mEvent, true, true) {
-                        finish()
+                        //  finish()
                     }
                 }
             }

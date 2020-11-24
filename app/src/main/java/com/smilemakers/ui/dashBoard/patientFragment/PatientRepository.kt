@@ -24,6 +24,8 @@ class PatientRepository(
         }
     }
 
+    suspend fun getData(userid: String?) = apiRequest { api.getPatientDoctorTreatment(userid!!) }
+
     private fun savePatients(patient: List<Patient>) {
         Coroutines.io {
             //  prefs.savelastSavedAt(LocalDateTime.now().toString())

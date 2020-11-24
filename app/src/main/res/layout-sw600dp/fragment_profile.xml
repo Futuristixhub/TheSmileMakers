@@ -10,11 +10,18 @@
     </data>
 
     <RelativeLayout
+        android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/grey"
         android:orientation="vertical"
         tools:context=".ProfileActivity">
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_centerInParent="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,6 +62,7 @@
                             app:cardCornerRadius="6dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/iv_img"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:scaleType="centerCrop"
@@ -65,24 +73,28 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="@dimen/space_10">
 
                             <TextView
+                                android:id="@+id/tv_fname"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="@dimen/space_10"
-                                android:text="@{vm.name}"
+                                android:text="@{vm.data.fname}"
                                 android:textColor="#424242"
                                 android:textSize="@dimen/text_20"
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tv_lname"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:text="@{vm.subname}"
-                                android:textSize="@dimen/text_18" />
+                                android:layout_marginStart="@dimen/space_5"
+                                android:text="@{vm.data.lname}"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/text_20" />
 
 
                         </LinearLayout>
@@ -206,6 +218,7 @@
                             android:orientation="vertical">
 
                             <LinearLayout
+                                android:id="@+id/ll_mobile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
@@ -220,15 +233,17 @@
                                     android:src="@drawable/ic_mobile_no" />
 
                                 <TextView
+                                    android:id="@+id/tv_mobile"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_20"
-                                    android:text="@{vm.mob_no}"
+                                    android:text="@{vm.data.mobile}"
                                     android:textColor="@color/goodgrey"
                                     android:textSize="@dimen/text_18" />
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/ll_email"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/space_10"
@@ -244,15 +259,17 @@
                                     android:src="@drawable/ic_email" />
 
                                 <TextView
+                                    android:id="@+id/tv_email"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_20"
-                                    android:text="@{vm.email}"
+                                    android:text="@{vm.data.email}"
                                     android:textColor="@color/goodgrey"
                                     android:textSize="@dimen/text_18" />
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/ll_location"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/space_10"
@@ -268,10 +285,11 @@
                                     android:src="@drawable/ic_location" />
 
                                 <TextView
+                                    android:id="@+id/tv_location"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_20"
-                                    android:text="@{vm.location}"
+                                    android:text="@{vm.data.address}"
                                     android:textColor="@color/goodgrey"
                                     android:textSize="@dimen/text_18" />
                             </LinearLayout>

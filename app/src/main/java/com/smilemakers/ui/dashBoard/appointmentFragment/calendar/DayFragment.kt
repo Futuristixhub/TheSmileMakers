@@ -143,7 +143,7 @@ class DayFragment : Fragment() {
                 eventsnew,
                 mHolder.day_events
             ) {
-                editEvent(it as Event)
+                editEvent(it as Events)
             }.apply {
                 mHolder.day_events.adapter = this
             }
@@ -159,10 +159,10 @@ class DayFragment : Fragment() {
         }
     }
 
-    private fun editEvent(event: Event) {
+    private fun editEvent(event: Events) {
         Intent(context, AppointmentDetailActivity::class.java).apply {
-            putExtra(EVENT_ID, event.id)
-            putExtra(EVENT_OCCURRENCE_TS, event.startTS)
+            putExtra(EVENT_ID, event.event.id)
+            putExtra(EVENT_OCCURRENCE_TS, event.event.startTS)
             startActivity(this)
         }
     }

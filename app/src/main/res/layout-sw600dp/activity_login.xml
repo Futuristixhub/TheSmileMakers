@@ -39,10 +39,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <Spinner
+                    android:id="@+id/sp_user_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_50"
+                    android:layout_marginTop="@dimen/space_50"
+                    android:layout_marginEnd="@dimen/space_16"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:background="@drawable/color_primary_rounded_border"
+                    android:prompt="@string/user_type"
+                    android:spinnerMode="dialog"
+                    android:textSize="@dimen/text_14"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+
                 <EditText
                     style="@style/EditTextStyle"
                     android:id="@+id/ed_login_mobile_number"
-                    android:layout_marginTop="@dimen/space_50"
+                    android:layout_marginTop="@dimen/space_24"
                     android:inputType="phone"
                     android:text="@={vm.mobileNumber}"
                     tools:text="preyansh"
@@ -51,7 +67,7 @@
                     android:drawableEnd="@drawable/ic_phone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    app:layout_constraintTop_toBottomOf="@+id/sp_user_type" />
 
                 <EditText
                     style="@style/EditTextStyle"
@@ -66,21 +82,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ed_login_mobile_number" />
 
-                <Spinner
-                    android:id="@+id/sp_user_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_50"
-                    android:layout_marginTop="@dimen/space_24"
-                    android:layout_marginEnd="@dimen/space_16"
-                    android:layout_marginStart="@dimen/space_16"
-                    android:background="@drawable/color_primary_rounded_border"
-                    android:prompt="@string/user_type"
-                    android:spinnerMode="dialog"
-                    android:textSize="@dimen/text_14"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
-
 
                 <TextView
                     android:id="@+id/textView"
@@ -92,7 +93,7 @@
                     android:onClick="@{vm::onForgotPasswordClick}"
                     android:textSize="@dimen/text_18"
                     app:layout_constraintEnd_toEndOf="@id/sp_user_type"
-                    app:layout_constraintTop_toBottomOf="@id/sp_user_type" />
+                    app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
 
                 <Button
                     android:id="@+id/button"

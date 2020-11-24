@@ -26,6 +26,7 @@ data class Event(
         @ColumnInfo(name = "treatment_type") var treatment_type: String = "",
         @ColumnInfo(name = "prescription") var prescription: String? = "" ,
         @ColumnInfo(name = "age") var age: String = "",
+        @ColumnInfo(name = "color") var ecolor: String = "",
         @ColumnInfo(name = "reminder_1_minutes") var reminder1Minutes: Int = -1,
         @ColumnInfo(name = "reminder_2_minutes") var reminder2Minutes: Int = -1,
         @ColumnInfo(name = "reminder_3_minutes") var reminder3Minutes: Int = -1,
@@ -191,7 +192,7 @@ data class Event(
             flags = flags.addBitIf(isPastEvent, FLAG_IS_PAST_EVENT)
         }
 
-    var color: Int = 0
+    var scolor: Int = 0
 
     fun getTimeZoneString(): String {
         return if (timeZone.isNotEmpty() && getAllTimeZones()

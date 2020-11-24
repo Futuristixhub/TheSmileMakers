@@ -268,7 +268,7 @@ class EventsHelper(val context: Context) {
         val primaryColor = context.resources.getColor(R.color.colorAccentLight)
         events.forEach {
             it.updateIsPastEvent()
-            it.color = eventTypeColors.get(it.startTS) ?: primaryColor//background color set
+            it.scolor = eventTypeColors.get(it.startTS) ?: primaryColor//background color set
             Log.d("tag",".....h....."+it.title+"........."+it.startTS)
         }
 
@@ -315,7 +315,7 @@ class EventsHelper(val context: Context) {
                         if (event.endTS >= fromTS) {
                             event.copy().apply {
                                 updateIsPastEvent()
-                                color = event.color
+                                scolor = event.scolor
                                 events.add(this)
                             }
                         }
@@ -326,7 +326,7 @@ class EventsHelper(val context: Context) {
                 if (event.endTS >= fromTS) {
                     event.copy().apply {
                         updateIsPastEvent()
-                        color = event.color
+                        scolor = event.scolor
                         events.add(this)
                     }
                 } else if (event.getIsAllDay()) {
@@ -335,7 +335,7 @@ class EventsHelper(val context: Context) {
                     if (dayCode == endDayCode) {
                         event.copy().apply {
                             updateIsPastEvent()
-                            color = event.color
+                            scolor = event.scolor
                             events.add(this)
                         }
                     }
@@ -357,7 +357,7 @@ class EventsHelper(val context: Context) {
                         if (event.isOnProperWeek(startTimes)) {
                             event.copy().apply {
                                 updateIsPastEvent()
-                                color = event.color
+                                scolor = event.scolor
                                 events.add(this)
                             }
                         }
@@ -365,7 +365,7 @@ class EventsHelper(val context: Context) {
                 } else {
                     event.copy().apply {
                         updateIsPastEvent()
-                        color = event.color
+                        scolor = event.scolor
                         events.add(this)
                     }
                 }
@@ -377,7 +377,7 @@ class EventsHelper(val context: Context) {
                         if (event.isOnProperWeek(startTimes)) {
                             event.copy().apply {
                                 updateIsPastEvent()
-                                color = event.color
+                                scolor = event.scolor
                                 events.add(this)
                             }
                         }
@@ -388,7 +388,7 @@ class EventsHelper(val context: Context) {
                     if (dayCode == endDayCode) {
                         event.copy().apply {
                             updateIsPastEvent()
-                            color = event.color
+                            scolor = event.scolor
                             events.add(this)
                         }
                     }

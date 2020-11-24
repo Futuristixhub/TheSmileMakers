@@ -21,13 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="invisible" />
-
             <LinearLayout
                 android:id="@+id/root_layout"
                 android:layout_width="match_parent"
@@ -306,7 +299,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ll_doc_name"
                     app:layout_constraintVertical_bias="1.0" />
-
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="invisible" />
             </LinearLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

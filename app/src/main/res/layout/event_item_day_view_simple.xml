@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="#0D709A"
         android:weightSum="4">
-
 
         <TextView
             android:id="@+id/event_item_start"
@@ -25,6 +25,7 @@
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:textSize="@dimen/text_14"
+            android:textColor="@color/white"
             android:layout_marginStart="@dimen/space_8"
             tools:text="13:00 PM" />
 
@@ -34,12 +35,13 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/space_8"
             android:layout_marginEnd="@dimen/space_18"
-            app:endLineColor="@color/colorAccent"
+            app:endLineColor="@color/white"
             app:lineWidth="2dp"
             app:markerSize="@dimen/space_12"
-            app:startLineColor="@color/colorAccent" />
+            app:startLineColor="@color/white" />
 
         <TextView
+            android:textColor="@color/white"
             android:id="@+id/event_item_title1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -53,9 +55,10 @@
           <ImageView
               android:layout_width="@dimen/event_color_width"
               android:layout_height="match_parent"
-              android:background="@color/md_grey_300" />
+              android:background="@color/white" />
 
           <TextView
+              android:textColor="@color/white"
               android:id="@+id/event_item_title2"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
@@ -68,9 +71,10 @@
           <ImageView
               android:layout_width="@dimen/event_color_width"
               android:layout_height="match_parent"
-              android:background="@color/md_grey_300" />
+              android:background="@color/white" />
 
           <TextView
+              android:textColor="@color/white"
               android:id="@+id/event_item_title3"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
@@ -83,9 +87,10 @@
           <ImageView
               android:layout_width="@dimen/event_color_width"
               android:layout_height="match_parent"
-              android:background="@color/md_grey_300" />
+              android:background="@color/white" />
 
           <TextView
+              android:textColor="@color/white"
               android:id="@+id/event_item_title4"
               android:layout_width="0dp"
               android:layout_height="wrap_content"

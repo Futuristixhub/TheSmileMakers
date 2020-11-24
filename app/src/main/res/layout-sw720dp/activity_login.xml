@@ -39,11 +39,27 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <Spinner
+                    android:id="@+id/sp_user_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_60"
+                    android:layout_marginStart="@dimen/space_50"
+                    android:layout_marginTop="@dimen/space_50"
+                    android:layout_marginEnd="@dimen/space_50"
+                    android:background="@drawable/color_primary_rounded_border"
+                    android:prompt="@string/user_type"
+                    android:spinnerMode="dialog"
+                    android:textSize="@dimen/text_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+
                 <EditText
                     android:id="@+id/ed_login_mobile_number"
                     style="@style/EditTextStyle"
                     android:layout_marginStart="@dimen/space_50"
-                    android:layout_marginTop="@dimen/space_50"
+                    android:layout_marginTop="@dimen/space_15"
                     android:layout_marginEnd="@dimen/space_50"
                     android:drawableEnd="@drawable/ic_phone"
                     android:hint="@string/lbl_phone"
@@ -54,14 +70,14 @@
                     android:textSize="@dimen/text_22"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/sp_user_type"
                     tools:text="preyansh" />
 
                 <EditText
                     android:id="@+id/ed_login_password"
                     style="@style/EditTextStyle"
                     android:layout_marginStart="@dimen/space_50"
-                    android:layout_marginTop="@dimen/space_24"
+                    android:layout_marginTop="@dimen/space_15"
                     android:layout_marginEnd="@dimen/space_50"
                     android:drawableEnd="@drawable/ic_password"
                     android:hint="@string/lbl_password"
@@ -74,20 +90,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/ed_login_mobile_number"
                     tools:text="preyansh" />
 
-                <Spinner
-                    android:id="@+id/sp_user_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_50"
-                    android:layout_marginStart="@dimen/space_50"
-                    android:layout_marginTop="@dimen/space_24"
-                    android:layout_marginEnd="@dimen/space_50"
-                    android:background="@drawable/color_primary_rounded_border"
-                    android:prompt="@string/user_type"
-                    android:spinnerMode="dialog"
-                    android:textSize="@dimen/text_14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -99,7 +101,7 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/text_20"
                     app:layout_constraintEnd_toEndOf="@id/sp_user_type"
-                    app:layout_constraintTop_toBottomOf="@id/sp_user_type" />
+                    app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
 
                 <Button
                     android:id="@+id/button"

@@ -26,27 +26,28 @@ class LoginVM(private val repository: UserRepository) : ViewModel() {
 
     fun onLoginClick(view: View) {
         view.context.hideKeyboard(view)
-          if (isValid(view)) {
-              authListener!!.onStarted()
-              Coroutines.main {
-                  try {
-                      val authResponse = repository.userLogin(mobileNumber.value!!, password.value!!,user_type!!)
-                      authResponse.data?.let {
-                          if (authResponse.status == false) {
-                              authListener?.onFailure(authResponse.message!!)
-                          } else {
-                              authListener?.onSuccess(it)
-                              repository.saveUser(it)
-                              return@main
-                          }
-                      }
-                      authListener?.onFailure(authResponse.message!!)
-                  } catch (e: ApiExceptions) {
-                      authListener?.onFailure(e.message!!)
-                  } catch (e: NoInternetException) {
-                      authListener?.onFailure(e.message!!)
-                  }
-              }
+        if (isValid(view)) {
+            authListener!!.onStarted()
+            Coroutines.main {
+                try {
+                    val authResponse =
+                        repository.userLogin(mobileNumber.value!!, password.value!!, user_type!!)
+                    authResponse.data?.let {
+                        if (authResponse.status == false) {
+                            authListener?.onFailure(authResponse.message!!)
+                        } else {
+                            authListener?.onSuccess(it)
+                            repository.saveUser(it)
+                            return@main
+                        }
+                    }
+                    authListener?.onFailure(authResponse.message!!)
+                } catch (e: ApiExceptions) {
+                    authListener?.onFailure(e.message!!)
+                } catch (e: NoInternetException) {
+                    authListener?.onFailure(e.message!!)
+                }
+            }
         }
 
     }

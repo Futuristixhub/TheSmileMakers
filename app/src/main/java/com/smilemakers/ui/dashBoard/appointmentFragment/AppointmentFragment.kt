@@ -93,9 +93,34 @@ class AppointmentFragment : Fragment(),
         binding?.vm = viewModel
 
         binding?.progressBar?.show()
+
+        binding?.root!!.calendar_fab.beVisibleIf(requireContext().config.storedView != YEARLY_VIEW)
+        binding?.root!!.calendar_fab.setOnClickListener {
+            requireContext().launchNewEventIntent(currentDayCode)
+        }
+
+        Coroutines.io {
+            var result = IcsImporter(requireContext()).importEvents(
+                context!!.getString(R.string.india_holiday_file),
+                2,
+                0,
+                false
+            )
+        }
+
+        //  binding?.root!!.background = ColorDrawable(context!!.config.backgroundColor)
+        viewPager = binding?.root!!.fragment_months_viewpager
+        viewPager!!.id = (System.currentTimeMillis() % 100000).toInt()
+
+        return binding?.root
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.getAppointments()
         viewModel.appointment.observe(viewLifecycleOwner, Observer {
             binding?.progressBar?.hide()
+            Log.d("tag", "response....." + it)
             events = it as ArrayList<Appointment>?
             val eventsDB = context!!.eventsDB
 
@@ -156,26 +181,6 @@ class AppointmentFragment : Fragment(),
             setupFragment()
         })
 
-        binding?.root!!.calendar_fab.beVisibleIf(requireContext().config.storedView != YEARLY_VIEW)
-        binding?.root!!.calendar_fab.setOnClickListener {
-            requireContext().launchNewEventIntent(currentDayCode)
-        }
-
-        Coroutines.io {
-            var result = IcsImporter(requireContext()).importEvents(
-                context!!.getString(R.string.india_holiday_file),
-                2,
-                0,
-                false
-            )
-        }
-
-        //  binding?.root!!.background = ColorDrawable(context!!.config.backgroundColor)
-        viewPager = binding?.root!!.fragment_months_viewpager
-        viewPager!!.id = (System.currentTimeMillis() % 100000).toInt()
-
-
-        return binding?.root
     }
 
     private fun setupFragment() {

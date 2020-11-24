@@ -1,6 +1,8 @@
 package com.smilemakers.ui.dashBoard.appointmentFragment.calendar
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -72,6 +74,7 @@ class DayEventsAdapter(
         return TimelineView.getTimeLineViewType(position, getItemCount());
     }
 
+    @SuppressLint("Range")
     private fun setupView(view: View, event: Events, position: Int) {
         view.apply {
 
@@ -90,9 +93,10 @@ class DayEventsAdapter(
                 }
             }
 
-
             event_item_frame.isSelected = selectedKeys.contains(event.event.id?.toInt())
-
+            if(!event.event.ecolor.isEmpty()) {
+                btm_header?.setBackgroundColor(Color.parseColor(event.event.ecolor))
+            }
             event_item_start.text =
                 if (event.event.getIsAllDay()) allDayString else Formatter.getTimeFromTS(
                     context,

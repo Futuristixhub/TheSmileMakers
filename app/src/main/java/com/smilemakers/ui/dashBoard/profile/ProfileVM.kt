@@ -1,23 +1,33 @@
 package com.smilemakers.ui.dashBoard.profile
 
+import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.smilemakers.R
-import com.smilemakers.utils.hideKeyboard
-import com.smilemakers.utils.showErrorSnackBar
+import com.smilemakers.ui.dashBoard.doctorFragment.Doctor
+import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
+import com.smilemakers.utils.*
+import kotlinx.coroutines.Job
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 
-class ProfileVM(val repository: ProfileRepository) : ViewModel() {
+class ProfileVM(val repository: ProfileRepository, application: Application) : ViewModel() {
 
     var name: String? = null
     var subname: String? = null
     var mob_no: String? = null
     var email: String? = null
     var location: String? = null
+    var image: String? = null
+    var authListener: PatientListener? = null
 
     var edt_fname: String? = null
     var edt_lname: String? = null
@@ -30,35 +40,58 @@ class ProfileVM(val repository: ProfileRepository) : ViewModel() {
     var edt_npwd: String? = null
     var edt_cfpwd: String? = null
 
-    init {
-        name = "Mansi Bhatt"
-        subname = "Android Developer"
-        mob_no = "+91 1234567890"
-        email = "test@gmail.com"
-        location = "Bapunagar"
+    var profileListener: ProfileListener? = null
+    var data: Profile? = null
 
-        edt_fname = "Mansi"
-        edt_lname = "Bhatt"
-        edt_subname = "Android Developer"
-        edt_mob_no = "+91 1234567890"
-        edt_email = "test@gmail.com"
-        edt_location = "Bapunagar"
-    }
 
     fun onEditClick(view: View) {
-        view.context.startActivity(Intent(view.context, EditProfileActivity::class.java))
+
+        view.context.startActivity(
+            Intent(view.context, EditProfileActivity::class.java)
+                .putExtra("fname", data?.fname)
+                .putExtra("lname", data?.lname)
+                .putExtra("mobile", data?.mobile)
+                .putExtra("email", data?.email)
+                .putExtra("location", data?.address)
+                .putExtra("image", data?.image)
+        )
+    }
+
+    var context = application.applicationContext
+
+    fun getData(uid: String?, utype: String?) {
+        profileListener!!.onStarted()
+        Coroutines.main {
+            try {
+                val authResponse = repository.getProfileData(uid!!, utype!!)
+                authResponse.data?.let {
+                    if (authResponse.status == false) {
+                        profileListener?.onFailure(authResponse.message!!)
+                    } else {
+                        profileListener?.onSuccess(it)
+                        this.data = it
+                        return@main
+                    }
+                }
+                profileListener?.onFailure(authResponse.message!!)
+            } catch (e: ApiExceptions) {
+                profileListener?.onFailure(e.message!!)
+            } catch (e: NoInternetException) {
+                profileListener?.onFailure(e.message!!)
+            }
+        }
     }
 
     fun onCallClick(view: View) {
         val intent = Intent(Intent.ACTION_DIAL)
-        intent.data = Uri.parse("tel:" + mob_no)
+        intent.data = Uri.parse("tel:" + data?.mobile)
         view.context.startActivity(intent)
     }
 
     fun onEmailClick(view: View) {
         val emailIntent = Intent(
             Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto", email, null
+                "mailto", data?.email, null
             )
         )
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject")
@@ -67,7 +100,7 @@ class ProfileVM(val repository: ProfileRepository) : ViewModel() {
     }
 
     fun onMapClick(view: View) {
-        val mapUri = Uri.parse("geo:0,0?q=" + Uri.encode(location))
+        val mapUri = Uri.parse("geo:0,0?q=" + Uri.encode(data?.address))
         val mapIntent = Intent(Intent.ACTION_VIEW, mapUri)
         mapIntent.setPackage("com.google.android.apps.maps")
         view.context.startActivity(mapIntent)
@@ -80,7 +113,38 @@ class ProfileVM(val repository: ProfileRepository) : ViewModel() {
     fun onSubmitClick(view: View) {
         view.context.hideKeyboard(view)
         if (isValid(view)) {
-            (view.context as AppCompatActivity).finish()
+            authListener!!.onStarted()
+            Coroutines.main {
+                try {
+                    val file = File(Uri.parse(image).path)
+                    var requestBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
+                    var filePart =
+                        MultipartBody.Part.createFormData("image", file.name, requestBody)
+
+                    val authResponse =
+                        repository.editProfile(
+                            RequestBody.create(MediaType.parse("text/plain"), context!!.getData(context!!, context.getString(R.string.user_id))),
+                            RequestBody.create(MediaType.parse("text/plain"), context!!.getData(context!!, context.getString(R.string.user_type))),
+                            RequestBody.create(MediaType.parse("text/plain"), edt_fname!!),
+                            RequestBody.create(MediaType.parse("text/plain"), edt_lname!!),
+                            RequestBody.create(MediaType.parse("text/plain"), edt_email!!),
+                            RequestBody.create(MediaType.parse("text/plain"), edt_mob_no!!),
+                            RequestBody.create(MediaType.parse("text/plain"), edt_location!!),
+                            filePart, requestBody
+                        )
+                    if (authResponse.status == false) {
+                        authListener?.onFailure(authResponse.message!!)
+                    } else {
+                        authListener?.onSuccess(authResponse.message!!)
+                        return@main
+                    }
+                    authListener?.onFailure(authResponse.message!!)
+                } catch (e: ApiExceptions) {
+                    authListener?.onFailure(e.message!!)
+                } catch (e: NoInternetException) {
+                    authListener?.onFailure(e.message!!)
+                }
+            }
         }
     }
 
@@ -94,20 +158,8 @@ class ProfileVM(val repository: ProfileRepository) : ViewModel() {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_lname))
             return false
         }
-        if (edt_subname == null || edt_subname!!.isEmpty()) {
-            view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_bio))
-            return false
-        }
         if (edt_location == null || edt_location!!.isEmpty()) {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_location))
-            return false
-        }
-        if (edt_email == null || edt_email!!.isEmpty()) {
-            view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_email))
-            return false
-        }
-        if (edt_mob_no == null || edt_mob_no!!.isEmpty()) {
-            view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_mob_no))
             return false
         }
 
