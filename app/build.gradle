@@ -14,11 +14,12 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        resConfigs "en"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -55,7 +56,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.duolingo.open:rtl-viewpager:2.0.0'
     implementation 'joda-time:joda-time:2.10.1'
 
     //Firebase
@@ -94,6 +94,7 @@ dependencies {
     implementation 'com.github.yalantis:ucrop:2.2.2'
     //permission
     implementation "com.karumi:dexter:5.0.0"
+
     //binding
     implementation 'com.xwray:groupie:2.3.0'
     implementation 'com.xwray:groupie-kotlin-android-extensions:2.3.0'
@@ -101,4 +102,5 @@ dependencies {
 
     //color
     implementation 'com.github.dhaval2404:colorpicker:1.2.1'
+
 }

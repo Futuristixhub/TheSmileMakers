@@ -22,7 +22,6 @@ class ProfileRepository(
         fname: RequestBody,
         lname: RequestBody,
         email: RequestBody,
-        mobile: RequestBody,
         address: RequestBody,
         image: MultipartBody.Part,
         requestBody: RequestBody
@@ -34,9 +33,29 @@ class ProfileRepository(
                 fname,
                 lname,
                 email,
-                mobile,
                 address,
                 image,requestBody
+            )
+        }
+    }
+    suspend fun editProfileI(
+        userid: String,
+        usertype: String,
+        fname: String,
+        lname: String,
+        email: String,
+        address: String,
+        image: String
+    ): PatientResponse {
+        return apiRequest {
+            api.editProfileI(
+                userid,
+                usertype,
+                fname,
+                lname,
+                email,
+                address,
+                image
             )
         }
     }

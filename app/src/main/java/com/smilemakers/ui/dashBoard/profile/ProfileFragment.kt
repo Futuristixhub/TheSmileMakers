@@ -3,8 +3,8 @@ package com.smilemakers.ui.dashBoard.profile
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,19 +12,20 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.simplemobiletools.commons.extensions.toast
 import com.smilemakers.R
-import com.smilemakers.ui.dashBoard.DashboardActivity
 import com.smilemakers.databinding.FragmentProfileBinding
-import com.smilemakers.utils.getData
-import com.smilemakers.utils.hide
-import com.smilemakers.utils.show
-import com.smilemakers.utils.showErrorSnackBar
+import com.smilemakers.ui.dashBoard.DashboardActivity
+import com.smilemakers.utils.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import java.net.URL
+import java.net.URLConnection
 
 /**
  * A simple [Fragment] subclass.
@@ -56,7 +57,7 @@ class ProfileFragment : Fragment(), KodeinAware, ProfileListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
-        val viewModel =
+        viewModel =
             ViewModelProviders.of(this, factory).get(ProfileVM::class.java)
         binding?.vm = viewModel
         viewModel.profileListener = this
@@ -107,7 +108,16 @@ class ProfileFragment : Fragment(), KodeinAware, ProfileListener {
         binding?.tvEmail?.text = profile.email
         binding?.tvMobile?.text = profile.mobile
         binding?.tvLocation?.text = profile.address
-        Glide.with(context!!).load(Uri.parse(profile.image)).into(binding?.ivImg!!)
+
+        Coroutines.io {
+            val image = context!!.isImageURL(profile.image!!)
+            if (image) {
+                Coroutines.main {
+                    Glide.with(context!!).load(Uri.parse(profile.image)).into(binding?.ivImg!!)
+                }
+            }
+        }
+
     }
 
     override fun onFailure(message: String) {

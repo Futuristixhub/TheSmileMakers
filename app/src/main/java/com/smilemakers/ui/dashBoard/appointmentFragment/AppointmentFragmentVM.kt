@@ -105,7 +105,7 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
     private lateinit var job1: Job
     private val _Pdata = MutableLiveData<ArrayList<Patients>>()
     private val _Ddata = MutableLiveData<List<Doctors>>()
-    private val _Tdata = MutableLiveData<List<Treatments>>()
+    private val _Tdata = MutableLiveData<ArrayList<Treatments>>()
 
     fun getData() {
         job1 = Coroutines.ioThenMain(
@@ -126,7 +126,7 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
         get() = _Pdata
     val ddata: LiveData<List<Doctors>>
         get() = _Ddata
-    val tdata: LiveData<List<Treatments>>
+    val tdata: LiveData<ArrayList<Treatments>>
         get() = _Tdata
 
     fun onSaveClick(

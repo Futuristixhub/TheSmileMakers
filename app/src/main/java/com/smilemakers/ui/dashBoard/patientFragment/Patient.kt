@@ -13,5 +13,5 @@ data class Patient(
     val retarea: String,
     val age: String,
     val mno: String,
-    val image: String
+    var image: String
 )

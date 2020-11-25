@@ -8,8 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,30 +21,30 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.simplemobiletools.commons.extensions.toast
 import com.smilemakers.R
-import com.smilemakers.ui.dashBoard.doctorFragment.DoctorFragmentVM
-import com.smilemakers.ui.dashBoard.doctorFragment.DoctorVieModelFactory
 import com.smilemakers.databinding.FragmentDetailBinding
 import com.smilemakers.ui.dashBoard.appointmentFragment.Area
-import com.smilemakers.ui.dashBoard.appointmentFragment.Treatments
-import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.TreatmentAdpater
+import com.smilemakers.ui.dashBoard.doctorFragment.DoctorFragmentVM
+import com.smilemakers.ui.dashBoard.doctorFragment.DoctorVieModelFactory
 import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
 import com.smilemakers.utils.hide
 import com.smilemakers.utils.show
 import com.smilemakers.utils.showErrorSnackBar
-import kotlinx.android.synthetic.main.fragment_appointment_form.*
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_detail.progress_bar
-import kotlinx.android.synthetic.main.fragment_detail.root_layout
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
-class DetailFragment : Fragment(), KodeinAware ,
-    PatientListener{
+
+class DetailFragment : Fragment(), KodeinAware,
+    PatientListener {
 
     override val kodein by kodein()
     lateinit var spinner: Spinner
-    lateinit var spinner_tratment: Spinner
+    lateinit var spinner_tratment: TextView
+    lateinit var trtment_name: ArrayList<String>
+    lateinit var trtment_namelst: ArrayList<String>
+    lateinit var trtment_idlst: ArrayList<String>
+    lateinit var selected: ArrayList<Boolean>
 
     companion object {
         // lateinit var mActivity: DashboardActivity
@@ -71,7 +72,7 @@ class DetailFragment : Fragment(), KodeinAware ,
         viewModel =
             ViewModelProviders.of(this, factory).get(DoctorFragmentVM::class.java)
         binding?.vm = viewModel
-        viewModel?.authListener= this
+        viewModel?.authListener = this
 
         viewModel?.fname?.value = arguments!!.getString("fname")
         viewModel?.lname?.value = arguments!!.getString("lname")
@@ -93,29 +94,51 @@ class DetailFragment : Fragment(), KodeinAware ,
         viewModel?.tdata?.observe(viewLifecycleOwner, Observer {
             binding?.progressBar?.hide()
 
-            val adapter = TreatmentAdpater(context!!, it)
-            spinner_tratment.adapter = adapter
+            trtment_name = arrayListOf<String>()
+            trtment_namelst = arrayListOf<String>()
+            trtment_idlst = arrayListOf<String>()
+            selected = arrayListOf<Boolean>()
 
-            // if (!mEvent.treatment_type.isEmpty()) {
-            //   val spinnerPosition = adapter.getPosition(mEvent.treatment_type)
-            //    sp_treatment.setSelection(spinnerPosition)
-            //  }
-            spinner_tratment.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    val data: Treatments = parent!!.selectedItem as Treatments
-                    viewModel?.trtmet_type = data.treatment_name
-                }
-
+            for (i in it.indices) {
+                trtment_name.add(it[i].treatment_name)
+                selected.add(false)
             }
 
+            spinner_tratment.text = it[0].treatment_name
+
+            spinner_tratment.setOnClickListener {
+                val builder = AlertDialog.Builder(context!!)
+                builder.setTitle("Select Treatment Types")
+                builder.setMultiChoiceItems(
+                    trtment_name.toTypedArray(),
+                    selected.toBooleanArray(),
+                    { dialog, which, isChecked ->
+
+                        selected[which] = isChecked
+                        // Get the clicked item
+                        if (isChecked) {
+                            trtment_namelst.add(trtment_name[which])
+                            trtment_idlst.add((which + 1).toString())
+                        } else if (trtment_namelst.contains(trtment_name[which])) {
+                            trtment_namelst.remove(trtment_name[which])
+                            trtment_idlst.remove((which + 1).toString())
+                        }
+                    })
+                builder.setPositiveButton("OK") { dialog, which ->
+                    spinner_tratment.text =
+                        trtment_namelst.toString().replace("[", "").replace("]", "")
+                    Log.d("tag", "djjdf..." + trtment_idlst)
+                    viewModel?.trtmet_type = trtment_idlst.toString().replace("[", "").replace("]", "")
+                    dialog.cancel()
+                }
+                builder.setNeutralButton("Cancel") { dialog, which ->
+                    trtment_namelst = arrayListOf()
+                    trtment_idlst = arrayListOf()
+                    dialog.cancel()
+                }
+                val dialog = builder.create()
+                dialog.show()
+            }
         })
         viewModel?.adata?.observe(viewLifecycleOwner, Observer {
             binding?.progressBar?.hide()

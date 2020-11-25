@@ -17,14 +17,6 @@
         android:orientation="vertical"
         tools:context=".ProfileActivity">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-           android:layout_centerInParent="true" />
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_230"
@@ -57,26 +49,20 @@
                         android:orientation="vertical"
                         android:padding="@dimen/space_20">
 
-                        <androidx.cardview.widget.CardView
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_img"
                             android:layout_width="90dp"
                             android:layout_height="90dp"
-                            android:clipToPadding="true"
-                            app:cardCornerRadius="6dp">
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/login_img" />
 
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/iv_img"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/login_img" />
-
-                        </androidx.cardview.widget.CardView>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="@dimen/space_10">
+                            android:layout_marginTop="@dimen/space_10"
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/tv_fname"
@@ -94,10 +80,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginStart="@dimen/space_5"
-                                android:textStyle="bold"
                                 android:text="@{vm.data.lname}"
                                 android:textSize="@dimen/text_18"
-                                />
+                                android:textStyle="bold" />
 
 
                         </LinearLayout>
@@ -113,8 +98,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:padding="@dimen/space_5"
-                                android:onClick="@{vm::onEditClick}">
+                                android:onClick="@{vm::onEditClick}"
+                                android:padding="@dimen/space_5">
 
                                 <ImageView
                                     android:layout_width="@dimen/space_35"
@@ -143,8 +128,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:padding="@dimen/space_5"
-                                android:onClick="@{vm::onChangePwdClick}">
+                                android:onClick="@{vm::onChangePwdClick}"
+                                android:padding="@dimen/space_5">
 
                                 <ImageView
                                     android:layout_width="@dimen/space_35"
@@ -211,7 +196,7 @@
                                 android:text="@string/edit"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="@dimen/text_14"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -231,8 +216,8 @@
                                     android:layout_width="@dimen/space_35"
                                     android:layout_height="@dimen/space_35"
                                     android:background="@drawable/circular_grey_bordersolid"
-                                    android:padding="@dimen/space_10"
                                     android:onClick="@{vm::onCallClick}"
+                                    android:padding="@dimen/space_10"
                                     android:src="@drawable/ic_mobile_no" />
 
                                 <TextView
@@ -257,8 +242,8 @@
                                     android:layout_width="@dimen/space_35"
                                     android:layout_height="@dimen/space_35"
                                     android:background="@drawable/circular_grey_bordersolid"
-                                    android:padding="@dimen/space_10"
                                     android:onClick="@{vm::onEmailClick}"
+                                    android:padding="@dimen/space_10"
                                     android:src="@drawable/ic_email" />
 
                                 <TextView
@@ -283,8 +268,8 @@
                                     android:layout_width="@dimen/space_35"
                                     android:layout_height="@dimen/space_35"
                                     android:background="@drawable/circular_grey_bordersolid"
-                                    android:padding="@dimen/space_10"
                                     android:onClick="@{vm::onMapClick}"
+                                    android:padding="@dimen/space_10"
                                     android:src="@drawable/ic_location" />
 
                                 <TextView
@@ -301,6 +286,14 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="invisible" />
+
             </LinearLayout>
 
 

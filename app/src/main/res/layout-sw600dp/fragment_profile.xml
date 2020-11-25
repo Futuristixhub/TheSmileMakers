@@ -16,12 +16,7 @@
         android:background="@color/grey"
         android:orientation="vertical"
         tools:context=".ProfileActivity">
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:layout_centerInParent="true" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,20 +50,12 @@
                         android:orientation="vertical"
                         android:padding="@dimen/space_20">
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:clipToPadding="true"
-                            app:cardCornerRadius="6dp">
-
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/iv_img"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/login_img" />
-
-                        </androidx.cardview.widget.CardView>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -298,6 +285,13 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:layout_gravity="center_horizontal"/>
             </LinearLayout>
 
 

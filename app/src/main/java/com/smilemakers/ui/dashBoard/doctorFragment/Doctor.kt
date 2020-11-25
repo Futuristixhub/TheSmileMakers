@@ -14,5 +14,5 @@ data class Doctor(
     val age: String,
     val mno: String,
     val typetement: String,
-    val image: String
+    var image: String
 )

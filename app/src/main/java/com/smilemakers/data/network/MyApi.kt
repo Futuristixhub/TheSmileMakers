@@ -135,10 +135,21 @@ interface MyApi {
         @Part("fname") fname: RequestBody,
         @Part("lname") lname: RequestBody,
         @Part("email") email: RequestBody,
-        @Part("mobile") mobile: RequestBody,
         @Part("address") address: RequestBody,
         @Part file: MultipartBody.Part,
-        @Part("image") name: RequestBody
+        @Part("image") image: RequestBody
+    ): Response<PatientResponse>
+
+@FormUrlEncoded
+    @POST("edit_profile.php")
+    suspend fun editProfileI(
+        @Field("userid") userid: String,
+        @Field("user_type") user_type: String,
+        @Field("fname") fname: String,
+        @Field("lname") lname: String,
+        @Field("email") email: String,
+        @Field("address") address: String,
+        @Field("image") image: String
     ): Response<PatientResponse>
 
 

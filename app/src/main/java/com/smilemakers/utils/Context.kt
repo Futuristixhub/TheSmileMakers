@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.app.NotificationCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.simplemobiletools.calendar.pro.helpers.MyWidgetListProvider
 import com.simplemobiletools.calendar.pro.helpers.MyWidgetMonthlyProvider
@@ -33,6 +34,8 @@ import com.smilemakers.utils.Formatter.getTimeFromTS
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
+import java.net.URL
+import java.net.URLConnection
 import java.util.HashSet
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
@@ -61,6 +64,13 @@ fun Context.hideKeyboard(view: View) {
     val imm: InputMethodManager =
         getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+}
+
+fun Context.isImageURL(img: String): Boolean {
+    val connection: URLConnection = URL(img).openConnection()
+    val contentType: String = connection.getHeaderField("Content-Type")
+    val image = contentType.startsWith("image/")
+    return image
 }
 
 fun ProgressBar.show() {

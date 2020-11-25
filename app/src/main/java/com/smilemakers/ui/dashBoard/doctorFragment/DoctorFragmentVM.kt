@@ -61,7 +61,18 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
                 if (it?.status == false) {
                     authListener?.onFailure(it.message)
                 } else {
-                    _doctors.value = it?.data?.doctor_list
+                    Coroutines.io {
+                        var lst = it?.data?.doctor_list
+                        for (i in lst?.indices!!) {
+                            val image = context.isImageURL(lst[i].image)
+                            if (!image) {
+                                lst[i].image = ""
+                            }
+                        }
+                        Coroutines.main {
+                            _doctors.value = it?.data?.doctor_list
+                        }
+                    }
                 }
             }
         )
@@ -71,7 +82,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
         get() = _doctors
 
     private lateinit var job1: Job
-    private val _Tdata = MutableLiveData<List<Treatments>>()
+    private val _Tdata = MutableLiveData<ArrayList<Treatments>>()
     private val _Adata = MutableLiveData<List<Area>>()
 
     fun getData() {
@@ -88,7 +99,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
         )
     }
 
-    val tdata: LiveData<List<Treatments>>
+    val tdata: LiveData<ArrayList<Treatments>>
         get() = _Tdata
 
     val adata: LiveData<List<Area>>
@@ -140,7 +151,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
             val transaction =
                 (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
             transaction.addToBackStack(null)
-            transaction.replace(R.id.fl_container, fragobj)
+            transaction.replace(R.id.fl_container, fragobj!!)
             transaction.commit()
         }
     }
@@ -272,12 +283,12 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
                             RequestBody.create(MediaType.parse("text/plain"), pinCode.value!!),
                             filePart, requestBody
                         )
-                        if (authResponse.status == false) {
-                            authListener?.onFailure(authResponse.message!!)
-                        } else {
-                            authListener?.onSuccess(authResponse.message!!)
-                            return@main
-                        }
+                    if (authResponse.status == false) {
+                        authListener?.onFailure(authResponse.message!!)
+                    } else {
+                        authListener?.onSuccess(authResponse.message!!)
+                        return@main
+                    }
                     authListener?.onFailure(authResponse.message!!)
                 } catch (e: ApiExceptions) {
                     authListener?.onFailure(e.message!!)
@@ -285,7 +296,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
                     authListener?.onFailure(e.message!!)
                 }
             }
-       }
+        }
     }
 
     fun onPreviousClick(view: View) {

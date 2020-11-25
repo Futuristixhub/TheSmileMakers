@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Treatments(
     @PrimaryKey(autoGenerate = false)
     val treatment_id: String,
-    val treatment_name: String
+    val treatment_name: String,
+    var isSelected: Boolean
 )

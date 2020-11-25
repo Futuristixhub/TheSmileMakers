@@ -96,7 +96,7 @@
                     android:paddingStart="@dimen/space_8"
                     android:paddingTop="@dimen/space_8"
                     android:text="@string/lbl_gender"
-                    android:textColor="@color/quantum_grey"
+                    android:textColor="@color/grey_600"
                     android:textSize="@dimen/text_22" />
 
                 <RadioGroup

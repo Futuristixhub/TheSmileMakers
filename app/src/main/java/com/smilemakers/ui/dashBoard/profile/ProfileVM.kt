@@ -3,6 +3,7 @@ package com.smilemakers.ui.dashBoard.profile
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -17,6 +18,8 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import java.net.URL
+import java.net.URLConnection
 
 
 class ProfileVM(val repository: ProfileRepository, application: Application) : ViewModel() {
@@ -43,9 +46,7 @@ class ProfileVM(val repository: ProfileRepository, application: Application) : V
     var profileListener: ProfileListener? = null
     var data: Profile? = null
 
-
     fun onEditClick(view: View) {
-
         view.context.startActivity(
             Intent(view.context, EditProfileActivity::class.java)
                 .putExtra("fname", data?.fname)
@@ -114,42 +115,98 @@ class ProfileVM(val repository: ProfileRepository, application: Application) : V
         view.context.hideKeyboard(view)
         if (isValid(view)) {
             authListener!!.onStarted()
-            Coroutines.main {
-                try {
-                    val file = File(Uri.parse(image).path)
-                    var requestBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
-                    var filePart =
-                        MultipartBody.Part.createFormData("image", file.name, requestBody)
+          //  Coroutines.io {
+                val validimg = image?.contains("file")
+                if (validimg!!) {
+                    Coroutines.main {
+                        try {
+                            val file = File(Uri.parse(image).path)
+                            var requestBody =
+                                RequestBody.create(MediaType.parse("image/jpeg"), file)
+                            var filePart =
+                                MultipartBody.Part.createFormData("image", file.name, requestBody)
 
-                    val authResponse =
-                        repository.editProfile(
-                            RequestBody.create(MediaType.parse("text/plain"), context!!.getData(context!!, context.getString(R.string.user_id))),
-                            RequestBody.create(MediaType.parse("text/plain"), context!!.getData(context!!, context.getString(R.string.user_type))),
-                            RequestBody.create(MediaType.parse("text/plain"), edt_fname!!),
-                            RequestBody.create(MediaType.parse("text/plain"), edt_lname!!),
-                            RequestBody.create(MediaType.parse("text/plain"), edt_email!!),
-                            RequestBody.create(MediaType.parse("text/plain"), edt_mob_no!!),
-                            RequestBody.create(MediaType.parse("text/plain"), edt_location!!),
-                            filePart, requestBody
-                        )
-                    if (authResponse.status == false) {
-                        authListener?.onFailure(authResponse.message!!)
-                    } else {
-                        authListener?.onSuccess(authResponse.message!!)
-                        return@main
+                            val authResponse =
+                                repository.editProfile(
+                                    RequestBody.create(
+                                        MediaType.parse("text/plain"),
+                                        context!!.getData(
+                                            context!!,
+                                            context.getString(R.string.user_id)
+                                        )
+                                    ),
+                                    RequestBody.create(
+                                        MediaType.parse("text/plain"),
+                                        context!!.getData(
+                                            context!!,
+                                            context.getString(R.string.user_type)
+                                        )
+                                    ),
+                                    RequestBody.create(MediaType.parse("text/plain"), edt_fname!!),
+                                    RequestBody.create(MediaType.parse("text/plain"), edt_lname!!),
+                                    RequestBody.create(MediaType.parse("text/plain"), edt_email!!),
+                                    RequestBody.create(
+                                        MediaType.parse("text/plain"),
+                                        edt_location!!
+                                    ),
+                                    filePart, requestBody
+                                )
+                            if (authResponse.status == false) {
+                                authListener?.onFailure(authResponse.message!!)
+                            } else {
+                                authListener?.onSuccess(authResponse.message!!)
+                                return@main
+                            }
+                            authListener?.onFailure(authResponse.message!!)
+                        } catch (e: ApiExceptions) {
+                            authListener?.onFailure(e.message!!)
+                        } catch (e: NoInternetException) {
+                            authListener?.onFailure(e.message!!)
+                        }
                     }
-                    authListener?.onFailure(authResponse.message!!)
-                } catch (e: ApiExceptions) {
-                    authListener?.onFailure(e.message!!)
-                } catch (e: NoInternetException) {
-                    authListener?.onFailure(e.message!!)
+                } else {
+                    Coroutines.main {
+                        try {
+                            val authResponse =
+                                repository.editProfileI(
+                                    context!!.getData(
+                                        context!!,
+                                        context.getString(R.string.user_id)
+                                    )!!,
+                                    context!!.getData(
+                                        context!!,
+                                        context.getString(R.string.user_type)
+                                    )!!,
+                                    edt_fname!!,
+                                    edt_lname!!,
+                                    edt_email!!,
+                                    edt_location!!,
+                                    image!!
+                                )
+                            if (authResponse.status == false) {
+                                authListener?.onFailure(authResponse.message!!)
+                            } else {
+                                authListener?.onSuccess(authResponse.message!!)
+                                return@main
+                            }
+                            authListener?.onFailure(authResponse.message!!)
+                        } catch (e: ApiExceptions) {
+                            authListener?.onFailure(e.message!!)
+                        } catch (e: NoInternetException) {
+                            authListener?.onFailure(e.message!!)
+                        }
+                    }
                 }
-            }
+           // }
         }
     }
 
     fun isValid(view: View): Boolean {
 
+        if (image.isNullOrEmpty()) {
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_image))
+            return false
+        }
         if (edt_fname == null || edt_fname!!.isEmpty()) {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.empty_fname))
             return false

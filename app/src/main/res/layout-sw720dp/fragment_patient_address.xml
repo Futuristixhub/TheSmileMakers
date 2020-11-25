@@ -130,48 +130,50 @@
                 app:layout_constraintTop_toBottomOf="@id/ed_address_pin" />
 
             <LinearLayout
+                android:id="@+id/linearLayout6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
                 android:layout_marginTop="@dimen/text_25"
-                app:layout_constraintTop_toBottomOf="@id/ed_address_country">
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/ed_address_country"
+                tools:layout_editor_absoluteX="25dp">
 
-            <Button
-                android:layout_width="@dimen/btn_width"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/space_20"
-                android:background="@drawable/login_button_drawable"
-                android:onClick="@{vm::onPreviousClick}"
-                android:text="@string/previous"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_24"
-                android:textStyle="bold" />
+                <Button
+                    android:layout_width="@dimen/btn_width"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/login_button_drawable"
+                    android:onClick="@{vm::onPreviousClick}"
+                    android:padding="@dimen/space_20"
+                    android:text="@string/previous"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_24"
+                    android:textStyle="bold" />
 
-            <Button
-                android:layout_width="@dimen/btn_width"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/space_20"
-                android:background="@drawable/login_button_drawable"
-                android:onClick="@{vm::onSaveClick}"
-                android:text="@string/save"
-                android:layout_marginStart="@dimen/space_10"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_24"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/ed_address_country" />
+                <Button
+                    android:layout_width="@dimen/btn_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_10"
+                    android:background="@drawable/login_button_drawable"
+                    android:onClick="@{vm::onSaveClick}"
+                    android:padding="@dimen/space_20"
+                    android:text="@string/save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_24"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/ed_address_country" />
             </LinearLayout>
+
             <ProgressBar
                 android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

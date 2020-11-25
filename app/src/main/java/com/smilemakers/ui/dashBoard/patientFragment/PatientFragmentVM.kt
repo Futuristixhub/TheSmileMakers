@@ -59,7 +59,19 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
                 if (it?.status == false) {
                     authListener?.onFailure(it.message)
                 } else {
-                    _patients.value = it?.data?.patient_list
+                    Coroutines.io {
+                        var lst = it?.data?.patient_list
+                        for (i in lst?.indices!!) {
+                            val image = context.isImageURL(lst[i].image)
+                            if (!image) {
+                                lst[i].image = ""
+                            }
+                        }
+                        Coroutines.main {
+                            _patients.value = it?.data?.patient_list
+                        }
+                    }
+
                 }
             }
         )

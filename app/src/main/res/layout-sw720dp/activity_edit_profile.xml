@@ -29,10 +29,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/button4" />
             <RelativeLayout
                 android:id="@+id/rl"
                 android:layout_width="match_parent"
@@ -149,12 +148,13 @@
 
 
             <Button
+                android:id="@+id/button4"
                 android:layout_width="@dimen/btn_width"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_25"
-                android:padding="@dimen/space_20"
                 android:background="@drawable/login_button_drawable"
                 android:onClick="@{vm::onSubmitClick}"
+                android:padding="@dimen/space_20"
                 android:text="Submit"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

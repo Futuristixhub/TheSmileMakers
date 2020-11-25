@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
@@ -34,6 +35,8 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 import java.io.IOException
+import java.net.URL
+import java.net.URLConnection
 
 class EditProfileActivity : AppCompatActivity(), KodeinAware, PatientListener {
 
@@ -81,8 +84,18 @@ class EditProfileActivity : AppCompatActivity(), KodeinAware, PatientListener {
         }
         viewModel?.edt_email = intent.getStringExtra("email")
         viewModel?.edt_location = intent.getStringExtra("location")
-        Glide.with(this).load(Uri.parse(intent.getStringExtra("image"))).into(binding?.ivImg!!)
+        viewModel?.image = intent.getStringExtra("image")
 
+        Coroutines.io {
+
+            val image = isImageURL(intent.getStringExtra("image")!!)
+            if (image) {
+                Coroutines.main {
+                    Glide.with(this).load(Uri.parse(intent.getStringExtra("image")))
+                        .into(binding?.ivImg!!)
+                }
+            }
+        }
         img = binding?.ivImg
 
         binding?.igImage!!.setOnClickListener {
