@@ -94,8 +94,11 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
     var wasRepeatable: Boolean = false
 
     var location_name = ""
+    var location_id = ""
     var dayCode = ""
     var treatmenttype = ""
+    var treatmenttypeid = ""
+    var doctorid = ""
     var doctorname = ""
     var patient_id = ""
     var color = "#0D709A"
@@ -289,6 +292,7 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
                 ) {
                     val data: Doctors = parent!!.selectedItem as Doctors
                     doctorname = data.fname + " " + data.lname
+                    doctorid = data.doctor_id
                 }
 
             }
@@ -315,6 +319,7 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
                 ) {
                     val data: Treatments = parent!!.selectedItem as Treatments
                     treatmenttype = data.treatment_name
+                    treatmenttypeid = data.treatment_id
                 }
 
             }
@@ -1083,14 +1088,20 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
             pe.printStackTrace()
         }
 
+        if(location_name.equals("Bapunagar")){
+            location_id="5"
+        }else{
+            location_id="4"
+        }
+
         viewModel.onSaveClick(
             patient_id,
             ptitle,
-            location_name,
+            location_id,
             mEventStartDateTime.toLocalDate().toString(),
             start + "-" + end,
-            treatmenttype,
-            doctorname,
+            treatmenttypeid,
+            doctorid,
             color
         )
         //storeEvent(wasRepeatable)

@@ -266,7 +266,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
                         repository.addDoctor(
                             RequestBody.create(MediaType.parse("text/plain"), fname.value!!),
                             RequestBody.create(MediaType.parse("text/plain"), lname.value!!),
-                            RequestBody.create(MediaType.parse("text/plain"), gender!!),
+                            RequestBody.create(MediaType.parse("text/plain"), gender!!.toLowerCase()),
                             RequestBody.create(MediaType.parse("text/plain"), dob.get()!!),
                             RequestBody.create(MediaType.parse("text/plain"), age.value!!),
                             RequestBody.create(MediaType.parse("text/plain"), email.value!!),

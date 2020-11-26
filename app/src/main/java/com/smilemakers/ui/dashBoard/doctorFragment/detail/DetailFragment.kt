@@ -127,8 +127,7 @@ class DetailFragment : Fragment(), KodeinAware,
                 builder.setPositiveButton("OK") { dialog, which ->
                     spinner_tratment.text =
                         trtment_namelst.toString().replace("[", "").replace("]", "")
-                    Log.d("tag", "djjdf..." + trtment_idlst)
-                    viewModel?.trtmet_type = trtment_idlst.toString().replace("[", "").replace("]", "")
+                    viewModel?.trtmet_type = trtment_idlst.toString().replace("[", "").replace("]", "").replace("\\s+".toRegex(), "")
                     dialog.cancel()
                 }
                 builder.setNeutralButton("Cancel") { dialog, which ->

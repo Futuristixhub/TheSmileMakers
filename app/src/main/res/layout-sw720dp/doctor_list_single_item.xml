@@ -170,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_8"
                         android:layout_marginTop="@dimen/space_4"
-                        android:text="@{vm.typetement}"
+                        android:text="@{` : `+vm.typetement}"
                         android:textSize="@dimen/text_20" />
 
                 </LinearLayout>

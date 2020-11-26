@@ -171,7 +171,8 @@ class AppointmentFragment : Fragment(),
                                     e.doctor_id,
                                     e.typesoftreatment,
                                     e.prescription,
-                                    e.age
+                                    e.age,
+                                    e.color
                                 )
                             )
                         })
