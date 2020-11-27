@@ -94,9 +94,7 @@ class DayEventsAdapter(
             }
 
             event_item_frame.isSelected = selectedKeys.contains(event.event.id?.toInt())
-            if(!event.event.ecolor.isEmpty()) {
-                btm_header?.setBackgroundColor(Color.parseColor(event.event.ecolor))
-            }
+
             event_item_start.text =
                 if (event.event.getIsAllDay()) allDayString else Formatter.getTimeFromTS(
                     context,
@@ -114,17 +112,29 @@ class DayEventsAdapter(
                 if (eventlstnew[i].location == context.getString(R.string.bapunagar).toLowerCase()) {
                     if (event_item_title1.text.isEmpty()) {
                         event_item_title1.text = eventlstnew[i].title
+                        if(!eventlstnew[i].ecolor.isEmpty()) {
+                            event_item_title1?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                        }
                         event_item_title1.hint = eventlstnew[i].id.toString()
                     } else if (event_item_title2.text.isEmpty()) {
                         event_item_title2.text = eventlstnew[i].title
+                        if(!eventlstnew[i].ecolor.isEmpty()) {
+                            event_item_title2?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                        }
                         event_item_title2.hint = eventlstnew[i].id.toString()
                     }
                 } else if (eventlstnew[i].location == context.getString(R.string.nikol).toLowerCase()) {
                     if (event_item_title3.text.isEmpty()) {
                         event_item_title3.text = eventlstnew[i].title
+                        if(!eventlstnew[i].ecolor.isEmpty()) {
+                            event_item_title3?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                        }
                         event_item_title3.hint = eventlstnew[i].id.toString()
                     } else if (event_item_title4.text.isEmpty()) {
                         event_item_title4.text = eventlstnew[i].title
+                        if(!eventlstnew[i].ecolor.isEmpty()) {
+                            event_item_title4?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                        }
                         event_item_title4.hint = eventlstnew[i].id.toString()
                     }
                 }

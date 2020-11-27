@@ -15,11 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#0D709A"
         android:weightSum="4">
 
         <TextView
-            android:textColor="@color/white"
             android:id="@+id/event_item_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,18 +34,18 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/space_8"
             android:layout_marginEnd="@dimen/space_18"
-            app:endLineColor="@color/white"
+            app:endLineColor="@color/colorAccent"
             app:lineWidth="2dp"
             app:markerSize="@dimen/space_15"
-            app:startLineColor="@color/white" />
+            app:startLineColor="@color/colorAccent" />
 
         <TextView
             android:textColor="@color/white"
             android:id="@+id/event_item_title1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_18"
             tools:text="Event title" />
@@ -55,15 +53,15 @@
         <ImageView
             android:layout_width="@dimen/space_2"
             android:layout_height="match_parent"
-            android:background="@color/white" />
+            android:background="@color/md_grey_300" />
 
         <TextView
             android:textColor="@color/white"
             android:id="@+id/event_item_title2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_18"
             tools:text="Event title" />
@@ -71,15 +69,15 @@
         <ImageView
             android:layout_width="@dimen/space_2"
             android:layout_height="match_parent"
-            android:background="@color/white" />
+            android:background="@color/md_grey_300" />
 
         <TextView
             android:textColor="@color/white"
             android:id="@+id/event_item_title3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_18"
             tools:text="Event title" />
@@ -87,15 +85,15 @@
         <ImageView
             android:layout_width="@dimen/space_2"
             android:layout_height="match_parent"
-            android:background="@color/white" />
+            android:background="@color/md_grey_300" />
 
         <TextView
             android:textColor="@color/white"
             android:id="@+id/event_item_title4"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_18"
             tools:text="Event title" />

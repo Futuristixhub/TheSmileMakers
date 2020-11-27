@@ -105,6 +105,7 @@ class DetailFragment : Fragment(), KodeinAware,
             }
 
             spinner_tratment.text = it[0].treatment_name
+            viewModel?.trtmet_type = it[0].treatment_id
 
             spinner_tratment.setOnClickListener {
                 val builder = AlertDialog.Builder(context!!)

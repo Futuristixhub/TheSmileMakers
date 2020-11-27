@@ -260,7 +260,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
                     val file = File(Uri.parse(image).path)
                     var requestBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
                     var filePart =
-                        MultipartBody.Part.createFormData("image", file.name, requestBody)
+                        MultipartBody.Part.createFormData("img", file.name, requestBody)
 
                     val authResponse =
                         repository.addDoctor(
