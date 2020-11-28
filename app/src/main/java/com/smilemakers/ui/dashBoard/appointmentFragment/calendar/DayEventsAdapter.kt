@@ -3,10 +3,12 @@ package com.smilemakers.ui.dashBoard.appointmentFragment.calendar
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.github.vipulasri.timelineview.TimelineView
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.smilemakers.R
@@ -109,31 +111,51 @@ class DayEventsAdapter(
                 }
             }
             for (i in eventlstnew.indices) {
-                if (eventlstnew[i].location == context.getString(R.string.bapunagar).toLowerCase()) {
+                if (eventlstnew[i].location == context.getString(R.string.bapunagar)
+                        .toLowerCase()
+                ) {
                     if (event_item_title1.text.isEmpty()) {
                         event_item_title1.text = eventlstnew[i].title
-                        if(!eventlstnew[i].ecolor.isEmpty()) {
-                            event_item_title1?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                        if (!eventlstnew[i].ecolor.isEmpty()) {
+                            if (eventlstnew[i].ecolor.length > 7) {
+                                event_item_title1?.setBackgroundColor(Color.parseColor("#0D709A"))
+                            } else {
+                                event_item_title1?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                            }
                         }
                         event_item_title1.hint = eventlstnew[i].id.toString()
                     } else if (event_item_title2.text.isEmpty()) {
                         event_item_title2.text = eventlstnew[i].title
-                        if(!eventlstnew[i].ecolor.isEmpty()) {
-                            event_item_title2?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                        if (!eventlstnew[i].ecolor.isEmpty()) {
+                            if (eventlstnew[i].ecolor.length > 7) {
+                                event_item_title2?.setBackgroundColor(Color.parseColor("#0D709A"))
+                            } else {
+                                event_item_title2?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                            }
                         }
                         event_item_title2.hint = eventlstnew[i].id.toString()
                     }
-                } else if (eventlstnew[i].location == context.getString(R.string.nikol).toLowerCase()) {
+                } else if (eventlstnew[i].location == context.getString(R.string.nikol)
+                        .toLowerCase()
+                ) {
                     if (event_item_title3.text.isEmpty()) {
                         event_item_title3.text = eventlstnew[i].title
-                        if(!eventlstnew[i].ecolor.isEmpty()) {
-                            event_item_title3?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                        if (!eventlstnew[i].ecolor.isEmpty()) {
+                            if (eventlstnew[i].ecolor.length > 7) {
+                                event_item_title3?.setBackgroundColor(Color.parseColor("#0D709A"))
+                            } else {
+                                event_item_title3?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                            }
                         }
                         event_item_title3.hint = eventlstnew[i].id.toString()
                     } else if (event_item_title4.text.isEmpty()) {
                         event_item_title4.text = eventlstnew[i].title
-                        if(!eventlstnew[i].ecolor.isEmpty()) {
-                            event_item_title4?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                        if (!eventlstnew[i].ecolor.isEmpty()) {
+                            if (eventlstnew[i].ecolor.length > 7) {
+                                event_item_title4?.setBackgroundColor(Color.parseColor("#0D709A"))
+                            } else {
+                                event_item_title4?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
+                            }
                         }
                         event_item_title4.hint = eventlstnew[i].id.toString()
                     }

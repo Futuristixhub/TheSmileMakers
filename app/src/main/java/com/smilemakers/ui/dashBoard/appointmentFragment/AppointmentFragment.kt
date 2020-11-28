@@ -94,6 +94,9 @@ class AppointmentFragment : Fragment(),
 
         binding?.progressBar?.show()
 
+        if(context!!.getData(context!!, context!!.getString(R.string.user_type)).equals("patient")){
+            binding?.root?.calendar_fab?.visibility = View.GONE
+        }
         binding?.root!!.calendar_fab.beVisibleIf(requireContext().config.storedView != YEARLY_VIEW)
         binding?.root!!.calendar_fab.setOnClickListener {
             requireContext().launchNewEventIntent(currentDayCode)
