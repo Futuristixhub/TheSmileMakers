@@ -127,6 +127,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
+                                android:visibility="gone"
                                 android:onClick="@{vm::onChangePwdClick}"
                                 android:padding="@dimen/space_5">
 

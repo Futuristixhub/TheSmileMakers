@@ -2,6 +2,7 @@ package com.smilemakers.data.network
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.simplemobiletools.commons.extensions.toast
 import com.smilemakers.utils.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -14,7 +15,7 @@ class NetworkConnectionInterceptor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isInternetAvailable())
-            throw NoInternetException("Make sure you have an active data connection")
+            applicationContext.toast("Make sure you have an active data connection")
         return chain.proceed(chain.request())
     }
 

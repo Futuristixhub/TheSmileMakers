@@ -94,13 +94,15 @@ class AppointmentFragment : Fragment(),
 
         binding?.progressBar?.show()
 
-        if(context!!.getData(context!!, context!!.getString(R.string.user_type)).equals("patient")){
+        if(context!!.getData(context!!, context!!.getString(R.string.user_type))!!.toLowerCase().equals("patient")){
             binding?.root?.calendar_fab?.visibility = View.GONE
+        }else{
+            binding?.root!!.calendar_fab.beVisibleIf(requireContext().config.storedView != YEARLY_VIEW)
+            binding?.root!!.calendar_fab.setOnClickListener {
+                requireContext().launchNewEventIntent(currentDayCode)
+            }
         }
-        binding?.root!!.calendar_fab.beVisibleIf(requireContext().config.storedView != YEARLY_VIEW)
-        binding?.root!!.calendar_fab.setOnClickListener {
-            requireContext().launchNewEventIntent(currentDayCode)
-        }
+
 
         Coroutines.io {
             var result = IcsImporter(requireContext()).importEvents(

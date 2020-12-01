@@ -129,6 +129,7 @@
                                 android:layout_weight="2"
                                 android:gravity="center"
                                 android:onClick="@{vm::onChangePwdClick}"
+                                android:visibility="gone"
                                 android:padding="@dimen/space_5">
 
                                 <ImageView
