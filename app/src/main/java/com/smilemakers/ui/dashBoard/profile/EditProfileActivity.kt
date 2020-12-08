@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
@@ -35,8 +34,6 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 import java.io.IOException
-import java.net.URL
-import java.net.URLConnection
 
 class EditProfileActivity : AppCompatActivity(), KodeinAware, PatientListener {
 
@@ -234,7 +231,7 @@ class EditProfileActivity : AppCompatActivity(), KodeinAware, PatientListener {
         progress_bar.show()
     }
 
-    override fun onSuccess(message: String) {
+    override fun onSuccess(message: String, value: String) {
         progress_bar.hide()
 
         showErrorSnackBar(root_layout, message)

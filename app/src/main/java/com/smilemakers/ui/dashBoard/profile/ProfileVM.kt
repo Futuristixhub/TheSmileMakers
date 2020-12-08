@@ -3,23 +3,16 @@ package com.smilemakers.ui.dashBoard.profile
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.smilemakers.R
-import com.smilemakers.ui.dashBoard.doctorFragment.Doctor
 import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
 import com.smilemakers.utils.*
-import kotlinx.coroutines.Job
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
-import java.net.URL
-import java.net.URLConnection
 
 
 class ProfileVM(val repository: ProfileRepository, application: Application) : ViewModel() {

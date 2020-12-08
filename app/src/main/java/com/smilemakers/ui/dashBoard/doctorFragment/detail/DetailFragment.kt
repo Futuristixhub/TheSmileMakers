@@ -190,7 +190,7 @@ class DetailFragment : Fragment(), KodeinAware,
         progress_bar.show()
     }
 
-    override fun onSuccess(message: String) {
+    override fun onSuccess(message: String, value: String) {
         progress_bar.hide()
 
         context!!.showErrorSnackBar(root_layout, message)

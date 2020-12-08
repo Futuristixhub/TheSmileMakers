@@ -2,6 +2,7 @@ package com.smilemakers.utils
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.simplemobiletools.commons.extensions.onGlobalLayout
@@ -45,6 +46,7 @@ class MonthViewWrapper(context: Context, attrs: AttributeSet, defStyle: Int) : F
         setupHorizontalOffset()
         measureSizes()
         dayClickCallback = callback
+
         days = newDays
         if (dayWidth != 0f && dayHeight != 0f) {
             addViews()

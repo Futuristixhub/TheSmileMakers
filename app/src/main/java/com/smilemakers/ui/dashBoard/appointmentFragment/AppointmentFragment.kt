@@ -17,6 +17,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.isOnMainThread
 import com.simplemobiletools.commons.views.MyViewPager
 import com.smilemakers.R
 import com.smilemakers.databinding.FragmentAppointmentBinding
@@ -27,6 +29,7 @@ import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.NavigationListe
 import com.smilemakers.utils.*
 import com.smilemakers.utils.Formatter
 import kotlinx.android.synthetic.main.fragment_appointment.view.*
+import kotlinx.coroutines.Job
 import org.joda.time.DateTime
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -57,6 +60,8 @@ class AppointmentFragment : Fragment(),
     private var currentDayCode = ""
     private var isGoToTodayVisible = false
     var events: ArrayList<Appointment>? = null
+    private lateinit var job: Job
+    var createcount = 0
 
     companion object {
         lateinit var mActivity: DashboardActivity
@@ -92,17 +97,19 @@ class AppointmentFragment : Fragment(),
             ViewModelProviders.of(this, factory).get(AppointmentFragmentVM::class.java)
         binding?.vm = viewModel
 
-        binding?.progressBar?.show()
+        context!!.saveData(context!! ,getString(R.string.fab_clicked),"true")
+        createcount = 1
 
-        if(context!!.getData(context!!, context!!.getString(R.string.user_type))!!.toLowerCase().equals("patient")){
+        if (context!!.getData(context!!, context!!.getString(R.string.user_type))!!.toLowerCase()
+                .equals("patient")
+        ) {
             binding?.root?.calendar_fab?.visibility = View.GONE
-        }else{
+        } else {
             binding?.root!!.calendar_fab.beVisibleIf(requireContext().config.storedView != YEARLY_VIEW)
             binding?.root!!.calendar_fab.setOnClickListener {
                 requireContext().launchNewEventIntent(currentDayCode)
             }
         }
-
 
         Coroutines.io {
             var result = IcsImporter(requireContext()).importEvents(
@@ -116,77 +123,89 @@ class AppointmentFragment : Fragment(),
         //  binding?.root!!.background = ColorDrawable(context!!.config.backgroundColor)
         viewPager = binding?.root!!.fragment_months_viewpager
         viewPager!!.id = (System.currentTimeMillis() % 100000).toInt()
+        binding?.progressBar?.show()
 
         return binding?.root
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.appointment.removeObservers(viewLifecycleOwner)
+    }
+
     override fun onResume() {
         super.onResume()
-        viewModel.getAppointments()
-        viewModel.appointment.observe(viewLifecycleOwner, Observer {
-            binding?.progressBar?.hide()
-            Log.d("tag", "response....." + it)
-            events = it as ArrayList<Appointment>?
-            val eventsDB = context!!.eventsDB
 
-            Coroutines.io({ eventsDB.deleteAllEvents() })
+        var count = 0
+        if (context!!.getData(context!! ,getString(R.string.fab_clicked)).equals("true")) {
 
-            for (e in events!!.iterator()) {
+            context!!.saveData(context!! ,getString(R.string.fab_clicked),"false")
 
-                val input = e.appointment_time.split("-")[0]
-                val df: DateFormat = SimpleDateFormat("hh:mm aa")
-                val outputformat: DateFormat = SimpleDateFormat("HH:mm:ss")
-                var date: Date? = null
-                var start: String? = null
-                try {
-                    date = df.parse(input.trim())
-                    start = outputformat.format(date)
-                    println(start)
-                } catch (pe: ParseException) {
-                    pe.printStackTrace()
-                }
+            viewModel.getAppointments()
+            viewModel.appointment.observe(viewLifecycleOwner, Observer {
+                count = count + 1
+                Log.d("tag", "response count...$count")
+                if (count == 2 || createcount == 1) {
+                    events = it as ArrayList<Appointment>?
+                    val eventsDB = context!!.eventsDB
 
-                var dt: DateTime = DateTime.parse(e.appointment_date + "T" + start)
-                var date2: Date? = null
-                val input1 = e.appointment_time.split("-")[1]
-                var end: String? = null
-                try {
-                    date2 = df.parse(input1.trim())
-                    end = outputformat.format(date2)
-                    println(end)
-                } catch (pe: ParseException) {
-                    pe.printStackTrace()
-                }
+                    Coroutines.ioThenMain({
+                        for (e in events!!.iterator()) {
+                            val input = e.appointment_time.split("-")[0]
+                            val df: DateFormat = SimpleDateFormat("hh:mm aa")
+                            val outputformat: DateFormat = SimpleDateFormat("HH:mm:ss")
+                            var date: Date? = null
+                            var start: String? = null
+                            try {
+                                date = df.parse(input.trim())
+                                start = outputformat.format(date)
+                                println(start)
+                            } catch (pe: ParseException) {
+                                pe.printStackTrace()
+                            }
 
-                var dt2: DateTime = DateTime.parse(e.appointment_date + "T" + end)
+                            var dt: DateTime = DateTime.parse(e.appointment_date + "T" + start)
+                            var date2: Date? = null
+                            val input1 = e.appointment_time.split("-")[1]
+                            var end: String? = null
+                            try {
+                                date2 = df.parse(input1.trim())
+                                end = outputformat.format(date2)
+                                println(end)
+                            } catch (pe: ParseException) {
+                                pe.printStackTrace()
+                            }
 
-                if (!e.f_name.isEmpty()) {
-                    Log.d("hhhhh", "/////....." + e.f_name)
-                    Coroutines.io(
-                        {
-                            eventsDB.insertOrUpdate(
-                                Event(
-                                    null,
-                                    e.appointment_id,
-                                    dt.seconds(),
-                                    dt2.seconds(),
-                                    e.f_name,
-                                    e.l_name,
-                                    e.appointment_type,
-                                    e.doctor_id,
-                                    e.typesoftreatment,
-                                    e.prescription,
-                                    e.age,
-                                    e.color
+                            var dt2: DateTime = DateTime.parse(e.appointment_date + "T" + end)
+
+                            if (!e.f_name.isEmpty()) {
+                                eventsDB.insertOrUpdate(
+                                    Event(
+                                        null,
+                                        e.appointment_id,
+                                        dt.seconds(),
+                                        dt2.seconds(),
+                                        e.f_name,
+                                        e.l_name,
+                                        e.appointment_type,
+                                        e.doctor_id,
+                                        e.typesoftreatment,
+                                        e.prescription,
+                                        e.age,
+                                        e.color
+                                    )
                                 )
-                            )
-                        })
+
+                            }
+                        }
+                    }) {
+                        binding?.progressBar?.hide()
+                        createcount = 0
+                        setupFragment()
+                    }
                 }
-            }
-
-            setupFragment()
-        })
-
+            })
+        }
     }
 
     private fun setupFragment() {

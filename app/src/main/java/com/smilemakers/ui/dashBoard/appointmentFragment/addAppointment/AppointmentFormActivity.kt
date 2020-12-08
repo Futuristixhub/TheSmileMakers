@@ -167,12 +167,11 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
         mDialogTheme = getDialogTheme()
         mWasContactsPermissionChecked = hasPermission(PERMISSION_READ_CONTACTS)
 
-        rg_branch_name.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
+        rg_branch_name.setOnCheckedChangeListener { group, checkedId ->
 
-                var r1 = findViewById(checkedId) as RadioButton
-                location_name = checkedId.toString()
-            })
+            var r1 = findViewById(checkedId) as RadioButton
+            location_name = checkedId.toString()
+        }
 
         val eventId = intent.getLongExtra(EVENT_ID, 0L)
         ensureBackgroundThread {
@@ -829,6 +828,7 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
 
     private fun checkValidate() {
         hideKeyboard()
+        val intSelectButton: Int = rg_branch_name!!.checkedRadioButtonId
         if (DateTime.now().isAfter(mEventStartDateTime.millis)) {
             showErrorSnackBar(root_layout, getString(R.string.date_error))
         } else {
@@ -844,91 +844,97 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
                 runOnUiThread {
                     rg_branch_name.requestFocus()
                 }
+            }else if (intSelectButton < 0) {
+                showErrorSnackBar(root_layout, resources.getString(R.string.not_selected_area))
+            } else {
+                val radioButton: RadioButton = findViewById(intSelectButton)
+                location_name = radioButton.text.toString()
+                saveEvent()
             }
-            ensureBackgroundThread {
-                var events = arrayListOf<Event>()
-                val newList = arrayListOf<Event>()
-                val newList2 = arrayListOf<Event>()
-                val newList3 = arrayListOf<Event>()
-                val offset = if (!config.allowChangingTimeZones || mEvent.getTimeZoneString()
-                        .equals(mOriginalTimeZone, true)
-                ) {
-                    0
-                } else {
-                    val original =
-                        if (mOriginalTimeZone.isEmpty()) DateTimeZone.getDefault().id else mOriginalTimeZone
-                    (DateTimeZone.forID(mEvent.getTimeZoneString())
-                        .getOffset(System.currentTimeMillis()) - DateTimeZone.forID(original)
-                        .getOffset(System.currentTimeMillis())) / 1000L
-                }
-                val newStartTS =
-                    mEventStartDateTime.withSecondOfMinute(0).withMillisOfSecond(0)
-                        .seconds() - offset
-                val newEndTS =
-                    mEventEndDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
-                eventsHelper.getEvents(newStartTS, newEndTS) {
-                    events = it
-                }
-                var count_b = 0
-                var count_n = 0
-                for (element in events) {
-                    // then add it
-                    if (!newList.contains(element)) {
-                        newList.add(element)
-                    } else {
-                        newList2.add(element)
-                    }
-                }
-                for (e in events) {
-                    // then add it
-                    if (newList2.contains(e)) {
-                        newList3.add(e)
-                    }
-                }
-                for (i in newList3.indices) {
-                    if (i > 0) {
-                        if (newList3[i].location == str) {
-                            count_b++
-                        } else {
-                            count_n++
-                        }
-                    } else {
-                        if (newList3[i].location == str) {
-                            count_b++
-                        } else {
-                            count_n++
-                        }
-                    }
-                }
-                val intSelectButton: Int = rg_branch_name!!.checkedRadioButtonId
-                Log.d("gggg", "....." + intSelectButton)
-                if (intSelectButton < 0) {
-                    showErrorSnackBar(root_layout, resources.getString(R.string.not_selected_area))
-                } else {
-                    val radioButton: RadioButton = findViewById(intSelectButton)
-                    location_name = radioButton.text.toString()
 
+            /* ensureBackgroundThread {
+                 var events = arrayListOf<Event>()
+                 val newList = arrayListOf<Event>()
+                 val newList2 = arrayListOf<Event>()
+                 val newList3 = arrayListOf<Event>()
+                 val offset = if (!config.allowChangingTimeZones || mEvent.getTimeZoneString()
+                         .equals(mOriginalTimeZone, true)
+                 ) {
+                     0
+                 } else {
+                     val original =
+                         if (mOriginalTimeZone.isEmpty()) DateTimeZone.getDefault().id else mOriginalTimeZone
+                     (DateTimeZone.forID(mEvent.getTimeZoneString())
+                         .getOffset(System.currentTimeMillis()) - DateTimeZone.forID(original)
+                         .getOffset(System.currentTimeMillis())) / 1000L
+                 }
+                 val newStartTS =
+                     mEventStartDateTime.withSecondOfMinute(0).withMillisOfSecond(0)
+                         .seconds() - offset
+                 val newEndTS =
+                     mEventEndDateTime.withSecondOfMinute(0).withMillisOfSecond(0).seconds() - offset
+                 eventsHelper.getEvents(newStartTS, newEndTS) {
+                     events = it
+                 }
+                 var count_b = 0
+                 var count_n = 0
+                 for (element in events) {
+                     // then add it
+                     if (!newList.contains(element)) {
+                         newList.add(element)
+                     } else {
+                         newList2.add(element)
+                     }
+                 }
+                 for (e in events) {
+                     // then add it
+                     if (newList2.contains(e)) {
+                         newList3.add(e)
+                     }
+                 }
+                 for (i in newList3.indices) {
+                     if (i > 0) {
+                         if (newList3[i].location == str) {
+                             count_b++
+                         } else {
+                             count_n++
+                         }
+                     } else {
+                         if (newList3[i].location == str) {
+                             count_b++
+                         } else {
+                             count_n++
+                         }
+                     }
+                 }
+                 val intSelectButton: Int = rg_branch_name!!.checkedRadioButtonId
+                 if (intSelectButton < 0) {
+                     showErrorSnackBar(root_layout, resources.getString(R.string.not_selected_area))
+                 } else {
+                     val radioButton: RadioButton = findViewById(intSelectButton)
+                     location_name = radioButton.text.toString()
+                     saveEvent()
                     if (location_name == str) {
-                        if (count_b >= 2) {
-                            showErrorSnackBar(
-                                root_layout,
-                                resources.getString(R.string.not_avail_bapunagar)
-                            )
-                        } else {
-                            saveEvent()
-                        }
-                    } else {
-                        if (count_n >= 2) {
-                            showErrorSnackBar(
-                                root_layout,
-                                resources.getString(R.string.not_avail_nikol)
-                            )
-                        } else {
-                            saveEvent()
-                        }
-                    }
-                }
-            }
+                         if (count_b >= 2) {
+                             showErrorSnackBar(
+                                 root_layout,
+                                 resources.getString(R.string.not_avail_bapunagar)
+                             )
+                         } else {
+                             saveEvent()
+                         }
+                     } else {
+                         if (count_n >= 2) {
+                             showErrorSnackBar(
+                                 root_layout,
+                                 resources.getString(R.string.not_avail_nikol)
+                             )
+                         } else {
+                     saveEvent()
+                         }
+                     }
+                 }
+            }*/
         }
     }
 
@@ -1088,10 +1094,10 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
             pe.printStackTrace()
         }
 
-        if(location_name.equals("Bapunagar")){
-            location_id="5"
-        }else{
-            location_id="4"
+        if (location_name.equals("Bapunagar")) {
+            location_id = "5"
+        } else {
+            location_id = "4"
         }
 
         viewModel.onSaveClick(
@@ -1113,7 +1119,10 @@ class AppointmentFormActivity : SimpleActivity(), KodeinAware, PatientListener {
         }
     }
 
-    override fun onSuccess(message: String) {
+    override fun onSuccess(message: String, value: String) {
+
+        saveData(this ,getString(R.string.fab_clicked),"true")
+
         runOnUiThread {
             progress_bar.hide()
         }

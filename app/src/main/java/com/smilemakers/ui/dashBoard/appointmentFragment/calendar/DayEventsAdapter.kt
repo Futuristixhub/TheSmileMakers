@@ -123,7 +123,7 @@ class DayEventsAdapter(
                                 event_item_title1?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
                             }
                         }
-                        event_item_title1.hint = eventlstnew[i].id.toString()
+                        event_item_title1.hint = eventlstnew[i].ap_id.toString()
                     } else if (event_item_title2.text.isEmpty()) {
                         event_item_title2.text = eventlstnew[i].title
                         if (!eventlstnew[i].ecolor.isEmpty()) {
@@ -133,7 +133,7 @@ class DayEventsAdapter(
                                 event_item_title2?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
                             }
                         }
-                        event_item_title2.hint = eventlstnew[i].id.toString()
+                        event_item_title2.hint = eventlstnew[i].ap_id.toString()
                     }
                 } else if (eventlstnew[i].location == context.getString(R.string.nikol)
                         .toLowerCase()
@@ -147,7 +147,7 @@ class DayEventsAdapter(
                                 event_item_title3?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
                             }
                         }
-                        event_item_title3.hint = eventlstnew[i].id.toString()
+                        event_item_title3.hint = eventlstnew[i].ap_id.toString()
                     } else if (event_item_title4.text.isEmpty()) {
                         event_item_title4.text = eventlstnew[i].title
                         if (!eventlstnew[i].ecolor.isEmpty()) {
@@ -157,7 +157,7 @@ class DayEventsAdapter(
                                 event_item_title4?.setBackgroundColor(Color.parseColor(eventlstnew[i].ecolor))
                             }
                         }
-                        event_item_title4.hint = eventlstnew[i].id.toString()
+                        event_item_title4.hint = eventlstnew[i].ap_id.toString()
                     }
                 }
             }
@@ -193,7 +193,7 @@ class DayEventsAdapter(
 
     private fun editEvent(id: String, startTs: Long) {
         Intent(activity, AppointmentDetailActivity::class.java).apply {
-            putExtra(EVENT_ID, id.toLong())
+            putExtra(EVENT_ID, id)
             putExtra(EVENT_OCCURRENCE_TS, startTs)
             activity.startActivity(this)
         }

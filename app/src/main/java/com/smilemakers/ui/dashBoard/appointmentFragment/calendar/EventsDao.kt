@@ -20,6 +20,9 @@ interface EventsDao {
     @Query("SELECT * FROM events WHERE id = :id")
     fun getEventWithId(id: Long): Event?
 
+  @Query("SELECT * FROM events WHERE ap_id = :apId")
+    fun getEventWithApId(apId: String): Event?
+
     @Query("SELECT * FROM events WHERE import_id = :importId")
     fun getEventWithImportId(importId: String): Event?
 
@@ -95,6 +98,9 @@ interface EventsDao {
 
     @Query("UPDATE events SET event_type = $REGULAR_EVENT_TYPE_ID WHERE event_type = :eventTypeId")
     fun resetEventsWithType(eventTypeId: Long)
+
+    @Query("UPDATE events SET prescription = :presc WHERE ap_id = :apId")
+    fun updateEventPrescription(presc: String,apId:String)
 
     @Query("UPDATE events SET import_id = :importId, source = :source WHERE id = :id")
     fun updateEventImportIdAndSource(importId: String, source: String, id: Long)

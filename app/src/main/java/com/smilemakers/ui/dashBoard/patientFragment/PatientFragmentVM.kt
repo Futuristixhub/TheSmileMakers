@@ -22,7 +22,6 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.appointmentFragment.Area
-import com.smilemakers.ui.dashBoard.appointmentFragment.Treatments
 import com.smilemakers.ui.dashBoard.patientFragment.addPatient.AddPatientActivity
 import com.smilemakers.ui.dashBoard.patientFragment.addPatient.AddPatientFragment
 import com.smilemakers.ui.dashBoard.patientFragment.patientAddress.PatientAddressFragment

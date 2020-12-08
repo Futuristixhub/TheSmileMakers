@@ -1,7 +1,6 @@
 package com.smilemakers.ui.dashBoard.appointmentFragment.calendar
 
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.MenuItem
@@ -11,7 +10,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
-import com.bumptech.glide.Glide
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.appointmentFragment.AppointMentViemodelFactory
@@ -40,6 +39,7 @@ class AppointmentDetailActivity : AppCompatActivity(), KodeinAware, PatientListe
     private var mEventOccurrenceTS = 0L
     private lateinit var mEvent: Event
     private lateinit var mEventStartDateTime: DateTime
+    lateinit var eventId:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,11 +85,11 @@ class AppointmentDetailActivity : AppCompatActivity(), KodeinAware, PatientListe
     }
 
     private fun setEventData(savedInstanceState: Bundle?) {
-        val eventId = intent.getLongExtra(EVENT_ID, 0L)
+         eventId = intent.getStringExtra(EVENT_ID)
         ensureBackgroundThread {
             mStoredEventTypes = eventTypesDB.getEventTypes().toMutableList() as ArrayList<EventType>
-            val event = eventsDB.getEventWithId(eventId)
-            if (eventId != 0L && event == null) {
+            val event = eventsDB.getEventWithApId(eventId!!)
+            if (eventId.isNullOrEmpty() && event == null) {
                 finish()
                 return@ensureBackgroundThread
             }
@@ -156,9 +156,14 @@ class AppointmentDetailActivity : AppCompatActivity(), KodeinAware, PatientListe
         binding?.progressBar?.show()
     }
 
-    override fun onSuccess(message: String) {
+    override fun onSuccess(message: String, presc: String) {
         binding?.progressBar?.hide()
         showErrorSnackBar(root_layout, message)
+        toast(message)
+        ensureBackgroundThread {
+            eventsDB.updateEventPrescription(presc, eventId)
+        }
+        finish()
     }
 
     override fun onFailure(message: String) {

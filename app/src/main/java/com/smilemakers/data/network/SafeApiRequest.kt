@@ -5,6 +5,7 @@ import com.smilemakers.utils.ApiExceptions
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
+import java.lang.Exception
 import java.lang.StringBuilder
 
 abstract class SafeApiRequest {
@@ -13,7 +14,7 @@ abstract class SafeApiRequest {
         val response: Response<T>
         try {
             response = call.invoke()
-        } catch (t: Throwable) {
+        } catch (t: Exception) {
             throw ApiExceptions(t.toString())
         }
         if (response.isSuccessful) {

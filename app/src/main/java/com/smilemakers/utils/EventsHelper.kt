@@ -269,7 +269,7 @@ class EventsHelper(val context: Context) {
         events.forEach {
             it.updateIsPastEvent()
             it.scolor = eventTypeColors.get(it.startTS) ?: primaryColor//background color set
-            Log.d("tag",".....h....."+it.title+"........."+it.startTS)
+            Log.d("tag","..eeeee...."+it.ap_id+"........."+it.startTS)
         }
 
         callback(events)

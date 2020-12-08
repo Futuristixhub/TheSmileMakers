@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Event
 import com.smilemakers.ui.dashBoard.appointmentFragment.addAppointment.Events
@@ -14,6 +17,7 @@ import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.AppointmentDeta
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.DayEventsAdapter
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.NavigationListener
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.SimpleActivity
+import com.smilemakers.ui.dashBoard.doctorFragment.addDoctor.AddDoctorFragment
 import com.smilemakers.utils.*
 import com.smilemakers.utils.Formatter
 import kotlinx.android.synthetic.main.fragment_day.view.*
@@ -160,10 +164,12 @@ class DayFragment : Fragment() {
     }
 
     private fun editEvent(event: Events) {
+
         Intent(context, AppointmentDetailActivity::class.java).apply {
             putExtra(EVENT_ID, event.event.id)
             putExtra(EVENT_OCCURRENCE_TS, event.event.startTS)
             startActivity(this)
+
         }
     }
 }

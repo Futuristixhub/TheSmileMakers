@@ -23,7 +23,6 @@ class MonthlyCalendarImpl(val callback: MonthlyCalendar, val context: Context) {
         mTargetDate = targetDate
 
         val startTS = mTargetDate.minusDays(7).seconds()
-        Log.d("tag","this....."+targetDate+"......"+startTS)
         val endTS = mTargetDate.plusDays(43).seconds()
         context.eventsHelper.getEvents(startTS, endTS) {
             gotEvents(it)
@@ -80,10 +79,11 @@ class MonthlyCalendarImpl(val callback: MonthlyCalendar, val context: Context) {
                     i
                 )
             days.add(day)
-           value++
+            value++
         }
 
         if (markDaysWithEvents) {
+            Log.d("tag","markDaysWithEvents.....");
             markDaysWithEvents(days)
         } else {
             callback.updateMonthlyCalendar(context, monthName, days, false, mTargetDate)
@@ -103,7 +103,6 @@ class MonthlyCalendarImpl(val callback: MonthlyCalendar, val context: Context) {
             var currDayEvents = dayEvents[dayCode] ?: ArrayList()
             currDayEvents.add(it)
             dayEvents[dayCode] = currDayEvents
-            Log.d("tagjjj","ddddd....."+currDayEvents)
 
             while (Formatter.getDayCodeFromDateTime(currDay) != endCode) {
                 currDay = currDay.plusDays(1)
@@ -118,13 +117,14 @@ class MonthlyCalendarImpl(val callback: MonthlyCalendar, val context: Context) {
             it.dayEvents = dayEvents[it.code]!!
         }
 
-
+      //  Log.d("tag", ".....month data....." + monthName + ".....days...." + days);
         callback.updateMonthlyCalendar(context, monthName, days, true, mTargetDate)
     }
 
     private fun isToday(targetDate: DateTime, curDayInMonth: Int): Boolean {
         val targetMonthDays = targetDate.dayOfMonth().maximumValue
-        return targetDate.withDayOfMonth(Math.min(curDayInMonth, targetMonthDays)).toString(Formatter.DAYCODE_PATTERN) == mToday
+        return targetDate.withDayOfMonth(Math.min(curDayInMonth, targetMonthDays))
+            .toString(Formatter.DAYCODE_PATTERN) == mToday
     }
 
     private val monthName: String

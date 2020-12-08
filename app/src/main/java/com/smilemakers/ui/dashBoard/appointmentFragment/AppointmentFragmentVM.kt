@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -68,11 +67,11 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
                 try {
                     val authResponse =
                         repository.addPrescription(presc.value!!, app_id!!)
-                        if (authResponse.status == false) {
-                            authListener?.onFailure(authResponse.message!!)
-                        } else {
-                            authListener?.onSuccess(authResponse.message!!)
-                            return@main
+                    if (authResponse.status == false) {
+                        authListener?.onFailure(authResponse.message!!)
+                    } else {
+                        authListener?.onSuccess(authResponse.message!!,presc.value!!)
+                        return@main
                     }
                     authListener?.onFailure(authResponse.message!!)
                 } catch (e: ApiExceptions) {
@@ -87,6 +86,7 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
 
     private lateinit var job: Job
     private val _appointments = MutableLiveData<List<Appointment>>()
+    private val _apt = MutableLiveData<List<Appointment>>()
     fun getAppointments() {
         job = Coroutines.ioThenMain(
             {
@@ -94,13 +94,23 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
                     context!!.getData(context!!, context.getString(R.string.user_id)),
                     context!!.getData(context!!, context.getString(R.string.user_type))
                 )
+
             },
-            { _appointments.value = it?.data?.appointment_list }
+            {
+                _apt.value = it?.data?.appointment_list
+                Coroutines.ioThenMain({
+                    context.eventsDB.deleteAllEvents()
+                }) {
+                    _appointments.value = _apt.value
+                }
+            }
         )
     }
 
+
     val appointment: LiveData<List<Appointment>>
         get() = _appointments
+
 
     private lateinit var job1: Job
     private val _Pdata = MutableLiveData<ArrayList<Patients>>()
@@ -142,7 +152,6 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
         authListener!!.onStarted()
         Coroutines.main {
             try {
-
                 val authResponse =
                     repository.addAppointment(
                         pid,

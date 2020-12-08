@@ -19,6 +19,7 @@ import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.simplemobiletools.calendar.pro.fragments.DayFragmentsHolder
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.appointmentFragment.AppointmentFragment
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.SimpleActivity

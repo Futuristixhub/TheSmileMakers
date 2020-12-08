@@ -84,6 +84,11 @@ class DoctorFragment : Fragment(), KodeinAware ,PatientListener{
         bindUI()
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.doctors.removeObservers(viewLifecycleOwner)
+    }
+
     private fun bindUI() = Coroutines.main {
         binding?.progressBar?.show()
         viewModel.getDoctors()
@@ -117,7 +122,7 @@ class DoctorFragment : Fragment(), KodeinAware ,PatientListener{
         binding?.progressBar?.show()
     }
 
-    override fun onSuccess(message: String) {
+    override fun onSuccess(message: String, value: String) {
         binding?.progressBar?.hide()
     }
 

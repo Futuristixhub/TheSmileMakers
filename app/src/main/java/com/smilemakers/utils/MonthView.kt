@@ -8,6 +8,7 @@ import android.text.TextPaint
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.DisplayMetrics
+import android.util.Log
 import android.util.SparseIntArray
 import android.view.View
 import com.simplemobiletools.commons.extensions.*
@@ -94,8 +95,10 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) :
     private fun groupAllEvents() {
         days.forEach {
             val day = it
+
             if (day.dayEvents.size > 0) {
                 val event = day.dayEvents[0]
+                Log.d("tag","issue with data......."+day.dayEvents.size+"......event id......"+event.ap_id);
                 val daysCnt = getEventLastingDaysCount(event)
                 val monthViewEvent =
                     MonthViewEvent(

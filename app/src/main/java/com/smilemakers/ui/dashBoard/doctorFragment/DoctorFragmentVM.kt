@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -20,15 +19,11 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.appointmentFragment.Area
-import com.smilemakers.ui.dashBoard.appointmentFragment.Doctors
-import com.smilemakers.ui.dashBoard.appointmentFragment.Patients
 import com.smilemakers.ui.dashBoard.appointmentFragment.Treatments
 import com.smilemakers.ui.dashBoard.doctorFragment.addDoctor.AddDoctorActivity
 import com.smilemakers.ui.dashBoard.doctorFragment.addDoctor.AddDoctorFragment
 import com.smilemakers.ui.dashBoard.doctorFragment.detail.DetailFragment
 import com.smilemakers.ui.dashBoard.patientFragment.PatientListener
-import com.smilemakers.ui.dashBoard.patientFragment.addPatient.AddPatientFragment
-import com.smilemakers.ui.dashBoard.patientFragment.patientAddress.PatientAddressFragment
 import com.smilemakers.utils.*
 import kotlinx.coroutines.Job
 import okhttp3.MediaType
