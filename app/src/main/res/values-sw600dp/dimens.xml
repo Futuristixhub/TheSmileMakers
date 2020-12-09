@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <dimen name="login_app_logo">200dp</dimen>
+    <dimen name="login_app_logo">250dp</dimen>
     <dimen name="app_logo_size_2">100dp</dimen>
     <item name="actionBar_text" type="dimen" format="float">20</item>
     <dimen name="space_0">0dp</dimen>

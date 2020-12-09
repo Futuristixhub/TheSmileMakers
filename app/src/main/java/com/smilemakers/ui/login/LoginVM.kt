@@ -15,6 +15,7 @@ class LoginVM(private val repository: UserRepository) : ViewModel() {
     val password = MutableLiveData<String>()
     var authListener: AuthListener? = null
     var user_type: String? = null
+    var isChecked = MutableLiveData<Boolean>(false)
 
     fun getloggedInUser() = repository.getUser()
     suspend fun saveLoggedInUser(user: User) = repository.saveUser(user)
@@ -23,6 +24,12 @@ class LoginVM(private val repository: UserRepository) : ViewModel() {
         view.context.hideKeyboard(view)
         view.context.startActivity(Intent(view.context, ForgotPasswordActivity::class.java))
     }
+
+    fun onTcClick(view: View) {
+        view.context.hideKeyboard(view)
+        view.context.startActivity(Intent(view.context, WebViewActivity::class.java))
+    }
+
 
     fun onLoginClick(view: View) {
         view.context.hideKeyboard(view)
@@ -74,6 +81,10 @@ class LoginVM(private val repository: UserRepository) : ViewModel() {
         }
         if (password.value?.length!! < 4) {
             view.context.showErrorSnackBar(view, view.context.getString(R.string.valid_pwd))
+            return false
+        }
+        if (isChecked.value == false) {
+            view.context.showErrorSnackBar(view, view.context.getString(R.string.check_tc))
             return false
         }
         return true

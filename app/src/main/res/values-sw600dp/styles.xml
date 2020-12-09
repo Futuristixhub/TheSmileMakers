@@ -29,8 +29,8 @@
     </style>
 
     <style name="SplashScreen" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/splash_img_bg</item>
-        <item name="windowNoTitle">true</item>
+        <!--<item name="android:windowBackground">@drawable/splash_img_bg</item>
+        <item name="windowNoTitle">true</item>-->
         <item name="actionBarStyle">@style/Theme.AppCompat.NoActionBar</item>
     </style>
 

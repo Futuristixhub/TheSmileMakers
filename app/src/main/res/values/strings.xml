@@ -220,6 +220,10 @@
     <string name="alternate_mobile_number">Alternate Mobile Number*</string>
     <string name="next">Next</string>
     <string name="fab_clicked">fab clicked</string>
+    <string name="splash_status">splash status</string>
+    <string name="cb_tc_txt"><![CDATA[I agree to the]]></string>
+    <string name="tc_txt"><u>Terms &amp; Conditions</u></string>
+    <string name="check_tc"><![CDATA[Please Check Terms & Connditions]]></string>
 
 
     <string-array name="registration_area">

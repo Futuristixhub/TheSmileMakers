@@ -32,7 +32,7 @@
                     android:id="@+id/imageView"
                     android:layout_width="@dimen/login_app_logo"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_50"
+                    android:layout_marginTop="@dimen/space_60"
                     android:adjustViewBounds="true"
                     android:src="@drawable/login_img"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +96,36 @@
                     app:layout_constraintEnd_toEndOf="@id/sp_user_type"
                     app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
 
+                <LinearLayout
+                    android:id="@+id/ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_24"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/ed_login_password">
+
+                    <CheckBox
+                        android:id="@+id/cb_tc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cb_tc_txt"
+                        android:textSize="@dimen/text_18"
+                        android:checked="@={vm.isChecked}"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tc_txt"
+                        android:layout_marginStart="@dimen/space_5"
+                        android:textSize="@dimen/text_18"
+                        android:onClick="@{vm::onTcClick}"
+                        android:textColor="@color/blue_A200"
+                        />
+                </LinearLayout>
+
+
                 <Button
                     android:id="@+id/button"
                     android:layout_width="@dimen/btn_width"
@@ -104,7 +134,7 @@
                     android:layout_marginTop="@dimen/space_20"
                     android:padding="@dimen/space_15"
                     android:layout_marginEnd="@dimen/space_16"
-                    android:layout_marginBottom="@dimen/space_50"
+                    android:layout_marginBottom="@dimen/space_60"
                     android:text="@string/btn_login"
                     android:textSize="@dimen/text_20"
                     android:onClick="@{vm::onLoginClick}"
@@ -114,7 +144,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/ll"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <ProgressBar
