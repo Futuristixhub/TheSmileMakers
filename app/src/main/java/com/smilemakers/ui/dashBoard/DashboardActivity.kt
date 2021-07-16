@@ -19,15 +19,14 @@ import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.simplemobiletools.calendar.pro.fragments.DayFragmentsHolder
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.smilemakers.R
+import com.smilemakers.databinding.ActivityDashboardBinding
 import com.smilemakers.ui.dashBoard.appointmentFragment.AppointmentFragment
 import com.smilemakers.ui.dashBoard.appointmentFragment.calendar.SimpleActivity
 import com.smilemakers.ui.dashBoard.dashBoardFragment.DashboardFragment
 import com.smilemakers.ui.dashBoard.doctorFragment.DoctorFragment
 import com.smilemakers.ui.dashBoard.patientFragment.PatientFragment
 import com.smilemakers.ui.dashBoard.profile.ProfileFragment
-import com.smilemakers.databinding.ActivityDashboardBinding
 import com.smilemakers.ui.login.LoginActivity
 import com.smilemakers.utils.*
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -36,7 +35,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 
 
-class DashboardActivity : SimpleActivity(),KodeinAware{
+class DashboardActivity : SimpleActivity(), KodeinAware {
 
     override val kodein by kodein()
     var binding: ActivityDashboardBinding? = null
@@ -55,7 +54,7 @@ class DashboardActivity : SimpleActivity(),KodeinAware{
                 ActionBar.LayoutParams.WRAP_CONTENT
             ) //Height of TextView
             tv.layoutParams = lp
-            tv.setText(getString(R.string.title_dashboard))
+            tv.text = getString(R.string.title_dashboard)
             tv.setTextColor(Color.WHITE)
 
             val typedValue = TypedValue()
@@ -63,8 +62,8 @@ class DashboardActivity : SimpleActivity(),KodeinAware{
             val myFloatValue = typedValue.float
 
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, myFloatValue)
-            bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
-            bar.setCustomView(tv)
+            bar.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+            bar.customView = tv
 
         }
 
@@ -84,7 +83,16 @@ class DashboardActivity : SimpleActivity(),KodeinAware{
         btm_navigation.itemIconTintList = ColorStateList(states, colors)
         btm_navigation.itemTextColor = ColorStateList(states, colors)
 //        btm_navigation.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
-
+        val user_type = getData(
+            this,
+            getString(R.string.user_type)
+        )
+        if ("admin".equals(user_type, true))
+            btm_navigation.menu.removeItem(R.id.btm_nav_action_settings)
+else    if ("patient".equals(user_type, true)) {
+            btm_navigation.menu.removeItem(R.id.btm_nav_action_paitent)
+            btm_navigation.menu.removeItem(R.id.btm_nav_action_doctor)
+        }
         btm_navigation.setOnNavigationItemSelectedListener {
             title = it.title
             when (it.itemId) {
@@ -148,7 +156,6 @@ class DashboardActivity : SimpleActivity(),KodeinAware{
                 Log.i("DashBoard TAG", "Place: " + place.name + ", " + place.id)
             } else if (resultCode === AutocompleteActivity.RESULT_ERROR) {
                 val status: Status = Autocomplete.getStatusFromIntent(data!!)
-                Log.i("DashBoard TAG", status.getStatusMessage())
             } else if (resultCode === Activity.RESULT_CANCELED) { // The user canceled the operation.
             }
         }
@@ -184,7 +191,7 @@ class DashboardActivity : SimpleActivity(),KodeinAware{
     }
 
     private fun removeTopFragment() {
-        this!!.fragment?.let { supportFragmentManager.beginTransaction().remove(it).commit() }
+        this.fragment?.let { supportFragmentManager.beginTransaction().remove(it).commit() }
         //fragment.removeAt(currentFragments.size - 1)
         //   calendar_fab.beGoneIf(currentFragments.size == 1 && config.storedView == YEARLY_VIEW)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)

@@ -23,7 +23,7 @@ class WebViewActivity :AppCompatActivity(){
         progressBar.show()
 
         webView.webViewClient = WebViewClient()
-        webView.loadUrl("http://thesmilemakers.in/thesmilemakers/")
+        webView.loadUrl("http://thesmilemakers.in/teamsprivacypolicy.html")
         webView.settings.javaScriptEnabled = true
         webView.settings.setSupportZoom(true)
 

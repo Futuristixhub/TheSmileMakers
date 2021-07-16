@@ -85,7 +85,7 @@ class AppointmentDetailActivity : AppCompatActivity(), KodeinAware, PatientListe
     }
 
     private fun setEventData(savedInstanceState: Bundle?) {
-         eventId = intent.getStringExtra(EVENT_ID)
+         eventId = intent.getStringExtra(EVENT_ID)!!
         ensureBackgroundThread {
             mStoredEventTypes = eventTypesDB.getEventTypes().toMutableList() as ArrayList<EventType>
             val event = eventsDB.getEventWithApId(eventId!!)

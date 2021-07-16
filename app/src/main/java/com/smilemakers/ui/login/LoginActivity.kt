@@ -13,14 +13,13 @@ import com.smilemakers.R
 import com.smilemakers.ui.dashBoard.DashboardActivity
 import com.smilemakers.databinding.ActivityLoginBinding
 import com.smilemakers.data.db.entities.User
-import com.smilemakers.utils.hide
-import com.smilemakers.utils.saveData
-import com.smilemakers.utils.show
-import com.smilemakers.utils.showErrorSnackBar
+import com.smilemakers.utils.*
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
+import java.util.*
 
 class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware , AdapterView.OnItemSelectedListener {
 
@@ -52,6 +51,8 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware , AdapterVi
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
+
+
     }
 
     override fun onStarted() {
@@ -62,12 +63,14 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware , AdapterVi
         progress_bar.hide()
         saveData(this, getString(R.string.is_logged_in), "true")
         saveData(this, getString(R.string.user_id), user.user_id!!)
-        saveData(this, getString(R.string.user_type), user.user_type!!)
-        startActivity(
-            Intent(this, DashboardActivity::class.java).setFlags(
-                Intent.FLAG_ACTIVITY_CLEAR_TOP
+        saveData(this, getString(R.string.user_type), user.user_type!!.toLowerCase(Locale.ROOT))
+        runOnUiThread {
+            startActivity(
+                Intent(this, DashboardActivity::class.java).setFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP
+                )
             )
-        )
+        }
     }
 
     override fun onFailure(message: String) {
@@ -77,7 +80,7 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware , AdapterVi
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-        viewModel?.user_type = parent?.getItemAtPosition(position).toString().toLowerCase()
+        viewModel?.user_type = parent?.getItemAtPosition(position).toString().toLowerCase(Locale.ROOT)
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

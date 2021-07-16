@@ -48,7 +48,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_18"
-            tools:text="Event title" />
+           />
 
         <ImageView
             android:layout_width="@dimen/space_2"
@@ -64,7 +64,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_18"
-            tools:text="Event title" />
+          />
 
         <ImageView
             android:layout_width="@dimen/space_2"
@@ -80,7 +80,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_18"
-            tools:text="Event title" />
+            />
 
         <ImageView
             android:layout_width="@dimen/space_2"
@@ -96,7 +96,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_18"
-            tools:text="Event title" />
+            />
 
     </LinearLayout>
 </FrameLayout>

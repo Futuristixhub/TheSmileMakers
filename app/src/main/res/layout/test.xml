@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/vg_canvas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:id="@+id/iv_sticker"
+        android:visibility="gone"
+        android:src="@drawable/patient_default_image"
+        android:layout_height="wrap_content"/>
+
+<ListView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/lv"/>
+    <com.smilemakers.StickerTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    </FrameLayout>

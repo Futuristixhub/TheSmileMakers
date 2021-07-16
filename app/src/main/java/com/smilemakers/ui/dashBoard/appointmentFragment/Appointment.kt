@@ -8,8 +8,8 @@ data class Appointment(
     @PrimaryKey(autoGenerate = false)
     val appointment_id: String,
     val appointment_type: String,
-    val f_name: String,
-    val l_name: String,
+    val fname: String,
+    val lname: String,
     val appointment_date: String,
     val appointment_time: String,
     val typesoftreatment: String,

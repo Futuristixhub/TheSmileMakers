@@ -17,7 +17,7 @@ class LoginVM(private val repository: UserRepository) : ViewModel() {
     var user_type: String? = null
     var isChecked = MutableLiveData<Boolean>(false)
 
-    fun getloggedInUser() = repository.getUser()
+    fun getloggedInUser() = repository.getUser()    
     suspend fun saveLoggedInUser(user: User) = repository.saveUser(user)
 
     fun onForgotPasswordClick(view: View) {
@@ -35,8 +35,9 @@ class LoginVM(private val repository: UserRepository) : ViewModel() {
         view.context.hideKeyboard(view)
         if (isValid(view)) {
             authListener!!.onStarted()
-            Coroutines.main {
-                try {
+
+           Coroutines.main {
+               try {
                     val authResponse =
                         repository.userLogin(mobileNumber.value!!, password.value!!, user_type!!)
                     authResponse.data?.let {

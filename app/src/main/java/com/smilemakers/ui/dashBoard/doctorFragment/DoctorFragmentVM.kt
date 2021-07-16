@@ -57,7 +57,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
                     authListener?.onFailure(it.message)
                 } else {
                     Coroutines.io {
-                        var lst = it?.data?.doctor_list
+                        var lst = it?.doctor_list
                         for (i in lst?.indices!!) {
                             val image = context.isImageURL(lst[i].image)
                             if (!image) {
@@ -65,7 +65,7 @@ class DoctorFragmentVM(val repository: DoctorRepository, application: Applicatio
                             }
                         }
                         Coroutines.main {
-                            _doctors.value = it?.data?.doctor_list
+                            _doctors.value = it?.doctor_list
                         }
                     }
                 }

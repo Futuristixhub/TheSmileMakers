@@ -28,7 +28,7 @@ interface MyApi {
     ): Response<LoginResponse>
 
     @FormUrlEncoded
-    @POST("dashboard_count.php")
+    @POST("dashboard.php")
     suspend fun dashboardCount(
         @Field("userid") userid: String
     ): Response<DashBoardResponse>
@@ -97,7 +97,7 @@ interface MyApi {
     @POST("add_appointment.php")
     suspend fun addAppointment(
         @Field("patient_id") patient_id: String,
-        @Field("ftname") ftname: String,
+       // @Field("ftname") ftname: String,
         @Field("retarea") retarea: String,
         @Field("apptdate") apptdate: String,
         @Field("timee") timee: String,
@@ -167,7 +167,7 @@ interface MyApi {
 
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://thesmilemakers.in/thesmilemakers/api/")
+                .baseUrl("http://thesmilemakers.in/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyApi::class.java)

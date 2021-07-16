@@ -97,7 +97,7 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
 
             },
             {
-                _apt.value = it?.data?.appointment_list
+                _apt.value = it?.appointment_list
                 Coroutines.ioThenMain({
                     context.eventsDB.deleteAllEvents()
                 }) {
@@ -155,7 +155,7 @@ class AppointmentFragmentVM(val repository: AppointmentRepository, application: 
                 val authResponse =
                     repository.addAppointment(
                         pid,
-                        ptitle,
+                    //    ptitle,
                         location_name,
                         date,
                         time,

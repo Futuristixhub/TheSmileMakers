@@ -48,7 +48,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_24"
-            tools:text="Event title" />
+            />
 
         <View
             android:layout_width="@dimen/space_1"
@@ -64,7 +64,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_24"
-            tools:text="Event title" />
+             />
 
         <View
             android:layout_width="@dimen/space_1"
@@ -80,7 +80,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_24"
-            tools:text="Event title" />
+            />
 
         <View
             android:layout_width="@dimen/space_1"
@@ -96,7 +96,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/text_24"
-            tools:text="Event title" />
+             />
 
     </LinearLayout>
 </FrameLayout>

@@ -18,7 +18,7 @@ class AppointmentRepository(
 
     suspend fun addAppointment(
         patient_id: String,
-        ftname: String,
+     //   ftname: String,
         retarea: String,
         apptdate: String,
         timee: String,
@@ -28,7 +28,7 @@ class AppointmentRepository(
         ): PatientResponse {
         return apiRequest {
             api.addAppointment(
-               patient_id,ftname,retarea,apptdate,timee,typesoftreatment,doctor,color
+               patient_id,retarea,apptdate,timee,typesoftreatment,doctor,color
             )
         }
     }

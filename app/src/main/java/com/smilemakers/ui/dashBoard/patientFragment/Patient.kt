@@ -13,5 +13,13 @@ data class Patient(
     val retarea: String,
     val age: String,
     val mno: String,
-    var image: String
+    var image: String,
+    var refname: String,
+    var gender: String,
+    var address: String,
+    var altmno: String,
+    var city: String,
+    var postcode: String,
+    var state: String,
+    var country: String
 )

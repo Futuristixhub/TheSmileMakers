@@ -130,7 +130,6 @@ class PatientAddressFragment : Fragment(), KodeinAware, PatientListener {
                 Log.i("DashBoard TAG", "Place: " + place.name + ", " + place.id)
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 val status: Status = Autocomplete.getStatusFromIntent(data!!)
-                Log.i("DashBoard TAG", status.getStatusMessage())
             } else if (resultCode == Activity.RESULT_CANCELED) { // The user canceled the operation.
             }
         }

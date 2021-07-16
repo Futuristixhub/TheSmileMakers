@@ -155,7 +155,7 @@
     <string name="profile">Profile</string>
     <string name="invalid_time">Please Select Valid Time</string>
     <string name="patient_detail">Patient Detail</string>
-    <string name="empty_presc">Please Add Preescription</string>
+    <string name="empty_presc">Please Add Remark</string>
     <string name="date_error">Please Select Today Date/After Today</string>
     <string name="edit">Edit</string>
     <string name="empty_email">"Please Enter Email "</string>
@@ -203,11 +203,13 @@
     <string name="last_name">Last Name*</string>
     <string name="dob">DOB*</string>
     <string name="education">Education*</string>
+    <string name="educatio">Education</string>
     <string name="email_id">Email ID*</string>
     <string name="lbl_mobilno">Mobile Number*</string>
     <string name="lbl_age">Age*</string>
     <string name="lbl_gender">Gender*</string>
     <string name="address_line_1">Address Line 1*</string>
+    <string name="address">Address</string>
     <string name="address_line_2">Address Line 2*</string>
     <string name="city">City*</string>
     <string name="state">State*</string>
@@ -217,13 +219,18 @@
     <string name="save">Save</string>
     <string name="referral_id">Referral Id*</string>
     <string name="referral_name">Referral Name*</string>
+    <string name="referra_name">Ref Name</string>
     <string name="alternate_mobile_number">Alternate Mobile Number*</string>
+    <string name="alt_mobile_number">Alternate Mobile Number</string>
     <string name="next">Next</string>
     <string name="fab_clicked">fab clicked</string>
     <string name="splash_status">splash status</string>
     <string name="cb_tc_txt"><![CDATA[I agree to the]]></string>
     <string name="tc_txt"><u>Terms &amp; Conditions</u></string>
     <string name="check_tc"><![CDATA[Please Check Terms & Connditions]]></string>
+    <string name="mobile_no">Mobile No</string>
+    <string name="alt_mobile_no">Alt Mobile No</string>
+    <string name="type_treatment">Treatment Type</string>
 
 
     <string-array name="registration_area">

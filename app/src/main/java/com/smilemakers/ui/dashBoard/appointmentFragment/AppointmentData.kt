@@ -4,6 +4,6 @@ import com.smilemakers.ui.dashBoard.patientFragment.Datacls
 
 data class AppointmentData (
     val status: Boolean?,
-    val data: Datacls3,
+    val appointment_list: List<Appointment>,
     val message: String
 )

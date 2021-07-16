@@ -11,7 +11,7 @@ import com.smilemakers.data.db.entities.User
 
 @Database(
     entities = [User::class, Patient::class, Doctor::class],
-    version = 1
+    version = 2
 )
 abstract class AppDatabase : RoomDatabase() {
 

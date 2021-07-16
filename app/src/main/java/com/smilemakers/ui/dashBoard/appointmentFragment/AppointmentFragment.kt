@@ -178,15 +178,15 @@ class AppointmentFragment : Fragment(),
 
                             var dt2: DateTime = DateTime.parse(e.appointment_date + "T" + end)
 
-                            if (!e.f_name.isEmpty()) {
+                            if (!e.fname.isEmpty()) {
                                 eventsDB.insertOrUpdate(
                                     Event(
                                         null,
                                         e.appointment_id,
                                         dt.seconds(),
                                         dt2.seconds(),
-                                        e.f_name,
-                                        e.l_name,
+                                        e.fname,
+                                        e.lname,
                                         e.appointment_type,
                                         e.doctor_id,
                                         e.typesoftreatment,

@@ -1,16 +1,19 @@
 package com.smilemakers.ui.dashBoard.doctorFragment
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.util.Log
+import android.view.LayoutInflater
+import android.view.Window
+import android.widget.LinearLayout
+import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.smilemakers.R
+import com.smilemakers.databinding.DialogDoctorDetailBinding
 import com.smilemakers.databinding.DoctorListSingleItemBinding
-import com.smilemakers.utils.Coroutines
-import com.smilemakers.utils.isImageURL
 import com.xwray.groupie.databinding.BindableItem
-import java.net.URL
-import java.net.URLConnection
 
 class DoctorItem(
     private val doctor: Doctor, val context: Context
@@ -22,6 +25,24 @@ class DoctorItem(
         viewBinding.vm = doctor
         if (!doctor.image.isNullOrEmpty()) {
             Glide.with(context).load(Uri.parse(doctor.image)).into(viewBinding.circleImageView)
+        }
+        viewBinding.root.setOnClickListener {
+            val dialog = Dialog(context,R.style.Theme_Dialog)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.getWindow()!!.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+            dialog.getWindow()!!.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
+
+            val binding: DialogDoctorDetailBinding = DataBindingUtil
+                .inflate(LayoutInflater.from(context), R.layout.dialog_doctor_detail, null, false)
+            binding.vm = doctor
+
+            if (!doctor.image.isNullOrEmpty()) {
+                Glide.with(context).load(Uri.parse(doctor.image)).into(binding.ivProfile)
+            }
+            dialog.setContentView(binding.root)
+            binding.btnCancel.setOnClickListener { dialog.dismiss() }
+            dialog.show()
         }
     }
 }

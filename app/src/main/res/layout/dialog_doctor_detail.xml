@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.smilemakers.ui.dashBoard.doctorFragment.Doctor" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="25dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cl1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_5"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_30"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_10">
+
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TableRow android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:text="@string/name"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                android:id="@+id/txt_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:text="@{` : `+vm.fname+` `+vm.lname}"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:layout_weight="1"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </TableRow>
+
+                        <TableRow android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:text="@string/gender"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_gender"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:text="@{` : `+vm.gender}"
+                                android:layout_weight="1"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </TableRow>
+
+                        <TableRow android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+
+                                android:text="@string/age"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_age"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:text="@{` : `+vm.age}"
+                                android:layout_weight="1"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </TableRow>
+
+                        <TableRow android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+
+                                android:text="@string/mobile_no"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_mobile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:text="@{` : `+vm.mno}"
+                                android:layout_weight="1"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </TableRow>
+
+                        <TableRow android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+
+                                android:text="@string/alt_mobile_no"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_altmobile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:text="@{` : `+vm.altmno}"
+                                android:textColor="@color/textDark"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </TableRow>
+
+                        <TableRow android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+
+                                android:text="@string/educatio"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_ref_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:layout_weight="1"
+                                android:text="@{` : `+vm.education}"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </TableRow>
+
+                        <TableRow android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+
+                                android:text="@string/clinic"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_clinic"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:text="@{` : `+vm.retarea}"
+                                android:layout_weight="1"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </TableRow>
+
+                        <TableRow android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+
+                                android:text="@string/type_treatment"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:text="@{` : `+vm.typetement}"
+                                android:layout_weight="1"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </TableRow>
+
+                        <TableRow android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+
+                                android:text="@string/address"
+                                android:textColor="@color/textDark"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:text="@{` : `+vm.addr+`, `+vm.postcode+` \n `+vm.city+`, `+vm.state+` \n `+vm.country}"
+                                android:textColor="@color/textDark"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/text_18"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </TableRow>
+
+                    </TableLayout>
+
+
+                    <Button
+                        android:id="@+id/btn_cancel"
+                        android:layout_width="@dimen/btn_width"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/space_20"
+                        android:background="@drawable/login_button_drawable"
+                        android:padding="@dimen/space_15"
+                        android:text="Cancel"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_18"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ed_patient_mobile" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/patient_default_image" />
+    </RelativeLayout>
+</layout>

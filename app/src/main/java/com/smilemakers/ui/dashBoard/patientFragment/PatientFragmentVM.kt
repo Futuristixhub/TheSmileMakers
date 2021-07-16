@@ -59,7 +59,7 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
                     authListener?.onFailure(it.message)
                 } else {
                     Coroutines.io {
-                        var lst = it?.data?.patient_list
+                        var lst = it?.patient_list
                         for (i in lst?.indices!!) {
                             val image = context.isImageURL(lst[i].image)
                             if (!image) {
@@ -67,7 +67,7 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
                             }
                         }
                         Coroutines.main {
-                            _patients.value = it?.data?.patient_list
+                            _patients.value = it?.patient_list
                         }
                     }
 
@@ -272,7 +272,7 @@ class PatientFragmentVM(val repository: PatientRepository, application: Applicat
                         repository.addPatient(
                             RequestBody.create(
                                 MediaType.parse("text/plain"),
-                                context!!.getData(context!!, context.getString(R.string.user_id))
+                                ""
                             ),
                             RequestBody.create(MediaType.parse("text/plain"), fname.value!!),
                             RequestBody.create(MediaType.parse("text/plain"), lname.value!!),

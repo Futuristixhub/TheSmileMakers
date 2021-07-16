@@ -12,7 +12,15 @@ data class Doctor(
     val lname: String,
     val retarea: String,
     val age: String,
+    val education: String,
     val mno: String,
-    val typetement: String,
+    val altmno: String,
+    val gender: String,
+    var typetement: String,
+    var addr: String,
+    var city: String,
+    var postcode: String,
+    var state: String,
+    var country: String,
     var image: String
 )

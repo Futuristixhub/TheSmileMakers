@@ -6,25 +6,29 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId "com.smilemakers"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 30
+        versionCode 3
+        versionName "1.2"
         resConfigs "en"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     dataBinding {
         enabled = true
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
     }
 
     compileOptions {

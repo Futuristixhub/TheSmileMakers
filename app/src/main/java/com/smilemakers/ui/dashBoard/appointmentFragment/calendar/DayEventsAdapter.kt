@@ -112,7 +112,7 @@ class DayEventsAdapter(
             }
             for (i in eventlstnew.indices) {
                 if (eventlstnew[i].location == context.getString(R.string.bapunagar)
-                        .toLowerCase()
+
                 ) {
                     if (event_item_title1.text.isEmpty()) {
                         event_item_title1.text = eventlstnew[i].title
@@ -136,7 +136,7 @@ class DayEventsAdapter(
                         event_item_title2.hint = eventlstnew[i].ap_id.toString()
                     }
                 } else if (eventlstnew[i].location == context.getString(R.string.nikol)
-                        .toLowerCase()
+
                 ) {
                     if (event_item_title3.text.isEmpty()) {
                         event_item_title3.text = eventlstnew[i].title

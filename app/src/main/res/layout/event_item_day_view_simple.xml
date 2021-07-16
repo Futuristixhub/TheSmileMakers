@@ -45,10 +45,9 @@
             android:layout_weight="1"
             android:gravity="center"
             android:maxLines="1"
-            android:text="@{vm.title1}"
             android:textSize="@dimen/text_14"
             android:textColor="@color/white"
-            tools:text="Event title" />
+          />
 
           <ImageView
               android:layout_width="@dimen/event_color_width"
@@ -64,7 +63,7 @@
               android:gravity="center"
               android:maxLines="1"
               android:textSize="@dimen/text_14"
-              tools:text="Event title" />
+            />
 
           <ImageView
               android:layout_width="@dimen/event_color_width"
@@ -80,7 +79,7 @@
               android:maxLines="1"
               android:gravity="center"
               android:textSize="@dimen/text_14"
-              tools:text="Event title" />
+              />
 
           <ImageView
               android:layout_width="@dimen/event_color_width"
@@ -96,7 +95,7 @@
               android:maxLines="1"
               android:gravity="center"
               android:textSize="@dimen/text_14"
-              tools:text="Event title" />
+            />
 
     </LinearLayout>
 </FrameLayout>
